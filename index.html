@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>home</title>
+
+    <link rel="stylesheet" type="text/css" href="css_styles/style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <style>
+      body {
+        margin: 0; /* 去掉默认边距 */
+        background: #fff;
+      }
+
+      /* 导航栏样式。 */
+      #navbar {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100px;
+        background-color: #f3f3f3;
+        display: flex;
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        gap: 20px; /* 元素之间的间距 */
+        padding: 0px 20px;
+        box-sizing: border-box;
+        /* border-bottom: 2px solid #ccc; */
+        z-index: 1000; /* 图层 */
+      }
+
+      /* logo样式。 */
+      #navbar #logo {
+        width: 50px; /* 调整大小 */
+        height: auto;
+      }
+
+      #navbar a {
+        font-size: 1em; /* h5 的字号 */
+        font-weight: bold; /* h5 的粗体 */
+        text-decoration: none; /* 去掉下划线 */
+        transition: color 0.2s ease;
+      }
+
+      #navbar a:hover {
+        color: #bbdc7f; /* 鼠标悬浮变色 */
+      }
+
+      /* canvas样式。 */
+      #canvas {
+        display: block;
+        margin: 150px auto 100px auto; /* 上右下左 */
+        height: auto; /* 高度按比例缩放 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav id="navbar">
+      <a href="index.html"> <!-- 用来跳转到新的html的格式 -->
+        <img id="logo" src="images_videos/logo.png">
+      </a>
+      <a href="index.html">HOME</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+      <a href="blog/all_posts.html">BLOG</a>
+      <a href="contact.html">CONTACT</a>
+    </nav>
+    <script src="constructor_functions/WorkBox.js"></script>
+    <script id="canvas" src="home.js"></script> 
+    <!-- 调用home.js就相当于调用了home.js中的canvas -->
+  </body>
+</html>

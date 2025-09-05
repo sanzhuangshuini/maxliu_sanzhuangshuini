@@ -1,0 +1,23 @@
+[
+  {
+    "title": "First Blog Post",
+    "date": "2025-09-04",
+    "content": "This is a preview of my first blog post. I can write some text here to describe the learning process.",
+    "imgPath": "images_videos/sample1.jpg",
+    "categories": ["all", "computational_media"]
+  },
+  {
+    "title": "Second Blog Post",
+    "date": "2025-09-05",
+    "content": "This post includes a p5.js sketch instead of an image.",
+    "imgPath": null,
+    "categories": ["all", "physical_computing"]
+  },
+  {
+    "title": "Third Blog Post",
+    "date": "2025-09-06",
+    "content": "This belongs to both categories.",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "computational_media", "physical_computing"]
+  }
+]

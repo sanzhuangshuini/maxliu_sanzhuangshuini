@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>blog_index</title>
+
+    <link rel="stylesheet" type="text/css" href="css_styles/style.css">
+
+    <script src="../libraries/p5.min.js"></script>
+    <script src="../libraries/p5.sound.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        background: #fff;
+      }
+
+      /* 左侧导航栏 */
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        background-color: #f3f3f3;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        border-right: 2px solid #ccc;
+        gap: 130px;
+        padding: 20px;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      /* All Posts 特殊样式，这是class的写法 */
+      .sidebar-title {
+        color: #92c262 !important;
+         text-decoration: underline !important;
+      }
+
+      /* 禁用 All Posts 的 hover 变化 */
+      .sidebar-title:hover {
+        color: #92c262 !important;
+        text-decoration: underline !important;
+      }
+
+      #sidebar a {
+        display: block;
+        margin: 8px 0;
+        color: #111;
+        font-size: 1em; /* h5 的字号 */
+        font-weight: bold; /* h5 的粗体 */
+        text-decoration: none; /* 去掉下划线 */
+        transition: color 0.2s ease;
+      }
+
+      #sidebar a:hover {
+        color: #92c262;
+        text-decoration: underline;
+      }
+
+      /* 主内容区 */
+      #canvas {
+        display: block;
+        margin-left: 220px;
+        padding: 20px;
+        flex: 1
+      }
+
+      /* 主内容区 */
+      /* #content {
+        margin-left: 220px; 留出 sidebar 空间
+        padding: 20px;
+        flex: 1;
+      } */
+
+      /* 单个 blog 条目 */
+      /* .blog-entry {
+        margin-bottom: 40px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+      } */
+
+      /* .blog-entry h3 {
+        margin: 0;
+      } */
+
+      /* .blog-entry .date {
+        font-size: 12px;
+        color: gray;
+        margin-bottom: 10px;
+      } */
+
+      /* .blog-entry img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+      } */
+
+      /* 预留 p5 画布区域 */
+      /* .sketch-holder {
+        margin-top: 10px;
+      } */
+    </style>
+</head>
+<body>
+  <!-- 左侧导航栏 -->
+  <aside id="sidebar">
+    <a href="all_posts.html" class="sidebar-title">All Posts</a> <!-- 使用class来规定样式显示，class就是打包样式的地方，无论哪个id都可以用，id就是网页元素的名字，不可重复 -->
+    <a href="#">Introduction to Physical Computing</a>
+    <a href="#">Introduction to Computational Media</a>
+    <a href="#">Hyercinema</a>
+    <a href="#">Visual Language</a>
+  </aside>
+
+  <!-- 右侧主内容 -->
+  <script src="../constructor_functions/BlogBox.js"></script>
+  <script id="canvas" src="all_posts.js"></script>
+</body>
+</html>

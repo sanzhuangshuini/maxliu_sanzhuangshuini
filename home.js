@@ -1,7 +1,8 @@
 function setup() {
-  var cavs = createCanvas(window.screen.width * 0.8, window.screen.height); //默认值分辨率。
-  cavs.id("canvas"); //调用id使用css中设置的“canvas”style。
-  cavs.parent(document.body); //把canvas挂载到html文件的body上。
+  var canvasParent = document.getElementById("canvas");
+  var cnv = createCanvas(window.screen.width * 0.8, window.screen.height); //默认值分辨率。
+  cnv.id("canvas_cnv"); 
+  cnv.parent(canvasParent);
 }
 
 function draw() { //只影响画布内。

@@ -52,7 +52,7 @@
       }
 
       /* canvas样式。 */
-      #canvas {
+      #canvas_cnv {
         display: block;
         margin: 150px auto 100px auto; /* 上右下左 */
         height: auto; /* 高度按比例缩放 */
@@ -68,11 +68,12 @@
       <a href="index.html">HOME</a>
       <a href="gallery.html">GALLERY</a>
       <a href="about.html">ABOUT</a>
-      <a href="blog/all_posts.html">BLOG</a>
+      <a href="blog/index.html">BLOG</a>
       <a href="contact.html">CONTACT</a>
     </nav>
     <script src="constructor_functions/WorkBox.js"></script>
-    <script id="canvas" src="home.js"></script> 
+    <div id="canvas"></div>
+    <script src="home.js"></script> 
     <!-- 调用home.js就相当于调用了home.js中的canvas -->
   </body>
 </html>

@@ -51,8 +51,9 @@ h6 {
 
 /* 段落 */
 p {
-  margin: 0 0 1em 0;
+  margin: 0 0 0 0; /* 上右下左 */
   font-size: 1em;
+  line-height: 1.7;
 }
 
 /* 链接 */
@@ -63,7 +64,7 @@ a {
 }
 
 a:hover {
-  color: #92c262;
+  color: #96b351;
   text-decoration: underline;
 }
 
@@ -79,14 +80,20 @@ li {
 }
 
 /* 引用 */
-/* blockquote {
-  margin: 1em 0;
-  padding: 0.5em 1em;
-  border-left: 4px solid #ccc;
-  color: #555;
+quote {
+  color: #96b351;
   font-style: italic;
-  background: #f9f9f9;
-} */
+  background: #efefef;
+}
+
+/* 强调1：知识点 */
+emph1 { 
+  background: #eff176;
+}
+/* 强调2：待解决问题 */
+emph2 { 
+  background: #f9b4ff;
+}
 
 /* 代码文本 */
 code {
@@ -95,6 +102,57 @@ code {
   padding: 2px 4px;
   border-radius: 3px;
 }
+
+/* Blog图片 */
+/* --- Blog 图片：Flex 布局 --- */
+/* 行容器：一行多图、自动换行、可控间距 */
+#post-body .image-row {
+  display: flex;
+  flex-wrap: wrap;   /* 放不下就换行 */
+  gap: 30px;         /* 图片之间的间距（统一控制） */
+  align-items: flex-start;
+  margin: 12px 0 12px 40px;
+}
+
+/* 每张图作为 flex item：默认自适应等分，最小 220px */
+#post-body .image-row img {
+  flex: 1 1 300px;   /* grow=1 可拉伸；shrink=1 可压缩；basis=300px 首选宽度 */
+  max-width: 40%;
+  height: auto;      /* 保持比例 */
+  display: block;
+  margin: 0;         /* 交给 gap 管理间距 */
+}
+
+/* 指定列数：给容器加 .cols-2 / .cols-3 / .cols-4 即可 */
+#post-body .image-row.cols-2 img { flex-basis: calc((100% - 12px) / 2); }
+#post-body .image-row.cols-3 img { flex-basis: calc((100% - 12px * 2) / 3); }
+#post-body .image-row.cols-4 img { flex-basis: calc((100% - 12px * 3) / 4); }
+
+/* 等高裁剪（可选）：做成缩略图墙时使用 .thumb-row */
+#post-body .thumb-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+#post-body .thumb-row img {
+  flex: 1 1 240px;
+  height: 180px;     /* 固定高度 */
+  width: 100%;
+  object-fit: cover; /* 居中裁剪，避免变形 */
+  display: block;
+  margin: 0;
+  border-radius: 4px;
+}
+
+/* 视频 */
+#post-body video {
+  max-width: 80%;   /* 不会超出正文宽度 */
+  height: auto;      /* 保持比例 */
+  display: block;    /* 独占一行 */
+  margin: 12px 0 12px 40px;
+  background: #bdc3a9;  /* 没加载时背景颜色 */
+}
+
 
 /* 表格 */
 /* table {

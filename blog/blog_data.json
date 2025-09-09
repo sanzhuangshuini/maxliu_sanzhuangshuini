@@ -1,16 +1,16 @@
 [
   {
-    "title": "First Blog Post HAHA",
+    "title": "IPC-001",
     "slug": "blog-001",
-    "date": "2025-09-04",
-    "content": "I can write some text here to describe the learning process. ... (full text here)",
-    "imgPath": "images_videos/sample1.jpg",
+    "date": "2025-09-07",
+    "contentFile": "blog_contents/blog_001.html",
+    "imgPath": "../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/1.jpg", 
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "Second Blog Post",
+    "title": "ICM-001",
     "slug": "blog-002",
-    "date": "2025-09-05",
+    "date": "2025-09-10",
     "content": "This post includes a p5.js sketch instead of an image. ... (full text here)",
     "imgPath": null,
     "categories": ["all"]
@@ -18,7 +18,7 @@
   {
     "title": "Third Blog Post",
     "slug": "blog-003",
-    "date": "2025-09-06",
+    "date": "2025-09-11",
     "content": "This belongs to both categories. ... (full text here)",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all"]

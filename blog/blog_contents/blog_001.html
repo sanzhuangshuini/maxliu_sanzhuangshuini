@@ -1,0 +1,90 @@
+<h4>Reading 01-Bret Victor, A Brief Rant on the Future of Interaction Design</h4>
+<quote><a href="https://worrydream.com/ABriefRantOnTheFutureOfInteractionDesign/">Source</a></quote>
+<p>Bret Victor: "I like this definition: A tool addresses human needs by amplifying human capabilities...a tool converts what we can do into what we want to do. A great tool is designed to fit both sides."</p>
+<p>Bret Victor: "Because if a tool isn't designed to be used by a person, it can't be a very good tool, right?"</p>
+<p>I was thinking: how about tools designed for creatures except human beings?</p>
+<p>Bret Victor: "Pictures Under Glass sacrifice all the tactile richness of working with our hands, offering instead a hokey visual facade."</p>
+<p>I was thinking: our hands and tongue know the tactility of every object in our memories or imagination.</p>
+<p>Bret Victor: "be inspired by the untapped potential of human <emph1>capabilities</emph1>. Don't just extrapolate yesterday's technology and then cram people into it."</p>
+
+<h4>Reading 02-Timo Arnall on the Fallacy of Invisible Interfaces</h4>
+<p>“Invisible” sounds magical, but it hides the messy reality: servers, sensors, and batteries that break down. It promises “natural” interaction, yet often leaves people confused (why did my phone mute itself? did the fridge light really go off?). Worst of all, it denies that interfaces are part of culture—visual languages like iOS are not just functional, they shape how we experience technology.Instead of chasing invisibility, we should aim for clarity, legibility, and honesty. Good design helps users understand and build trust, and only then—over time—does it fade into the background of habit.</p>
+<quote><a href="https://archive.ph/nhyCI">Source</a></quote>
+
+<h4>Notes</h4>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/1.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/2.jpg">
+</div>
+
+<h4>Lab 01-Setting up a Breadboard</h4>
+<h5>A Breadboard Circuit from a Microcontroller via a DC Power Supply</h5>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/3.jpg">
+</div>
+
+<h5>Powering the Breadboard without a Microcontroller</h5>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/4.jpg">
+</div>
+<h5>Will it Light? Test Your Understanding</h5>
+<p>The red and black lines on the picture are my guesses. And the blue lines are my self-correction after the experiments. If I got it right in the first place, there will no be blue lines on the images.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/5.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/6.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/7.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/9.jpg">
+</div>
+<p>The circuit is shorted because both of the LED’s legs are placed in the same junction row as the resistor’s output, which allows the current to bypass the LED through the underlying conductor. As a result, the current takes the path provided by the junction row instead of flowing through the LED.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/8.jpg">
+</div>
+
+<h4>Lab 02-Electronics and Using a Multimeter </h4>
+<h5>Testing and Using the Multimeter</h5>
+<p>The voltage of the DC power supply is 12 V. And the voltage of the regulator is 5 v.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/10.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/11.jpg">
+</div>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/12.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/13.jpg">
+</div>
+<h5>A Switched LED Circuit</h5>
+<h6>The Basic Circuit</h6>
+<p>I ran into a couple of confusing points while building the circuit, so I decided to write them down here as a reminder for myself.</p>
+<p>-The “two red rails” question: At first, I thought the red rail gave the current two choices: the middle red line or the lower one. Actually, that’s not how it works. A power rail is like a common bus with multiple outlets. <emph1>They are all electrically the same, so current doesn’t “decide” which way to go</emph1>—just like how every socket in your home is connected to the same grid. No matter which one you use, it’s equivalent.</p>
+<p>-The regulator’s GND connection: Another doubt I had: if I connect the negative lead of the power supply to a hole before the regulator, will current still pass through the regulator? The answer is no. <emph1>The GND pin of a regulator isn’t meant to be “in series” with the circuit. Its purpose is to provide a reference point tied to the negative side of the power supply. The real closed loop for current is positive → load → negative. As long as GND is electrically connected, it doesn’t need to flow “through the regulator body”.</emph1></p>
+<p>-The pair of red and black rails at the bottom of the breadboard: I also wondered why there’s a second pair of red and black rails at the bottom of the breadboard. It seems like we're not actually using them in this circuit. Turns out they are just extensions of the left-side power rails. <emph1>They make it convenient to grab power on the right-hand side.</emph1> If you only wire components on the left, those extra rails don’t really matter.</p>
+<p>-Do resistors have a fixed “voltage side”?: I noticed that in some diagrams, the red lines are drawn on one side of the resistor and the purple line on the other. But in other diagrams it’s flipped. That made me wonder: is there a “correct” side for voltage on a resistor? The truth is, <emph1>resistors are non-polarized.</emph1> Unlike diodes, LEDs, or electrolytic capacitors, they don’t have polarity. You can connect either end to voltage or ground—the effect is identical.</p>
+<p><emph2>The button 2.9 V + the resistor 2.1 V + the LED 2.7 V + the regulator 5 V ~= 12 V = the DC power supply 12 V. In general, the sum of the voltages across all components should be equal to or greater than the total supply voltage. If it is less, the remaining voltage will be dissipated as heat by the components, causing an overheat?</emph2></p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/14.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/15.webm" type="video/mp4">
+</video>
+<p>Figure it out in the class:</p>
+<h6>Components in Series</h6>
+<p><emph2>The button 1.8 V + the resistor 0.009 V + LED 1 2.4 V + LED 2 2.5 V + across the circuit 4.9 V + the regulator 5V = 16.6 V > the DC power supply 12 V. Somehow it ended up with a total greater than the supply voltage, which obviously doesn’t make sense. If this happens, does it usually means there’s something wrong with the way the circuit was analyzed or measured? Maybe I chose the wrong reference point when measuring voltage? It’s worth remembering: voltage is not an absolute value—it’s always the potential difference between two points. If I forget that, my measurements can easily add up to something impossible.</emph2></p>
+<p>Each LED needs about 2V to reach its forward bias and turn on.</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/16.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/17.webm" type="video/mp4">
+</video>
+<p>Figure it out in the class:</p>
+<h6>Components in Parallel</h6>
+<p><emph2>>When I was doing the parallel circuit experiment, I noticed that no matter the sequence of the LEDs, only the red LED would light up. I suspect this might be because some of the red LED’s basic characteristics are higher than those of the blue and green LEDs, causing it to dominate and suppress the others.</emph2></p>
+<p>In the parallel setup, the voltage across all three LEDs was the same: 1.9 V.</p>
+<p>When switching from measuring voltage to measuring current, it’s important to remember to also change the multimeter setting.</p>
+<p>The total current in the parallel LED circuit was very small, only 0.012 A.</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/18.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/19.mp4" type="video/mp4">
+</video>
+<p>Figure it out in the class:</p>
+<h6>Generating a Variable Voltage with a Potentiometer</h6>
+<p><emph2>When I tried adding a potentiometer, the LED really did change brightness as I turned the knob. But then—the potentiometer started smoking! It got extremely hot and even gave off a rather ominous smell. Now I’m left wondering: why did that happen?</emph2></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/20.jpg">
+</div>
+<p>Figure it out in the class:</p>

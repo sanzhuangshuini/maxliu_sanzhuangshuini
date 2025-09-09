@@ -13,7 +13,7 @@
     "date": "2025-09-10",
     "content": "This post includes a p5.js sketch instead of an image. ... (full text here)",
     "imgPath": null,
-    "categories": ["all"]
+    "categories": ["all", "introduction_to_computational_media"]
   },
   {
     "title": "Third Blog Post",
@@ -21,6 +21,6 @@
     "date": "2025-09-11",
     "content": "This belongs to both categories. ... (full text here)",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all"]
+    "categories": ["all", "hypercinema"]
   }
 ]

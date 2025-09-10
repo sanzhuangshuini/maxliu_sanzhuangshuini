@@ -8,12 +8,12 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "ICM-001",
+    "title": "IPC-002",
     "slug": "blog-002",
-    "date": "2025-09-10",
-    "content": "This post includes a p5.js sketch instead of an image. ... (full text here)",
+    "date": "2025-09-9",
+    "contentFile": "blog_contents/blog_002.html",
     "imgPath": null,
-    "categories": ["all", "introduction_to_computational_media"]
+    "categories": ["all", "introduction_to_physical_computing"]
   },
   {
     "title": "Third Blog Post",

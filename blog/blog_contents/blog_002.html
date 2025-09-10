@@ -1,0 +1,66 @@
+<h4>Reading-Don Norman, Design of Everyday Things</h4>
+<quote><a href="https://ebookcentral.proquest.com/lib/nyulibrary-ebooks/reader.action?docID=1167019&c=RVBVQg&ppg=1">Source</a></quote>
+<p>Bret Victor: "I like this definition: A tool addresses human needs by amplifying human capabilities...a tool converts what we can do into what we want to do. A great tool is designed to fit both sides."</p>
+
+
+<h4>Notes</h4>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/1.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/2.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/3.jpg">
+</div>
+
+<h4>Lab in the class</h4>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/5.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/6.mp4" type="video/mp4">
+</video>
+
+
+<h4>Lab 01-Digital Input and Output</h4>
+<h5>Add a Digital Input</h5>
+<p><emph1><bold>Pull-down resistor:</bold> a simple connection: input pin-others output pin; output pin-GND. Its job is to keep the pin at a stable LOW (0V) whenever it isn't actively driven HIGH. Without it, the signal would be <bold>floating</bold>.</emph1></p>
+<p><emph1>A floating input is a pin that's connected to neither <bold>Vcc (HIGH)</bold> nor <bold>GND (LOW)</bold>.</emph1> It's just left hanging. In this state, the pin behaves like a tiny capacitor—extremely sensitive to the environment:</p>
+<p>Your hand nearby might induce a charge, making the voltage jump.</p>
+<p>Electromagnetic noise could flip the reading between HIGH and LOW at random.</p>
+<p>Result: in your code, digitalRead() returns unpredictable values—sometimes HIGH, sometimes LOW.</p></p>
+<p><emph1>In short: a pull-down resistor makes sure the “switch” defaults to OFF, and a value around <bold>10 kΩ</bold> usually does the job.</emph1></p>
+<h5>Add Digital Outputs (LEDs)</h5>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/7.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/8.mp4" type="video/mp4">
+</video>
+<h5>Add Digital Outputs (Speakers)</h5>
+<p><emph2>When I tried using the speakers, they didn't make a sound under any circumstance. What confused me is that the exact same circuit worked fine with LEDs. So now I'm wondering: is there something wrong with the speakers themselves, or maybe with the code that's supposed to drive them?</emph2></p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/9.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/10.mp4" type="video/mp4">
+</video>
+<p>Figure it out in class:</p>
+
+
+
+<h4>Lab 02-Analog Input</h4>
+
+<h5>Potentiometer Analog</h5>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/11.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/12.mp4" type="video/mp4">
+</video>
+
+<h5>Phototransistor Analog</h5>
+<p><emph2>Why doesn't measuring the voltage directly across the two legs of the sensor show any effect from the sensor itself? Instead, the measurement only counts when the test tins include the blue wire.</emph2></p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/13.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/14.mp4" type="video/mp4">
+</video>
+<p>Figure it out in class:</p>
+
+<h5>Force Sensing Resistor Analog</h5>
+<p><emph2>I didn't even write any code to define the input-output mapping, but somehow A0-D9 were automatically connected (novideo recorded but the circuit is exactly the same just without any code attched). Meanwhile, another pair: A1-D10 didn't work until I push a maping code.</emph2></p>
+<p>I brought the circuit here.</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/15.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/16.mp4" type="video/mp4">
+</video>
+<p>Figure it out in class:</p>

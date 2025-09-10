@@ -86,6 +86,11 @@ quote {
   background: #efefef;
 }
 
+/* 加粗 */
+bold {
+  font-weight: bold;
+}
+
 /* 强调1：知识点 */
 emph1 { 
   background: #eff176;
@@ -150,7 +155,7 @@ code {
   height: auto;      /* 保持比例 */
   display: block;    /* 独占一行 */
   margin: 12px 0 12px 40px;
-  background: #bdc3a9;  /* 没加载时背景颜色 */
+  background: #000000;  /* 没加载时背景颜色 */
 }
 
 

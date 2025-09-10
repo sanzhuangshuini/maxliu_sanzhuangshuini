@@ -8,8 +8,8 @@
 <p>Bret Victor: "be inspired by the untapped potential of human <emph1>capabilities</emph1>. Don't just extrapolate yesterday's technology and then cram people into it."</p>
 
 <h4>Reading 02-Timo Arnall on the Fallacy of Invisible Interfaces</h4>
-<p>“Invisible” sounds magical, but it hides the messy reality: servers, sensors, and batteries that break down. It promises “natural” interaction, yet often leaves people confused (why did my phone mute itself? did the fridge light really go off?). Worst of all, it denies that interfaces are part of culture—visual languages like iOS are not just functional, they shape how we experience technology.Instead of chasing invisibility, we should aim for clarity, legibility, and honesty. Good design helps users understand and build trust, and only then—over time—does it fade into the background of habit.</p>
 <quote><a href="https://archive.ph/nhyCI">Source</a></quote>
+<p>“Invisible” sounds magical, but it hides the messy reality: servers, sensors, and batteries that break down. It promises “natural” interaction, yet often leaves people confused (why did my phone mute itself? did the fridge light really go off?). Worst of all, it denies that interfaces are part of culture—visual languages like iOS are not just functional, they shape how we experience technology.Instead of chasing invisibility, we should aim for clarity, legibility, and honesty. Good design helps users understand and build trust, and only then—over time—does it fade into the background of habit.</p>
 
 <h4>Notes</h4>
 <div class="image-row">
@@ -35,12 +35,12 @@
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/7.jpg">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/9.jpg">
 </div>
-<p>The circuit is shorted because both of the LED’s legs are placed in the same junction row as the resistor’s output, which allows the current to bypass the LED through the underlying conductor. As a result, the current takes the path provided by the junction row instead of flowing through the LED.</p>
+<p>The circuit is shorted because both of the LED's legs are placed in the same junction row as the resistor's output, which allows the current to bypass the LED through the underlying conductor. As a result, the current takes the path provided by the junction row instead of flowing through the LED.</p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/8.jpg">
 </div>
 
-<h4>Lab 02-Electronics and Using a Multimeter </h4>
+<h4>Lab 02-Electronics and Using a Multimeter</h4>
 <h5>Testing and Using the Multimeter</h5>
 <p>The voltage of the DC power supply is 12 V. And the voltage of the regulator is 5 v.</p>
 <div class="image-row">
@@ -54,37 +54,55 @@
 <h5>A Switched LED Circuit</h5>
 <h6>The Basic Circuit</h6>
 <p>I ran into a couple of confusing points while building the circuit, so I decided to write them down here as a reminder for myself.</p>
-<p>-The “two red rails” question: At first, I thought the red rail gave the current two choices: the middle red line or the lower one. Actually, that’s not how it works. A power rail is like a common bus with multiple outlets. <emph1>They are all electrically the same, so current doesn’t “decide” which way to go</emph1>—just like how every socket in your home is connected to the same grid. No matter which one you use, it’s equivalent.</p>
-<p>-The regulator’s GND connection: Another doubt I had: if I connect the negative lead of the power supply to a hole before the regulator, will current still pass through the regulator? The answer is no. <emph1>The GND pin of a regulator isn’t meant to be “in series” with the circuit. Its purpose is to provide a reference point tied to the negative side of the power supply. The real closed loop for current is positive → load → negative. As long as GND is electrically connected, it doesn’t need to flow “through the regulator body”.</emph1></p>
-<p>-The pair of red and black rails at the bottom of the breadboard: I also wondered why there’s a second pair of red and black rails at the bottom of the breadboard. It seems like we're not actually using them in this circuit. Turns out they are just extensions of the left-side power rails. <emph1>They make it convenient to grab power on the right-hand side.</emph1> If you only wire components on the left, those extra rails don’t really matter.</p>
-<p>-Do resistors have a fixed “voltage side”?: I noticed that in some diagrams, the red lines are drawn on one side of the resistor and the purple line on the other. But in other diagrams it’s flipped. That made me wonder: is there a “correct” side for voltage on a resistor? The truth is, <emph1>resistors are non-polarized.</emph1> Unlike diodes, LEDs, or electrolytic capacitors, they don’t have polarity. You can connect either end to voltage or ground—the effect is identical.</p>
-<p><emph2>The button 2.9 V + the resistor 2.1 V + the LED 2.7 V + the regulator 5 V ~= 12 V = the DC power supply 12 V. In general, the sum of the voltages across all components should be equal to or greater than the total supply voltage. If it is less, the remaining voltage will be dissipated as heat by the components, causing an overheat?</emph2></p>
+<p><bold>-The “two red rails” question:</bold> At first, I thought the red rail gave the current two choices: the middle red line or the lower one. Actually, that's not how it works. A power rail is like a common bus with multiple outlets. <emph1>They are all electrically the same, so current doesn't “decide” which way to go</emph1>—just like how every socket in your home is connected to the same grid. No matter which one you use, it's equivalent.</p>
+<p><bold>-The regulator's GND connection:</bold> Another doubt I had: if I connect the negative lead of the power supply to a hole before the regulator, will current still pass through the regulator? The answer is no. <emph1>The GND pin of a regulator isn't meant to be “in series” with the circuit. Its purpose is to provide a reference point tied to the negative side of the power supply. The real closed loop for current is positive → load → negative. As long as GND is electrically connected, it doesn't need to flow “through the regulator body”.</emph1></p>
+<p><bold>-The pair of red and black rails at the bottom of the breadboard:</bold>-The pair of red and black rails at the bottom of the breadboard: I also wondered why there's a second pair of red and black rails at the bottom of the breadboard. It seems like we're not actually using them in this circuit. Turns out they are just extensions of the left-side power rails. <emph1>They make it convenient to grab power on the right-hand side.</emph1> If you only wire components on the left, those extra rails don't really matter.</p>
+<p><bold>-Do resistors have a fixed “voltage leg”?:</bold>-Do resistors have a fixed “voltage side”?: I noticed that in some diagrams, the red lines are drawn on one side of the resistor and the purple line on the other. But in other diagrams it's flipped. That made me wonder: is there a “correct” side for voltage on a resistor? The truth is, <emph1>resistors are non-polarized.</emph1> Unlike diodes, LEDs, or electrolytic capacitors, they don't have polarity. You can connect either end to voltage or ground—the effect is identical.</p>
+<p>The button 2.9 V + the resistor 2.1 V + the LED 2.7 V + the regulator 5 V ~= 12 V = the DC power supply 12 V. <emph1>In general, the sum of the voltages across all components should be equal to or greater than the total supply voltage. If it is less, that indicates that some of the electrical energy is getting converted to light, heat, and other forms of energy by the usage of components. No component is 100% efficient, so there's always the possibility for some loss.</emph1></p>
 <video controls preload="metadata" playsinline
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/14.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/15.webm" type="video/mp4">
 </video>
-<p>Figure it out in the class:</p>
 <h6>Components in Series</h6>
-<p><emph2>The button 1.8 V + the resistor 0.009 V + LED 1 2.4 V + LED 2 2.5 V + across the circuit 4.9 V + the regulator 5V = 16.6 V > the DC power supply 12 V. Somehow it ended up with a total greater than the supply voltage, which obviously doesn’t make sense. If this happens, does it usually means there’s something wrong with the way the circuit was analyzed or measured? Maybe I chose the wrong reference point when measuring voltage? It’s worth remembering: voltage is not an absolute value—it’s always the potential difference between two points. If I forget that, my measurements can easily add up to something impossible.</emph2></p>
-<p>Each LED needs about 2V to reach its forward bias and turn on.</p>
+<p>1. <emph2>Why am I getting a voltage when the button is NOT pressed?</emph2></p>
+<p>2. <emph2>The button 1.8 V + the resistor 0.009 V + LED 1 2.4 V + LED 2 2.5 V + across the circuit 4.9 V + the regulator 5V = 16.6 V > the DC power supply 12 V. Somehow it ended up with a total greater than the supply voltage, which obviously doesn't make sense. If this happens, does it usually means there's something wrong with the way the circuit was analyzed or measured? Maybe I chose the wrong reference point when measuring voltage? It's worth remembering: voltage is not an absolute value—it's always the potential difference between two points. If I forget that, my measurements can easily add up to something impossible.</emph2></p>
+<p><emph1>Each LED needs about 2V to reach its forward bias and turn on. That's called <bold>forward voltage</bold>.</emph1></p>
 <video controls preload="metadata" playsinline
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/16.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/17.webm" type="video/mp4">
 </video>
 <p>Figure it out in the class:</p>
+<p>1. <emph1>Because a button or a switch is not a component and thus it does not carry difference.</emph1> And voltage is always about difference. So when the button is closed there is no voltage. When the button is open, the voltage actually comes from the other side:</p>
+<p>2. Yes, there is a measurement point error. Correction: Across the circuit 4.9 V = LED 1 2.4 V + LED 2 2.5 V</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/21.jpg">
+</div>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/22.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/23.mp4" type="video/mp4">
+</video>
 <h6>Components in Parallel</h6>
-<p><emph2>>When I was doing the parallel circuit experiment, I noticed that no matter the sequence of the LEDs, only the red LED would light up. I suspect this might be because some of the red LED’s basic characteristics are higher than those of the blue and green LEDs, causing it to dominate and suppress the others.</emph2></p>
+<p><emph2>When I was doing the parallel circuit experiment, I noticed that no matter the sequence of the LEDs, only the red LED would light up. I suspect this might be because some of the red LED's basic characteristics are higher than those of the blue and green LEDs, causing it to dominate and suppress the others.</emph2></p>
 <p>In the parallel setup, the voltage across all three LEDs was the same: 1.9 V.</p>
-<p>When switching from measuring voltage to measuring current, it’s important to remember to also change the multimeter setting.</p>
+<p>When switching from measuring voltage to measuring current, it's important to remember to also change the multimeter setting.</p>
 <p>The total current in the parallel LED circuit was very small, only 0.012 A.</p>
 <video controls preload="metadata" playsinline
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/18.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/19.mp4" type="video/mp4">
 </video>
 <p>Figure it out in the class:</p>
+<p>The reason only the red LED turns on is because it has a lower forward voltage than the others. Think of it like three doors:</p>
+<p>Red door: needs only 2 units of force (forward voltage) to open</p>
+<p>Green door: needs 3 units</p>
+<p>Blue door: needs 3.2 units</p>
+<p>When the power supply pushes with its "force", the red door opens first—it's the easiest. Once it's open, most of the current rushes through it. The green and blue doors never get enough force to open at all.</p>
+<p><emph1>To solve this situation in parallel circuit: Add a resistor for each of the LED.</emph1></p>
+<p>Now imagine placing a spring in front of each door:</p>
+<p>When pulling the red door, its spring absorbs some force, so it can't hog everything.</p>
+<p>The green and blue doors also have springs, giving them a fair share of the power.</p>
 <h6>Generating a Variable Voltage with a Potentiometer</h6>
-<p><emph2>When I tried adding a potentiometer, the LED really did change brightness as I turned the knob. But then—the potentiometer started smoking! It got extremely hot and even gave off a rather ominous smell. Now I’m left wondering: why did that happen?</emph2></p>
+<p><emph2>When I tried adding a potentiometer, the LED really did change brightness as I turned the knob. But then—the potentiometer started smoking! It got extremely hot and even gave off a rather ominous smell. Now I'm left wondering: why did that happen?</emph2></p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_001/20.jpg">
 </div>
-<p>Figure it out in the class:</p>
+<p>Figure it out in the class: There is a short. Don't use this potentiometer again.</p>

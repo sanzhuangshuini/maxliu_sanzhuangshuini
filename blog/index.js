@@ -21,13 +21,30 @@ function normalizeToArray(data) {
   return out;
 }
 function stripTags(htmlOrText){ return String(htmlOrText || "").replace(/<[^>]*>/g, ""); }
-function makePreview(text, maxChars){
-  const clean = stripTags(text).trim();
+
+function makePreview(text, maxChars) {
+  // 1. 把段落和换行标签替换成 \n
+  text = text
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<p[^>]*>/gi, '');
+
+  // 2. 去掉所有其他 HTML 标签
+  let clean = text.replace(/<[^>]+>/g, '').trim();
+
+  // 3. 合并连续换行，多余的空格也压缩
+  clean = clean.replace(/\n\s*\n+/g, '\n'); // 连续空行只留一个
+  clean = clean.replace(/[ \t]+/g, ' ');    // 压缩多余空格
+
+  // 4. 截断处理
   if (clean.length <= maxChars) return clean;
+
   let cut = clean.lastIndexOf(" ", maxChars);
   if (cut < 0) cut = maxChars;
   return clean.slice(0, cut) + "…";
 }
+
+
 async function fetchText(url){
   const r = await fetch(url, { cache: "no-store" });
   if (!r.ok) throw new Error("Fetch failed: " + url);
@@ -136,7 +153,7 @@ function setup() {
         if (post.contentHTML) srcTextOrHTML = post.contentHTML;
         else if (post.contentFile) srcTextOrHTML = fileHTMLMap[post.slug] || "";
         else if (post.content) srcTextOrHTML = post.content;
-        const preview = makePreview(srcTextOrHTML, 280);
+        const preview = makePreview(srcTextOrHTML, 500);
 
         // 缩略图：从详情第一张图抽取（无则可留空或兜底 imgPath）
         let thumb = null;

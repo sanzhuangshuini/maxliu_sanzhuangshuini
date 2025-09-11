@@ -158,6 +158,11 @@ code {
   background: #000000;  /* 没加载时背景颜色 */
 }
 
+/* 音频 */
+#post-body audio { 
+  width: 80%;
+  margin: 12px 0 12px 40px;
+}
 
 /* 表格 */
 /* table {

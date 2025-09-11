@@ -16,11 +16,11 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "Third Blog Post",
+    "title": "ICM-001",
     "slug": "blog-003",
     "date": "2025-09-11",
-    "content": "This belongs to both categories. ... (full text here)",
+    "contentFile": "blog_contents/blog_003.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "hypercinema"]
+    "categories": ["all", "introduction_to_computational_media"]
   }
 ]

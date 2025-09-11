@@ -136,7 +136,7 @@ function setup() {
         if (post.contentHTML) srcTextOrHTML = post.contentHTML;
         else if (post.contentFile) srcTextOrHTML = fileHTMLMap[post.slug] || "";
         else if (post.content) srcTextOrHTML = post.content;
-        const preview = makePreview(srcTextOrHTML, 160);
+        const preview = makePreview(srcTextOrHTML, 280);
 
         // 缩略图：从详情第一张图抽取（无则可留空或兜底 imgPath）
         let thumb = null;

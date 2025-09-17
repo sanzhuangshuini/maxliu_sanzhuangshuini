@@ -1,7 +1,16 @@
 <h4>Reading-Don Norman, Design of Everyday Things</h4>
 <quote><a href="https://ebookcentral.proquest.com/lib/nyulibrary-ebooks/reader.action?docID=1167019&c=RVBVQg&ppg=1">Source</a></quote>
-<p>Bret Victor: "I like this definition: A tool addresses human needs by amplifying human capabilities...a tool converts what we can do into what we want to do. A great tool is designed to fit both sides."</p>
-
+<p>Bad everyday design: doors, switches, or sinks that confuse users. Good design = discoverability (what can I do?) + understanding (what does it mean?).</p>
+<p>Don’t blame users: errors often come from poor design, not “human error.” Systems should guide recovery when things go wrong.</p>
+<p>Five key principles:</p>
+<p>1. Affordances → possible actions.</p>
+<p>2. Signifiers → clues on how to act.</p>
+<p>3. Mapping → intuitive link between control and result.</p>
+<p>4. Feedback → clear, timely response to actions.</p>
+<p>5. Conceptual models → mental picture of how things work.</p>
+<p>Affordances vs. signifiers: affordance = what’s possible, signifier = what tells you it’s possible. Designers often confuse them.</p>
+<p>Technology paradox: more features make products powerful but often harder to use (e.g., digital watches).</p>
+<p>Design challenge: balance usability, functionality, cost, and aesthetics. Human-centered design helps make products people actually enjoy.</p>
 
 <h4>Notes</h4>
 <div class="image-row">
@@ -19,12 +28,15 @@
 
 <h4>Lab 01-Digital Input and Output</h4>
 <h5>Add a Digital Input</h5>
-<p><emph1><bold>Pull-down resistor:</bold> a simple connection: input pin-others output pin; output pin-GND. Its job is to keep the pin at a stable LOW (0V) whenever it isn't actively driven HIGH. Without it, the signal would be <bold>floating</bold>.</emph1></p>
+<p><emph1><bold>Pull-down resistor:</bold>It is used in the input that has the possibility of floating, like a switch or a pushbutton. Its job is to keep the pin at a stable LOW (0V) when it isn't actively driven HIGH. Without it, the signal would be <bold>floating</bold>.</emph1></p>
 <p><emph1>A floating input is a pin that's connected to neither <bold>Vcc (HIGH)</bold> nor <bold>GND (LOW)</bold>.</emph1> It's just left hanging. In this state, the pin behaves like a tiny capacitor—extremely sensitive to the environment:</p>
 <p>Your hand nearby might induce a charge, making the voltage jump.</p>
 <p>Electromagnetic noise could flip the reading between HIGH and LOW at random.</p>
 <p>Result: in your code, digitalRead() returns unpredictable values—sometimes HIGH, sometimes LOW.</p></p>
 <p><emph1>In short: a pull-down resistor makes sure the “switch” defaults to OFF, and a value around <bold>10 kΩ</bold> usually does the job.</emph1></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/17.jpg">
+</div>
 <h5>Add Digital Outputs (LEDs)</h5>
 <video controls preload="metadata" playsinline
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/7.jpg">
@@ -36,7 +48,7 @@
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/9.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/10.mp4" type="video/mp4">
 </video>
-<p>Figure it out in class:</p>
+<p>Figure it out in class: Add "delay(500);" in the end of the loop function.</p>
 
 
 
@@ -54,7 +66,7 @@
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/13.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/14.mp4" type="video/mp4">
 </video>
-<p>Figure it out in class:</p>
+<p>Figure it out in class: The phototransistor itself doesn't form a circuit so there was no voltage. But a photoresistor does. But it has been banned because of its poisonous material.</p>
 
 <h5>Force Sensing Resistor Analog</h5>
 <p><emph2>I didn't even write any code to define the input-output mapping, but somehow A0-D9 were automatically connected (novideo recorded but the circuit is exactly the same just without any code attched). Meanwhile, another pair: A1-D10 didn't work until I push a maping code.</emph2></p>
@@ -63,4 +75,4 @@
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/15.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_002/16.mp4" type="video/mp4">
 </video>
-<p>Figure it out in class:</p>
+<p>Figure it out in class: They should not be connected without code. The reason why I saw they are connected is beacause there may had the remnants of the last code in the microboard.</p>

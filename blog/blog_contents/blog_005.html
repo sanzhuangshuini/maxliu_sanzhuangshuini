@@ -1,28 +1,113 @@
 <p>Take a guess of my keywords! The answer will be in the end of this blog.</p>
-<p>It's the self-portrait I drew on my notebook.</p>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/1.jpg">
-</div>
-<p>When I tried to draw the ears using arc funtion, I was completly confused about PI.</p>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/2.jpg">
-</div>
-<p>And then I found that I can use <emph1>angleMode(DEGREES)</emph1> to change PI to my common unit.</p>
-<p>Because I wanted the final result to keep a certain hand-drawn feel rather than regular figures, I chose to draw the mouth, eyes (at first I tried to use arc function to draw the eyes but failed), eyebrows, and hair with Bezier curves. To be honest, I was almost driven crazy by it.</p>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/3.jpg">
-</div>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/4.png">
-</div>
-<p>In addition, I explored a bit about random function and for loop. Let's see my outcome: <quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/aSzQ-b1x8">This is a link to the code, and due to a goddam p5 web editor error I lost this piece of code forever. Please make sure you have a native copy when you are coding!!!!!</a></quote></p>
 <video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/5.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/6.mp4" type="video/mp4">
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_005/1.png">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_005/2.mp4" type="video/mp4">
 </video>
-<p>After finishing the basic functions, I suddenly wanted to put the codes in the setup into the draw, so here is the result (hilarious):</p>
-<video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/7.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_003/8.mp4" type="video/mp4">
-</video>
+
+<p>By learning about constructor functions and object, I've come to feel that coding is constantly “packing things into shopping bags.” This makes modifications much easier once the system grows very large.</p>
+<quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/3LZ8kd-AX">This is a link to the code.</a></quote>
+<p>Due to the last p5 web editor error, I decided to put a copy of the code here:</p>
+<pre><code>let wind = false;
+let goneBall = []; // goneBall is an array.
+let stayBall;
+let speedInitialBoth = 0.03;
+let xMinBoth = -10;
+let xMaxBoth = 10;
+let yMinBoth = -10;
+let yMaxBoth = 10;
+
+// Constructor function for the stay ball, essentially object.
+function StayBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.speedInitial = speedInitialBoth;
+  
+  this.display = function() {
+    fill("#92c262");
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+  this.move = function() {
+    this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+    this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+  };
+}
+
+
+// Constructor function for the gone balls, essentially object.
+function GoneBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.angle = random(0, 90);
+  this.baseSpeed = random(1, 3);
+  this.speedInitial = speedInitialBoth;
+  this.t = 0;
+  
+  this.display = function() {
+    fill("#92c262");
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+  this.move = function() {
+    if(wind == true) {
+      this.t ++;
+      let currentSpeed = this.baseSpeed * (this.t * 0.01);
+      this.x += currentSpeed * cos(this.angle) + 1.5;
+      this.y -= currentSpeed * abs(sin(this.angle)) + 0.5;
+    } else {
+      this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+      this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+    }
+  }; 
+}
+
+
+function setup() {
+  createElement('p', 'try to click the canvas with your mouse.');
+  angleMode(DEGREES) // equals to createCanvas, is p5 internal API, can only be used inside setup/draw, non global.
+  createCanvas(400, 400);
+  
+  for(let i = 0; i < 180; i++) {
+    goneBall.push(new GoneBall(random(0, width), random(0, height), 50));
+  } 
+  // goneBall array inherits GoneBall.
+  stayBall = new StayBall(width / 3, height * 2 /3, 50);
+  // stayBall inherits StayBall.
+} 
+
+function draw() {
+  background(240);
+  
+  
+  for (let i = 0; i < goneBall.length; i++) {
+    goneBall[i].move();
+    goneBall[i].display();
+  }
+  
+  stayBall.display();
+  stayBall.move();
+}
+
+function mousePressed() {
+    wind = true;
+}
+</code></pre>
+
+<p>The keywords are <bold>GONE and STAY</bold>.</p>
+<p>Here is some storied behind the keywords, if you are interested:</p>
+<p>Something painful happened to me in my hometown, and I found myself longing to escape—to disappear somewhere far away, where no one could find me.</p>
+<p>When I learned I had been accepted to ITP, my first reaction was pure joy: finally, I could leave my hometown. But almost immediately, a complex sadness set in. Maybe it was knowing I wouldn’t see my grandmother for at least two years. Maybe it was the deep, unspoken connection I actually have to my hometown. Or maybe it was something I still can’t fully articulate.</p>
+<p>I grew up on the outskirts of Guangzhou, China. Just beyond my home stretches a vast expanse of countryside. The day before my flight, I rode my e-bike through the fields until dusk. When I saw the sky flushed pink by the sunset and the cargo ships gliding slowly across the estuary, tears welled up.</p>
+<p>GONE and STAY—those two ideas have haunted me these past few months. They felt like the perfect theme for this assignment, and that’s why I wrote this small piece of code. I hope you like it.</p>
+<p>By the way, here’s an illustration I created—I think it captures my emotions about these opposing ideas perfectly.</p>
+
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_005/3.jpg">
+</div>
+
+<p>In the end, I wanna quote the lyric in Lana Del Rey's new song Bluebird:</p>
+<p><quote><a href="https://open.spotify.com/track/2pJL7VBbeO4ZqVIUDf0x9H?si=34b9aa193fc5446c">For your thoughts are small, they can't keep you from leavin'</a></quote></p>
+
 <quote><a href="https://p5js.org/reference/">This is my reference.</a></quote>

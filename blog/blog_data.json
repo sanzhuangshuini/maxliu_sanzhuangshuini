@@ -46,5 +46,21 @@
     "contentFile": "blog_contents/blog_006.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"]
+  },
+  {
+    "title": "Hypercinema-002",
+    "slug": "blog-007",
+    "date": "2025-09-18",
+    "contentFile": "blog_contents/blog_007.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
+  },
+  {
+    "title": "Visual Language-001",
+    "slug": "blog-008",
+    "date": "2025-09-18",
+    "contentFile": "blog_contents/blog_008.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "visual_language"]
   }
 ]

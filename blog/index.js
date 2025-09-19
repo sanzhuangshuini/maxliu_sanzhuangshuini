@@ -142,7 +142,7 @@ function setup() {
         })
       );
 
-      for (let i = 0; i < data.length; i++) {
+      for (let i = data.length - 1; i >= 0; i--) {
         const post = data[i];
         if (!post) continue;
         const hit = Array.isArray(post.categories) && post.categories.includes(currentCategory);

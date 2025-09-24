@@ -1,3 +1,4 @@
+<!-- IPC-003 -->
 <h4>Reading-Wendy Ju and Larry Leifer, The Design of Implicit Systems: Making Interactive Systems Less Obnoxious</h4>
 <quote><a href="https://wendyju.com/publications/Ju_design_issues.pdf">Source</a></quote>
 <p>Automatic doors that open too late, phones that ring in meetings, updates that pop up mid-presentation. These awkward moments happen because tech often demands too much attention or acts without context.</p>
@@ -14,14 +15,13 @@
 </div>
 
 <h4>Lab 01-Servo</h4>
-<p><emph2>1. Why do we need a pull-down resistor for the FSR? Does it has a possibility of floating?</emph2></p>
-<p><emph2>2. Both as the power supply to the servo, what's the difference between the vin pin and the 5v pin?</emph2></p>
+<p><emph2>1. Both as the power supply to the servo, what's the difference between the vin pin and the 5v pin?</emph2></p>
 <p>What's the purpose of the <bold>capacitor</bold> here?</p>
 <p><emph1>Think of a capacitor as a backup battery for current. Whenever the servo suddenly demands a surge of power, the capacitor steps in to supply it. This keeps the Arduino from experiencing a voltage drop that could otherwise cause crashes or unwanted resets.</emph1></p>
 <p><emph1>Whenever the component may cause rapid current changes, it is strongly recommended to add capacitors.</emph1></p>
-<p><emph2>3. I put the capacitor in the circuit as the webpage tells, but I don't fully understand how dose current flow throught it. Could you please go through the whole circuit?</emph2></p>
-<p><emph2>4. In "map(analogValue, 0, 1023, 0, 179);" why 1023 and 179?</emph2></p>
+<p><emph2>2. I put the capacitor in the circuit as the webpage tells, but I don't fully understand how dose current flow throught it. Could you please go through the whole circuit?</emph2></p>
 <p><emph1>The function "millis()" is a built-in Arduino function that returns the elapsed time (in milliseconds) since the Arduino was powered on. It's like a clock. </emph1></p>
+<p><emph2>3. Why 179 degrees in mapping?</emph2></p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_006/10.jpg">
 </div>
@@ -61,6 +61,16 @@ void loop() {
 }
 </code></pre>
 <p>Figure it out in the class:</p>
+<p>1. <emph1>Difference between the 5V pin and vin pin:</emph1></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_006/15.jpg">
+</div>
+<p>2. <emph2>The placement of the capacitor in the circuit:</emph2></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_006/16.jpg">
+</div>
+<p><emph2>Why parallel instead of series? Because if it's in series, it will discharge currency all the time and thus will not work as a water bucket in reserve.</emph2></p>
+<p>3. <emph1>Because we start from 0!!!</emph1> I need to get used to this in the coding world.</p>
 
 
 <h4>Lab 02-Tone</h4>
@@ -129,7 +139,7 @@ void loop() {
   delay(500);
 }
 </code></pre>
-<p><emph2>It's not working. I guess it's because the functions of the output pins overlap.</emph2></p>
+<p>It's not working. I guess it's because the functions of the output pins overlap.</p>
 
 <h5>A Musical Instrument</h5>
 <div class="image-row">

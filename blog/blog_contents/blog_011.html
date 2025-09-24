@@ -1,0 +1,241 @@
+<!-- IPC-004 -->
+<h4>Reading-Igoe, Just Like Riding a Bike</h4>
+<quote><a href="https://www.tigoe.com/blog/category/physicalcomputing/287/">Source</a></quote>
+<p>Igoe: "you have a responsibility to teach people to use the things you build."</p>
+<p>Igoe: "Intuitive interfaces draw heavily on earlier learned behavior, while unintuitive ones require distinct new skills or <bold>metaphorical</bold> connections."</p>
+<p>Igoe: "An interface’s ‘intuitiveness’ or ‘naturalness’ is a measure of the extent to which draws on existing learned behavior."</p>
+
+
+<h4>Notes</h4>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/11.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/12.jpg">
+</div>
+
+<h4>Lab 01-Sensor Change Detection</h4>
+<h5>State Change Detection on Digital Sensors (Buttons)</h5>
+<h6>Whether the Button is Pressed?</h6>
+<p><emph2>Sometimes there is pinMode in the code, and sometimes there isn’t. Why is that? Right now I’m insisting on adding pinMode in every sketch in order to keep my understanding consistent.</emph2></p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/1.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/2.mp4" type="video/mp4">
+</video>
+<pre><code>int lastButtonState = LOW;
+int inputPin = 2;
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(inputPin, INPUT);
+
+}
+
+void loop() {
+  int buttonState = digitalRead(inputPin);
+  if (buttonState != lastButtonState) {
+    if (buttonState == HIGH) {
+      Serial.println("Button was just pressed.");
+    }
+  }
+
+  lastButtonState = buttonState;
+}
+</code></pre>
+<p>Figure it out in the class:</p>
+<h6>How Many Times is the Button Pressed?</h6>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/3.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/4.mp4" type="video/mp4">
+</video>
+<pre><code>int lastButtonState = LOW;
+int inputPin = 2;
+
+int buttonPresses = 0;
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(inputPin, INPUT);
+
+}
+
+void loop() {
+  int buttonState = digitalRead(inputPin);
+  if (buttonState != lastButtonState) {
+    if (buttonState == HIGH) {
+      buttonPresses++;
+      Serial.println("Button has been pressed");
+      Serial.println(buttonPresses);
+      Serial.println("times.");
+    }
+  }
+
+  lastButtonState = buttonState;
+}
+</code></pre>
+<h6>How Long is the Button Pressed?</h6>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/5.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/6.mp4" type="video/mp4">
+</video>
+<pre><code>int lastButtonState = LOW;
+int inputPin = 2;
+
+int buttonPresses = 0;
+
+long pressTime = 0;
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(inputPin, INPUT);
+
+}
+
+void loop() {
+  int buttonState = digitalRead(inputPin);
+  if (buttonState != lastButtonState) {
+    if (buttonState == HIGH) {
+      buttonPresses++;
+      Serial.println("Button has been pressed");
+      Serial.println(buttonPresses);
+      Serial.println("times.");
+
+      pressTime = millis();
+    }
+
+    if (buttonState == LOW) {
+      long holdTime = millis() - pressTime;
+      Serial.println("Button has been pressed for");
+      Serial.println(holdTime);
+      Serial.println("milliseconds.");
+    }
+  }
+
+  lastButtonState = buttonState;
+}
+</code></pre>
+
+<h5>State Change Detection on Analog Sensors</h5>
+<h6>Threshold Crossing</h6>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/7.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/8.mp4" type="video/mp4">
+</video>
+<pre><code>int inputPin = A0;
+
+int lastSensorState = LOW;
+int threshold = 512; //an arbitrary threshold value
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(inputPin, INPUT);
+
+}
+
+void loop() {
+  int sensorState = analogRead(inputPin);
+
+  if (sensorState >= threshold && lastSensorState < threshold) {
+    Serial.println("Sensor crossed the threshold.");
+  }
+
+  lastSensorState = sensorState;
+}
+</code></pre>
+<h6>Peak Detection</h6>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/9.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/10.mp4" type="video/mp4">
+</video>
+<pre><code>int inputPin = A0;
+
+int peakValue = 0;
+int threshold = 50;
+int noise = 5; //value depends on different sensors.
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(inputPin, INPUT);
+
+}
+
+void loop() {
+  int sensorValue = analogRead(inputPin);
+
+  if (sensorValue > peakValue) {
+    peakValue = sensorValue; 
+  }
+  if (sensorValue <= threshold - noise && peakValue > threshold + noise) {
+    Serial.println(peakValue);
+    peakValue = 0;
+  }
+}
+</code></pre>
+
+<p><emph2>In the end of the lab, I found that my resistor was magnetically attched to my laptop, why?</emph2></p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/13.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/14.mp4" type="video/mp4">
+</video>
+<p>Figure it out in the class:</p>
+
+
+<h4>Lab 02-Temperature Sensor</h4>
+<p>I tried a little on the SHTC3 humidity and temp sensor of SCS company that I borrowed from the shop. But I didn't get a working circuit.</p>
+<p><emph2>I wanna know why. Is it because the misuse of the sensor?</emph2></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/15.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/16.jpg">
+</div>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/17.jpg">
+</div>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/18.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/19.mp4" type="video/mp4">
+</video>
+<pre><code>#include <Wire.h>
+
+const int ledPin = 12;   // Nano 33 上支持 PWM 的引脚
+
+void setup() {
+  Wire.begin();        
+  Serial.begin(9600);  
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // ==== 读取 TMP102 温度 ====
+  Wire.beginTransmission(0x48); // TMP102 I2C 地址
+  Wire.write(0x00);             // 温度寄存器
+  Wire.endTransmission();
+  Wire.requestFrom(0x48, 2);    // 读取两个字节
+  
+  float temperatureC = 0;
+  if (Wire.available() >= 2) {
+    int raw = Wire.read() << 8 | Wire.read();
+    raw >>= 4; // TMP102 是 12 位数据
+    temperatureC = raw * 0.0625; // 每 LSB = 0.0625 °C
+  }
+  
+  Serial.print("Temp = ");
+  Serial.print(temperatureC);
+  Serial.println(" C");
+
+  // ==== 温度映射到 LED 亮度 ====
+  // 假设 20°C → 0（灭），40°C → 255（最亮）
+  int ledBrightness = map(temperatureC, 20, 40, 0, 255);
+
+  // 限制范围，避免小于 20 或大于 40 的情况出错
+  ledBrightness = constrain(ledBrightness, 0, 255);
+
+  // PWM 输出控制 LED 亮度
+  analogWrite(ledPin, ledBrightness);
+
+  delay(500); // 半秒更新一次
+}
+</code></pre>
+<p>Figure it out in the class:</p>

@@ -34,7 +34,7 @@ void loop() {
   lastButtonState = buttonState;
 }
 </code></pre>
-<p>Figure it out in the class:</p>
+<p>Figure it out in the class: Analog input pins don't need a pinMode. Analog output pins don't hurt with a pinMode. Digital (input/output) pins do need one cuz they can do both input and output so we need to define. But just keep defining pinMode for every pin.</p>
 <h6>How Many Times is the Button Pressed?</h6>
 <video controls preload="metadata" playsinline
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/3.jpg">
@@ -173,7 +173,7 @@ void loop() {
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/13.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_011/14.mp4" type="video/mp4">
 </video>
-<p>Figure it out in the class:</p>
+<p>Figure it out in the class: Because there is magnet under the control pad of my laptop. And the pins of the resistor is made up with tinned iron wire which can be magnetically attracted.</p>
 
 
 <h4>Lab 02-Temperature Sensor</h4>
@@ -231,4 +231,4 @@ void loop() {
   delay(500); // 半秒更新一次
 }
 </code></pre>
-<p>Figure it out in the class:</p>
+<p>Figure it out in the class: Yes it was a misuse. Check the <quote><a href="https://itp.nyu.edu/physcomp/labs/labs-serial-communication/i2c-communication-with-an-infrared-temperature-sensor/">"Lab: I2C Communication With An Infrared Temperature Sensor"</a></quote>.</p> 

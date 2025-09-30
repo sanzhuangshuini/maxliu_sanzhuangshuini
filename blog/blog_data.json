@@ -114,9 +114,17 @@
    {
     "title": "IPC-005",
     "slug": "blog-014",
-    "date": "2025-10-01",
+    "date": "2025-09-30",
     "contentFile": "blog_contents/blog_014.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"]
+  },
+  {
+    "title": "ICM-004",
+    "slug": "blog-015",
+    "date": "2025-09-30",
+    "contentFile": "blog_contents/blog_015.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
   }
 ]

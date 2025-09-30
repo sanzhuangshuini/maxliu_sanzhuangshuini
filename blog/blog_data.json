@@ -90,9 +90,33 @@
    {
     "title": "Hypercinema-003",
     "slug": "blog-012",
-    "date": "2025-09-30",
+    "date": "2025-09-29",
     "contentFile": "blog_contents/blog_012.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"]
+  },
+    {
+    "title": "Hypercinema-004",
+    "slug": "blog-013",
+    "date": "2025-09-29",
+    "contentFile": "blog_contents/blog_013.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
+  },
+   {
+    "title": "ICM-preview questions",
+    "slug": "blog_depend",
+    "date": "2025-09-30",
+    "contentFile": "blog_contents/blog_depend.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
+  },
+   {
+    "title": "IPC-005",
+    "slug": "blog-014",
+    "date": "2025-10-01",
+    "contentFile": "blog_contents/blog_014.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_physical_computing"]
   }
 ]

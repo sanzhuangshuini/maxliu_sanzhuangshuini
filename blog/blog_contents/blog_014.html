@@ -1,0 +1,96 @@
+<!-- IPC-005 -->
+<h4>Reading-Igoe, Just Like Riding a Bike</h4>
+<quote><a href="https://www.tigoe.com/blog/category/physicalcomputing/287/">Source</a></quote>
+<p>Igoe: "you have a responsibility to teach people to use the things you build."</p>
+<p>Igoe: "Intuitive interfaces draw heavily on earlier learned behavior, while unintuitive ones require distinct new skills or <bold>metaphorical</bold> connections."</p>
+<p>Igoe: "An interface’s ‘intuitiveness’ or ‘naturalness’ is a measure of the extent to which draws on existing learned behavior."</p>
+
+
+<h4>Notes</h4>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/1.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/2.jpg">
+</div>
+
+
+<h4>Lab 01-Transistor</h4>
+<p>At the very beginning, the motor just kept spinning nonstop — there was no “blinking” effect at all. After poking around for a while, I realized the issue: I had flipped the diode the wrong way. Out of habit, I connected the diode’s anode to the collector and the cathode to the emitter, just like I usually did with other components. Later it hit me — <emph1>the diode’s actual job here is to block the current from passing through. Which means, of course, it should have been reversed.</emph1></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/3.jpg">
+</div>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/5.mp4" type="video/mp4">
+</video>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/6.mp4" type="video/mp4">
+</video>
+<pre><code>const int transistorPin = 9;
+int transistorValue;
+const int potentiometerPin = A0;
+int potentiometerValue;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(potentiometerPin, INPUT);
+  pinMode(transistorPin, OUTPUT);
+}
+
+void loop() {
+  potentiometerValue = analogRead(potentiometerPin);
+  transistorValue = map(potentiometerValue, 0, 675, 0, 255);
+  analogWrite(transistorPin, transistorValue);
+}
+</code></pre>
+
+
+<h4>Lab 02-Controlling a DC Motor with an H-Bridge</h4>
+<p><emph2>I don't really understand the position of the capacitor in the schematic on the webpage. In my opinion, it should be on a different line:</emph2></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/12.png">
+</div>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/10.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/11.jpg">
+</div>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/7.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/8.mp4" type="video/mp4">
+</video>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/7.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/9.mp4" type="video/mp4">
+</video>
+<pre><code>const int switchPin = A0;
+const int motor1Pin = 3;
+const int motor2Pin = 4;
+const int pwmPin = 5;  
+
+void setup() {
+  pinMode(switchPin, INPUT); 
+ 
+  pinMode(motor1Pin, OUTPUT);
+  pinMode(motor2Pin, OUTPUT);
+  pinMode(pwmPin, OUTPUT);
+ 
+  analogWrite(pwmPin, 100);
+
+}
+
+void loop() {
+  // if the switch is high, motor will turn on one direction:
+    if (digitalRead(switchPin) == HIGH) {
+      digitalWrite(motor1Pin, LOW);   // set leg 1 of the motor driver low
+      digitalWrite(motor2Pin, HIGH);  // set leg 2 of the motor driver high
+      
+    }
+    // if the switch is low, motor will turn in the other direction:
+    else {
+      digitalWrite(motor1Pin, HIGH);  // set leg 1 of the motor driver high
+      digitalWrite(motor2Pin, LOW);   // set leg 2 of the motor driver low
+    }
+}
+</code></pre>
+<p>Figure it out in the class:</p>
+

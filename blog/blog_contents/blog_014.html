@@ -8,24 +8,25 @@
 
 <h4>Notes</h4>
 <div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/1.jpg">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/2.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/1.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/2.jpg">
 </div>
 
 
 <h4>Lab 01-Transistor</h4>
+<h5>A DC Motor</h5>
 <p>At the very beginning, the motor just kept spinning nonstop — there was no “blinking” effect at all. After poking around for a while, I realized the issue: I had flipped the diode the wrong way. Out of habit, I connected the diode’s anode to the collector and the cathode to the emitter, just like I usually did with other components. Later it hit me — <emph1>the diode’s actual job here is to block the current from passing through. Which means, of course, it should have been reversed.</emph1></p>
 <div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/3.jpg">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/13.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/3.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/13.jpg">
 </div>
 <video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/4.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/5.mp4" type="video/mp4">
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/5.mp4" type="video/mp4">
 </video>
 <video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/4.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/6.mp4" type="video/mp4">
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/6.mp4" type="video/mp4">
 </video>
 <pre><code>const int transistorPin = 9;
 int transistorValue;
@@ -42,26 +43,48 @@ void loop() {
   potentiometerValue = analogRead(potentiometerPin);
   transistorValue = map(potentiometerValue, 0, 675, 0, 255);
   analogWrite(transistorPin, transistorValue);
+
+  Serial.println(potentiometerValue);
+  Serial.println(transistorValue);
 }
 </code></pre>
+
+
+<h5>A LED Lamp</h5>
+<p>I just wanna have a try so I borrowed this machine from the shop.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/14.jpg">
+</div>
+<p><emph2>1. Is this light bulb DC or AC? If it’s DC, how do I check the polarity? I wired it randomly without paying attention to polarity, and it still lit up. Does that mean the bulb is actually AC? But then my classmate told me that this machine can only supply DC.</emph2></p>
+<p><emph2>2. Why do we need to replace the NPN with a MOSFET transistor for the bulb?</emph2></p>
+<p><emph2>3. I wired up the circuit, but when I turned on the power, the bulb didn’t light up. To double-check, I used serial.println to monitor the code—Arduino’s inputs and outputs were fine. Then I tested the bulb and the power supply: when I bypassed the transistor and connected the bulb directly to the power source, it lit up. That confirmed the problem had to be with the transistor. So I went to the shop and got another MOSFET transistor. With the new one, the circuit worked perfectly. Now I’m curious—what’s the difference between these two models? (The first one, above, didn’t work; the second one, below, did.)</emph2></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/18.jpg">
+</div>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/17.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/18.mp4" type="video/mp4">
+</video>
+<p>Figure it out in the class:</p>
+
 
 
 <h4>Lab 02-Controlling a DC Motor with an H-Bridge</h4>
 <p><emph2>I don't really understand the position of the capacitor in the schematic on the webpage. In my opinion, it should be on a different line:</emph2></p>
 <div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/12.png">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/12.png">
 </div>
 <div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/10.jpg">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/11.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/10.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/11.jpg">
 </div>
 <video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/7.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/8.mp4" type="video/mp4">
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/7.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/8.mp4" type="video/mp4">
 </video>
 <video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/7.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_013/9.mp4" type="video/mp4">
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/7.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/9.mp4" type="video/mp4">
 </video>
 <pre><code>const int switchPin = A0;
 const int motor1Pin = 3;

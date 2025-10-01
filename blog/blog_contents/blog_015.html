@@ -4,4 +4,67 @@
     <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_015/1.jpg">
 </div>
 <p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/oLNlk_PkK">This is a link to the code.</a></quote></p>
+<pre><code>let cX;
+let cY;
+let mOffsetx;
+let mOffsety;
+let rX;
+let rY;
+let k; // perspective coefficient
+
+let fW = 300;
+let fH = 300;
+let fS = 8;
+let rW;
+let rH;
+let sizeOffset = 50;
+let rS;
+let strokeOffset = 1.1;
+let fSa = 255;
+let rSa;
+let strokeAlphaOffset = 40;
+let fSc = 50;
+let rSc;
+
+
+let rNum = 5;
+
+
+function setup() {
+  createCanvas(800, 800);
+  rectMode(CENTER);
+}
+
+function draw() {
+  background(255);
+  
+  cX = width / 2;
+  cY = height / 2;
+  mOffsetx = mouseX - cX;
+  mOffsety = mouseY - cY;
+  
+  stroke(fSc, fSa);
+  strokeWeight(fS);
+  noFill();
+  rect(cX, cY, fW, fH);
+  
+  for (let i = rNum; i > 0; i--) {
+    k = map(i, 0, rNum, 0.2, 1);
+    
+    rX = cX - k * mOffsetx;
+    rY = cY - k * mOffsety;
+    
+    rW = fW - sizeOffset * i;
+    rH = fH - sizeOffset * i;
+    rS = max(fS - strokeOffset * i, 1);
+    rSc = fSc;
+    rSa = fSa - strokeAlphaOffset * i;
+    noFill();
+    stroke(rSc, rSa);
+    strokeWeight(rS);
+    rect(rX, rY, rW, rH);
+  } 
+ 
+}
+</code></pre>
 <p><quote><a href="https://p5js.org/reference/">This is my reference.</a></quote></p>

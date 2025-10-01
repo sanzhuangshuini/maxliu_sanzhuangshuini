@@ -4,4 +4,144 @@
     <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_010/1.jpg">
 </div>
 <p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/zEKLHcFYF">This is a link to the code.</a></quote></p>
+<pre><code>let images = [];
+let currentScene = "scene1";
+let affection = 0;
+let imgWidth = 400;
+let imgHeight = 350;
+
+let pX;
+let pY;
+let choiceX;
+let choice1Y;
+let choice2Y;
+
+
+// customized function of the choice buttons.
+function drawChoice(label, x, y) {
+  fill(0);
+  text(label, x, y);
+}
+
+// customized function detecting if the mouse is within the range of the choice buttons.
+function isHover(x, y) {
+  let rangeX = 100;
+  let rangeY = 20;
+  return (
+    mouseX > x - rangeX / 2 &&
+    mouseX < x + rangeX / 2 &&
+    mouseY > y - rangeY / 2 &&
+    mouseY < y + rangeY / 2
+  );
+}
+
+
+function preload() {
+  images[1] = loadImage("img/1.jpg");
+  images[2] = loadImage("img/2.jpg");
+  images[3] = loadImage("img/3.jpg");
+  images[4] = loadImage("img/4.jpg");
+  images[5] = loadImage("img/5.jpg");
+  images[6] = loadImage("img/6.jpg");
+  images[7] = loadImage("img/7.jpg");
+}
+
+function setup() {
+  createCanvas(800, 600);
+  textAlign(CENTER, CENTER);
+  imageMode(CENTER);
+  textSize(20);
+  noStroke();
+}
+
+function draw() {
+  background(255);
+
+  // draw scenes.
+  textAlign(CENTER);
+  pX = width / 2;
+  pY = height - 190;
+  choiceX = width / 2;
+  choice1Y = height - 155;
+  choice2Y = height - 120;
+  if (currentScene == "scene1") {
+    image(images[1], width / 2, height / 3, imgWidth, imgHeight);
+    text("What do you want?", pX, pY);
+    drawChoice("Toast.", choiceX, choice1Y);
+    drawChoice("Bagel.", choiceX, choice2Y);
+  } else if (currentScene == "scene2") {
+    image(images[2], width / 2, height / 3, imgWidth, imgHeight);
+    text("I made you a buttered toast.", pX, pY);
+    drawChoice("Lizard.", choiceX, choice1Y);
+    drawChoice("Cat.", choiceX, choice2Y);
+  } else if (currentScene == "scene3") {
+    image(images[3], width / 2, height / 3, imgWidth, imgHeight);
+    text("I made you a bagel.", pX, pY);
+    drawChoice("Ride it.", choiceX, choice1Y);
+    drawChoice("Put on it.", choiceX, choice2Y);
+  } else if (currentScene == "ending1") {
+    image(images[4], width / 2, height / 3, imgWidth, imgHeight);
+    text("Ending 1: You shared this piece of buttered lizard toast together.", pX, pY);
+    text("Hmm… the taste isn’t all that bad.", pX, pY + 35);
+  } else if (currentScene == "ending2") {
+    image(images[5], width / 2, height / 3, imgWidth, imgHeight);
+    text("Ending 2: You stuck the piece of buttered toast onto a cat’s back,", pX, pY);
+    text("invented a perpetual motion machine, and thus won the Nobel Prize in Physics.", pX, pY + 35);
+
+  } else if (currentScene == "ending3") {
+    image(images[6], width / 2, height / 3, imgWidth, imgHeight);
+    text("Ending 3: You boarded the Bagel spaceship, flew to Planet Bagel,", pX, pY);
+    text("and became Bagelians.", pX, pY + 35);
+  } else if (currentScene == "ending4") {
+    image(images[7], width / 2, height / 3, imgWidth, imgHeight);
+    text("Ending 4: You said yes to her proposal, got married", pX, pY);
+    text("in bagel gowns at a bagel wedding,", pX, pY + 35);
+    text("and became the legendary bagel couple known across the land.", pX, pY + 70);
+  }
+
+  // draw affection.
+  fill(0);
+  textAlign(RIGHT, TOP);
+  text("Affection: " + affection, width - 20, 20);
+
+  // mouse hover effect.
+  if (isHover(choiceX, choice1Y) || isHover(choiceX, choice2Y)) {
+    cursor(HAND);
+  } else {
+    cursor(ARROW);
+}
+}
+
+
+
+
+
+function mousePressed() {
+  if (currentScene == "scene1") {
+    if (isHover(choiceX, choice1Y)) {
+      currentScene = "scene2";
+      affection += 6;
+    } else if (isHover(choiceX, choice2Y)) {
+      currentScene = "scene3";
+      affection += 6;
+    }
+  } else if (currentScene == "scene2") {
+    if (isHover(choiceX, choice1Y)) {
+      currentScene = "ending1";
+      affection += 4;
+    } else if (isHover(choiceX, choice2Y)) {
+      currentScene = "ending2";
+      affection += 2;
+    }
+  } else if (currentScene == "scene3") {
+    if (isHover(choiceX, choice1Y)) {
+      currentScene = "ending3";
+      affection += 2;
+    } else if (isHover(choiceX, choice2Y)) {
+      currentScene = "ending4";
+      affection += 6;
+    }
+  }
+}
+</code></pre>
 <p><quote><a href="https://p5js.org/reference/">This is my reference.</a></quote></p>

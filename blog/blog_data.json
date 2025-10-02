@@ -126,5 +126,13 @@
     "contentFile": "blog_contents/blog_015.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"]
+  },
+  {
+    "title": "Visual Language-003",
+    "slug": "blog-016",
+    "date": "2025-10-01",
+    "contentFile": "blog_contents/blog_016.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "visual_language"]
   }
 ]

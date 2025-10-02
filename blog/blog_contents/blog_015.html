@@ -3,14 +3,22 @@
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_015/1.jpg">
 </div>
-<p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/oLNlk_PkK">This is a link to the code.</a></quote></p>
+<p>This week’s assignment for Visual Language was to create a square composition using a custom palette, and we were encouraged to try implementing it in p5.js. I thought this was a great chance to merge the work from both classes into one project.
+
+</p>
+<p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/oLNlk_PkK">This is a link to the original code (black & white).</a></quote></p>
 <pre><code>let cX;
 let cY;
 let mOffsetx;
 let mOffsety;
 let rX;
 let rY;
-let k; // perspective coefficient
+
+// perspective coefficient
+let k;
+let mouseK = 1;
+let smoothK = 1; // Smoother
+let smoothValue = 0.3;
 
 let fW = 300;
 let fH = 300;
@@ -32,6 +40,10 @@ let rNum = 5;
 
 function setup() {
   createCanvas(800, 800);
+  
+  p = createP('Move your mouse and your mouse wheel.'); 
+  p.position(width / 2, 0); // Why isn't it in the middle of the canvas?
+  
   rectMode(CENTER);
 }
 
@@ -43,13 +55,15 @@ function draw() {
   mOffsetx = mouseX - cX;
   mOffsety = mouseY - cY;
   
+  mouseK = lerp(mouseK, smoothK, smoothValue);
+  
   stroke(fSc, fSa);
   strokeWeight(fS);
   noFill();
   rect(cX, cY, fW, fH);
   
   for (let i = rNum; i > 0; i--) {
-    k = map(i, 0, rNum, 0.2, 1);
+    k = map(i, 0, rNum, 0.2, 1) * mouseK;
     
     rX = cX - k * mOffsetx;
     rY = cY - k * mOffsety;
@@ -64,7 +78,98 @@ function draw() {
     strokeWeight(rS);
     rect(rX, rY, rW, rH);
   } 
- 
+}
+
+function mouseWheel(event) {
+  if (event.deltaY > 0) {
+    smoothK *= 0.8;
+  } else {
+    smoothK *= 1.2;
+  }
+  mouseK = constrain(mouseK, 0.2, 5);
+}
+</code></pre>
+<p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/Gbbm91NNH">Here’s the link to my Visual Language version of the code (colorful).</a></quote></p>
+<pre><code>let cX;
+let cY;
+let mOffsetx;
+let mOffsety;
+let rX;
+let rY;
+let k; // Perspective coefficient
+
+let fW = 300;
+let fH = 300;
+let fS = 8;
+let rW;
+let rH;
+let sizeOffset = 50;
+let rS;
+let strokeOffset = 1.1;
+let fSa = 255;
+let rSa;
+let strokeAlphaOffset = 40;
+
+let rNum = 4;
+
+function setup() {
+  createCanvas(800, 800);
+  rectMode(CENTER);
+}
+
+function draw() {
+  let fcolK = color("#383838");
+  fcolK.setAlpha(rSa);
+  let rcolK = color("#383838");
+  let colR = color("#FA3932");
+  let colY = color("#FAF839");
+  let colG = color("#CCF76F");
+  let colB = color("#8EF5BD");
+  let cols = [colR, colY, colG, colB];
+
+  background(255);
+
+  cX = width / 2;
+  cY = height / 2;
+  mOffsetx = mouseX - cX;
+  mOffsety = mouseY - cY;
+
+  for (let i = rNum; i > 0; i--) {
+    // Perspective coefficient
+    k = map(i, 0, rNum, 0.2, 1);
+
+    // Interaction with mouse
+    rX = cX - k * mOffsetx;
+    rY = cY - k * mOffsety;
+
+    // Size --
+    rW = fW - sizeOffset * i;
+    rH = fH - sizeOffset * i;
+    rS = max(fS - strokeOffset * i, 1);
+
+    // Stroke
+    rcolK = fcolK;
+    rSa = fSa;
+    rcolK.setAlpha(rSa);
+    stroke(rcolK);
+    strokeWeight(rS);
+
+    // Color
+    let invI = rNum - i; // 0,1,2,3...
+    rSa = fSa - strokeAlphaOffset * invI;
+    let colIndex = rNum - i; // 0,1,2,3...
+    let rCol = color(cols[colIndex]);
+    rCol.setAlpha(rSa);
+    fill(rCol);
+
+    // Draw the rects
+    rect(rX, rY, rW, rH);
+  }
+
+  stroke(rcolK);
+  strokeWeight(fS);
+  noFill();
+  rect(cX, cY, fW, fH);
 }
 </code></pre>
 <p><quote><a href="https://p5js.org/reference/">This is my reference.</a></quote></p>

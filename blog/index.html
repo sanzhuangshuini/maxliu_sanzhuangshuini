@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- =========================
+         页面基本设置
+    ========================== -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>blog_index</title>
 
+    <!-- =========================
+         外部样式表
+    ========================== -->
     <link rel="stylesheet" type="text/css" href="../css_styles/style.css" />
 
+    <!-- =========================
+         依赖库
+    ========================== -->
     <script src="../libraries/p5.min.js"></script>
     <script src="../libraries/p5.sound.min.js"></script>
 
+    <!-- =========================
+         页面结构样式（内联样式）
+    ========================== -->
     <style>
+      /* === 页面整体布局 === */
       body {
         margin: 0;
         display: flex;
         background: #fff;
       }
 
-      /* 左侧导航栏 */
+      /* === 左侧导航栏 === */
       #sidebar {
         position: fixed;
         top: 0;
@@ -28,54 +40,55 @@
         background-color: #f3f3f3;
         display: flex;
         flex-direction: column;
-        box-sizing: border-box;
-        border-right: 2px solid #ccc;
         gap: 130px;
         padding: 20px;
         box-sizing: border-box;
+        border-right: 2px solid #ccc;
         z-index: 1000;
       }
 
-      /* 导航栏特殊样式 */
-
+      /* 导航栏中的链接样式 */
       #sidebar a {
         font-family: "Helvetica";
         display: block;
         margin: 8px 0;
         color: #111;
-        font-size: 1em;      /* h5 的字号 */
+        font-size: 1em;      /* 等价于 h5 的字号 */
         font-weight: bold;   /* h5 的粗体 */
         text-decoration: none;
         transition: color 0.2s ease;
       }
 
-      /* 鼠标悬浮 */
+      /* 鼠标悬浮效果 */
       #sidebar a:hover {
         color: #96b351;
         text-decoration: underline;
       }
 
-      /* 当前高亮（绿色+下划线） */
+      /* 当前高亮（绿色 + 下划线） */
       #sidebar a.active {
         color: #96b351 !important;
         text-decoration: underline !important;
       }
 
-
-      /* 右侧主内容区 */
+      /* === 主内容区（右侧） === */
       #canvas {
         display: block;
-        margin-left: 240px;       /* 给 sidebar 让出空间 */
+        margin-left: 240px;   /* 为侧边栏留出空间（200 + 40 padding） */
         padding: 20px;
         box-sizing: border-box;
       }
+
       #canvas_cnv {
         display: block;
       }
     </style>
   </head>
+
   <body>
-    <!-- 左侧导航栏 -->
+    <!-- =========================================================
+         左侧导航栏
+    ========================================================== -->
     <aside id="sidebar">
       <a href="index.html?category=all" class="active">All Posts</a>
       <a href="index.html?category=introduction_to_physical_computing">Introduction to Physical Computing</a>
@@ -84,13 +97,20 @@
       <a href="index.html?category=visual_language">Visual Language</a>
     </aside>
 
-    <!-- 右侧主内容 -->
+    <!-- =========================================================
+         右侧主内容区（p5 画布）
+    ========================================================== -->
     <div id="canvas"></div>
 
-    <!-- 组件与模板脚本 -->
+    <!-- =========================================================
+         引入脚本文件
+    ========================================================== -->
     <script src="../constructor_functions/BlogBox.js"></script>
     <script src="index.js"></script>
-     <!-- 自动根据当前 ?category=xxx 高亮对应导航 -->
+
+    <!-- =========================================================
+         自动高亮侧边栏（根据 URL 参数）
+    ========================================================== -->
     <script>
       (async function () {
         const params = new URLSearchParams(location.search);
@@ -99,14 +119,14 @@
         const curUrl      = params.get("url");
         const curTitle    = params.get("title");
 
-        // 取到所有 sidebar 链接与其 category 值
+        // 获取所有导航链接及其对应的分类参数
         const links = Array.from(document.querySelectorAll("#sidebar a")).map(a => {
           const url = new URL(a.href, location.origin);
           const cat = new URLSearchParams(url.search).get("category") || "all";
           return { a, cat };
         });
 
-        // 工具：根据分类集合，高亮对应链接（允许多选高亮）
+        // 工具函数：根据分类集合高亮对应链接（支持多选高亮）
         function highlightCategories(catSet) {
           links.forEach(({ a, cat }) => {
             if (catSet.has(cat)) a.classList.add("active");
@@ -114,13 +134,13 @@
           });
         }
 
-        // 列表模式：只高亮当前 category（默认 all）
+        // ---- 情况 1：列表模式，只高亮当前分类 ----
         if (curCategory) {
           highlightCategories(new Set([curCategory]));
           return;
         }
 
-        // 详情模式：根据 slug/url/title 找到该篇，拿到它的 categories
+        // ---- 情况 2：详情模式，根据 slug/url/title 在 blog_data.json 中查找分类 ----
         if (curSlug || curUrl || curTitle) {
           try {
             const resp = await fetch("blog_data.json");
@@ -132,28 +152,27 @@
             if (!post && curUrl)   post = list.find(p => p && p.url   === curUrl);
             if (!post && curTitle) post = list.find(p => p && p.title === curTitle);
 
-            // 兜底：若没指定参数，尝试用路径尾部匹配 url
+            // 兜底方案：通过 URL 文件名匹配
             if (!post) {
               const path = location.pathname.replace(/^.*\//, "");
               post = list.find(p => p && p.url && p.url.endsWith(path));
             }
 
+            // 找到文章则高亮对应分类（排除 "all"）
             if (post && Array.isArray(post.categories) && post.categories.length) {
-              // 同时高亮这篇文章的所有分类（不含all）
-              const set = new Set(post.categories.filter(c => c !== "all"));
-              highlightCategories(set);
+              const catSet = new Set(post.categories.filter(c => c !== "all"));
+              highlightCategories(catSet);
             } else {
-              // 找不到就默认高亮 all
               highlightCategories(new Set(["all"]));
             }
           } catch (e) {
-            console.error("Highlight (detail) failed:", e);
+            console.error("高亮失败（详情模式）:", e);
             highlightCategories(new Set(["all"]));
           }
           return;
         }
 
-        // 无参数：默认高亮 all
+        // ---- 情况 3：没有参数时默认高亮 “all” ----
         highlightCategories(new Set(["all"]));
       })();
     </script>

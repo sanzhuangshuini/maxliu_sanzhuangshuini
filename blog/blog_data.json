@@ -134,5 +134,14 @@
     "contentFile": "blog_contents/blog_016.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "visual_language"]
+  },
+  {
+    "title": "Hypercinema-005",
+    "slug": "blog-017",
+    "date": "2025-10-07",
+    "contentFile": "blog_contents/blog_017.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
   }
+  
 ]

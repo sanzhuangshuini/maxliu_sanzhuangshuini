@@ -1,9 +1,12 @@
+/* ================================
+   全局基础样式
+================================ */
 html, body {
-  font-family: "Helvetica"; /* 全局字体 */
-  font-size: 16px;        /* 基础字号 */
-  line-height: 1.6;       /* 行距 */
-  color: #111;            /* 主文字颜色 */
-  /* background-color: #fff; 页面背景 */
+  font-family: "Helvetica";       /* 全局字体 */
+  font-size: 16px;                /* 基础字号 */
+  line-height: 1.6;               /* 行距 */
+  color: #111;                    /* 主文字颜色 */
+  /* background-color: #fff; */    /* 页面背景（可选） */
   margin: 0;
   padding: 0;
 }
@@ -12,46 +15,29 @@ canvas {
   display: block;
 }
 
-/* 标题层级 */
+
+/* ================================
+   标题层级（全局）
+================================ */
 h1, h2, h3, h4, h5, h6 {
   margin: 1em 0 0.5em 0;
   line-height: 1.2;
   color: #111;
 }
 
-h1 {
-  font-size: 2.25em;
-  font-weight: bold;
-}
+h1 { font-size: 2.25em; font-weight: bold; }
+h2 { font-size: 2em;    font-weight: bold; }
+h3 { font-size: 1.75em; font-weight: bold; }
+h4 { font-size: 1.5em;  font-weight: bold; }
+h5 { font-size: 1.25em; font-weight: bold; }
+h6 { font-size: 1em;    font-weight: bold; }
 
-h2 {
-  font-size: 2em;
-  font-weight: bold;
-}
 
-h3 {
-  font-size: 1.75em;
-  font-weight: bold;
-}
-
-h4 {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-h5 {
-  font-size: 1.25em;
-  font-weight: bold;
-}
-
-h6 {
-  font-size: 1em;
-  font-weight: bold;
-}
-
-/* 段落 */
+/* ================================
+   文本与段落
+================================ */
 p {
-  margin: 0 0 0 0; /* 上右下左 */
+  margin: 0;                      /* 无额外外边距 */
   font-size: 1em;
   line-height: 1.7;
 }
@@ -62,81 +48,69 @@ a {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
 a:hover {
   color: #96b351;
   text-decoration: underline;
 }
 
-
-/* 列表 */
-ul, ol {
-  margin: 0 0 1em 2em;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 0.5em;
-}
-
-/* 引用 */
+/* 引用与文本修饰 */
 quote {
   color: #96b351;
   font-style: italic;
   background: #efefef;
 }
 
-/* 加粗 */
 bold {
   font-weight: bold;
 }
 
-/* 强调1：知识点 */
-emph1 { 
-  background: #eff176;
-}
-/* 强调2：待解决问题 */
-emph2 { 
-  background: #f9b4ff;
-}
+/* 强调：知识点 / 待解决问题 */
+emph1 { background: #eff176; }
+emph2 { background: #f9b4ff; }
 
-/* 代码文本 */
+
+/* ================================
+   代码与预格式化文本
+================================ */
 pre code {
   font-family: "Consolas", monospace;
-  /* font-weight: bold; */
   font-size: 16px;
   background: #f4f4f4;
   padding: 15px;
   display: block;
-  white-space: pre-wrap; /* 关键 */
+  white-space: pre-wrap; /* 自动换行 */
 }
 
-/* Blog图片 */
-/* --- Blog 图片：Flex 布局 --- */
-/* 行容器：一行多图、自动换行、可控间距 */
+
+/* ================================
+   正文内容（#post-body）
+   — 图片 / 视频 / 音频 / 缩略图
+================================ */
+
+/* === 图片 === */
 #post-body .image-row {
   display: flex;
-  flex-wrap: wrap;   /* 放不下就换行 */
-  gap: 30px;         /* 图片之间的间距（统一控制） */
+  flex-wrap: wrap;      /* 超出换行 */
+  gap: 30px;            /* 图片间距 */
   align-items: flex-start;
-  margin: 12px 0 12px 40px;
+  margin: 12px 0 12px 40px; /* 左缩进，区分文字 */
 }
 
-/* 每张图作为 flex item：默认自适应等分，最小 220px */
+/* 单张图片（自适应宽） */
 #post-body .image-row img {
-  flex: 1 1 300px;   /* grow=1 可拉伸；shrink=1 可压缩；basis=300px 首选宽度 */
+  flex: 1 1 300px;      /* 等比自适应 */
   max-width: 40%;
-  height: auto;      /* 保持比例 */
+  height: auto;
   display: block;
-  margin: 0;         /* 交给 gap 管理间距 */
+  margin: 0;            /* 间距交给 gap 控制 */
 }
 
-/* 指定列数：给容器加 .cols-2 / .cols-3 / .cols-4 即可 */
+/* 指定列数 */
 #post-body .image-row.cols-2 img { flex-basis: calc((100% - 12px) / 2); }
 #post-body .image-row.cols-3 img { flex-basis: calc((100% - 12px * 2) / 3); }
 #post-body .image-row.cols-4 img { flex-basis: calc((100% - 12px * 3) / 4); }
 
-/* 等高裁剪（可选）：做成缩略图墙时使用 .thumb-row */
+/* 等高裁剪（缩略图墙） */
 #post-body .thumb-row {
   display: flex;
   flex-wrap: wrap;
@@ -144,43 +118,57 @@ pre code {
 }
 #post-body .thumb-row img {
   flex: 1 1 240px;
-  height: 180px;     /* 固定高度 */
+  height: 180px;          /* 固定高度 */
   width: 100%;
-  object-fit: cover; /* 居中裁剪，避免变形 */
+  object-fit: cover;      /* 居中裁剪防变形 */
   display: block;
   margin: 0;
   border-radius: 4px;
 }
 
-/* 视频 */
+/* === 视频 === */
 #post-body video {
-  max-width: 80%;   /* 不会超出正文宽度 */
-  height: auto;      /* 保持比例 */
-  display: block;    /* 独占一行 */
-  margin: 12px 0 12px 40px;
-  background: #000000;  /* 没加载时背景颜色 */
+  max-width: 80%;
+  height: auto;
+  display: block;
+  margin: 12px 0 12px 40px; /* 与图片左缩进一致 */
+  background: #000;         /* 未加载背景色 */
 }
 
-/* 音频 */
-#post-body audio { 
+/* === 音频 === */
+#post-body audio {
   width: 80%;
-  margin: 12px 0 12px 40px;
+  margin: 12px 0 12px 40px; /* 与图片左缩进一致 */
 }
 
-/* 表格 */
-/* table {
+
+/* ================================
+   （可选）表格与列表（暂未使用）
+================================ */
+
+/* 表格
+table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 1em;
 }
-
 th, td {
   border: 1px solid #ccc;
   padding: 0.5em 1em;
   text-align: left;
 }
-
 th {
   background: #f0f0f0;
   font-weight: bold;
-} */
+}
+*/
+
+/* 列表
+ul, ol {
+  margin: 0 0 1em 2em;
+  padding: 0;
+}
+li {
+  margin-bottom: 0.5em;
+}
+*/

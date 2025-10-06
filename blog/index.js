@@ -179,7 +179,7 @@ function setup() {
     background(255);
     fill(60);
     textSize(14);
-    text("正在加载文章列表…", 20, 30);
+    text("Loading…", 20, 30);
   }
 
   // 读取 blog_data.json
@@ -207,7 +207,7 @@ function setup() {
           await renderDetail(post);
         } else {
           document.getElementById("canvas").innerHTML =
-            `<p style="padding:40px;color:#900">未找到对应文章。</p>`;
+            `<p style="padding:40px;color:#900">No corresponding post found.</p>`;
           console.error("✖ Detail: 未找到文章。");
         }
 
@@ -280,7 +280,7 @@ function setup() {
     function onError(err) {
       background(255, 230, 230);
       fill(160, 0, 0);
-      text("加载 blog_data.json 失败", 20, 30);
+      text("Fail to load blog_data.json", 20, 30);
       console.error("✖ loadJSON 错误：", err);
       dataReady = true;
     }
@@ -300,7 +300,7 @@ function draw() {
   // 数据未加载完时的提示
   if (!dataReady) {
     fill(80);
-    text("正在加载文章列表…", 20, 30);
+    text("Loading…", 20, 30);
     return;
   }
 
@@ -334,7 +334,7 @@ function draw() {
   // --- 没有文章时的提示 ---
   if (blogPosts.length === 0) {
     fill(120);
-    text(`暂无该分类的文章: ${currentCategory}`, marginX || 12, marginY || 20);
+    text(`No post in this category yet: ${currentCategory}`, marginX || 12, marginY || 20);
   }
 }
 

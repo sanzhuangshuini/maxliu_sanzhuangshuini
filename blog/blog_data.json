@@ -138,15 +138,15 @@
   {
     "title": "Hypercinema-005",
     "slug": "blog-017",
-    "date": "2025-10-07",
+    "date": "2025-10-05",
     "contentFile": "blog_contents/blog_017.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"]
   },
   {
-    "title": "IPC-006",
+    "title": "IPC-006-Midterm",
     "slug": "blog-018",
-    "date": "2025-09-30",
+    "date": "2025-10-06",
     "contentFile": "blog_contents/blog_018.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"]
@@ -154,9 +154,17 @@
   {
     "title": "IPC-007",
     "slug": "blog-019",
-    "date": "2025-09-30",
+    "date": "2025-10-07",
     "contentFile": "blog_contents/blog_019.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"]
+  },
+  {
+    "title": "ICM-005",
+    "slug": "blog-020",
+    "date": "2025-10-08",
+    "contentFile": "blog_contents/blog_020.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
   }
 ]

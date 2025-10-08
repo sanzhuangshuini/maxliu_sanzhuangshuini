@@ -56,16 +56,17 @@ void loop() {
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/14.jpg">
 </div>
 <p><emph2>1. Is this light bulb DC or AC? If it’s DC, how do I check the polarity? I wired it randomly without paying attention to polarity, and it still lit up. Does that mean the bulb is actually AC? But then my classmate told me that this machine can only supply DC.</emph2></p>
-<p><emph2>2. Why do we need to replace the NPN with a MOSFET transistor for the bulb?</emph2></p>
-<p><emph2>3. I wired up the circuit, but when I turned on the power, the bulb didn’t light up. To double-check, I used serial.println to monitor the code—Arduino’s inputs and outputs were fine. Then I tested the bulb and the power supply: when I bypassed the transistor and connected the bulb directly to the power source, it lit up. That confirmed the problem had to be with the transistor. So I went to the shop and got another MOSFET transistor. With the new one, the circuit worked perfectly. Now I’m curious—what’s the difference between these two models? (The first one, above, didn’t work; the second one, below, did.)</emph2></p>
+<p><emph2>2. I wired up the circuit, but when I turned on the power, the bulb didn’t light up. To double-check, I used serial.println to monitor the code—Arduino’s inputs and outputs were fine. Then I tested the bulb and the power supply: when I bypassed the transistor and connected the bulb directly to the power source, it lit up. That confirmed the problem had to be with the transistor. So I went to the shop and got another MOSFET transistor. With the new one, the circuit worked perfectly. Now I’m curious—what’s the difference between these two models? (The first one, above, didn’t work; the second one, below, did.)</emph2></p>
 <div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/18.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/19.jpg">
 </div>
 <video controls preload="metadata" playsinline
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/17.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/18.mp4" type="video/mp4">
 </video>
 <p>Figure it out in the class:</p>
+<p><emph1>1. Socket on the wall/power strip: AC ---- (AC to) DC power supply ---- bulb socket: DC without polarity (by design) ---- bulb: DC</emph1></p>
+<p>2. The former MOSFET should have worked because theoretically transistors with higer values should be more versatile. It is possible that this specific MOSFET is broken.</p>
 
 
 
@@ -117,4 +118,7 @@ void loop() {
 }
 </code></pre>
 <p>Figure it out in the class:</p>
-
+<p>The schematic on the webpage is kinda wrong from the acutual wiring. The power jack doesn't directly supply the VM pin on the H-bridge. It supplies the VM pin through the microboard (VIN pin in and 5V pin out).</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/20.jpg">
+</div>

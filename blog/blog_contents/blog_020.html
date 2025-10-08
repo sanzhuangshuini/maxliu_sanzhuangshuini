@@ -1,0 +1,131 @@
+<!-- ICM-005 -->
+
+<p>I made a simple music player.</p>
+<p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/EkDqOh_tx">This is a link to the code.</a></quote></p>
+<pre><code>let song;
+let cover;
+
+// Loudness variables
+let amp;
+let vol;
+
+// Frequency variables
+let fft;
+let spectrum;
+
+// Buttons variables
+let playButton;
+let restartButton;
+let progressBar;
+let currentProgress;
+
+let volHistory = [];
+
+let smoothVol = 0;
+let smoothStrength = 0.15; // Smaller = smoother
+
+function preload() {
+  song = loadSound("Sounds/du_hast.mp3");
+  cover = loadImage("Images/cover.png"); // I blured the cover so that it doesn't scare anyone.
+}
+
+function setup() {
+  createCanvas(600, 600);
+  imageMode(CENTER);  
+  ellipseMode(CENTER);
+
+  // Play button
+  playButton = createButton("Play / Pause");
+  playButton.mousePressed(toggleSong);
+
+  // Restart button
+  restartButton = createButton("Restart");
+  restartButton.mousePressed(restartSong);
+
+  // Progress bar
+  progressBar = createSlider(0, song.duration(), 0, 0.01);
+  progressBar.style("width", "450px");
+
+  amp = new p5.Amplitude();
+  fft = new p5.FFT();
+}
+
+function draw() {
+  background(0);
+  
+  push();
+  translate(width / 2, height / 3) // Move the (0,0) of the canvas to (width / 2, height / 3) temporarily.
+  if (song.isPlaying()) {
+    rotate(frameCount * vol);
+  }
+  image(cover, 0, 0, 300, 300);
+  noStroke();
+  fill(0);
+  circle(0, 0, 100, 100)
+  pop();
+
+  // Amplitude visualization.
+  vol = amp.getLevel();
+  smoothVol = lerp(smoothVol, vol, smoothStrength);
+
+  volHistory.push(smoothVol);
+  stroke(0, 255, 0);
+  noFill();
+  beginShape();
+  for (let i = 0; i < volHistory.length; i++) {
+    let pointX = i;
+    let pointY = map(volHistory[i], 0, 1, height - 100, 0);
+    vertex(pointX, pointY);
+  }
+  endShape();
+  if (volHistory.length > width - 100) {
+    volHistory.splice(0, 1);
+  }
+
+  // Frequency visualization.
+  spectrum = fft.analyze(); // The result of "fft.analyze" function is an array, so the variable "spectrum" becomes an array automatically.函数返回的值本来就是一个数组，所以spectrum自动变成一个数组了。
+  stroke(255, 0, 0);
+  noFill();
+  beginShape();
+  for (let i = 0; i < spectrum.length; i++) {
+    let pointX = map(i, 0, spectrum.length, 0, width);
+    let pointY = map(spectrum[i], 0, 255, height, 0);
+    vertex(pointX, pointY);
+  }
+  endShape();
+
+  // Progress bar
+  if (song.isPlaying()) {
+    progressBar.value(song.currentTime());
+  }
+
+  progressBar.input(jumpSong);
+}
+
+function toggleSong() {
+  if (!song.isPlaying()) {
+    song.play();
+    playButton.html("Pause");
+  } else {
+    song.pause();
+    playButton.html("Play");
+  }
+}
+
+
+
+// Customized functions
+
+function restartSong() {
+  if (song.isPlaying) {
+    song.stop();
+    song.play();
+  }
+}
+
+function jumpSong() {
+  if (song.isLoaded()) {
+    song.jump(progressBar.value());
+  }
+}
+</code></pre>

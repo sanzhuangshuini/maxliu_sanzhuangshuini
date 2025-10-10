@@ -1,122 +1,522 @@
 <!-- IPC-007 -->
 <h4>Sarah Hendren, All Technology is Assistive </h4>
 <quote><a href="http://thedigitalcommons.org/docs/hendren-all-technology-is-assistive.pdf">Source</a></quote>
-<p>Igoe: "you have a responsibility to teach people to use the things you build."</p>
-<p>Igoe: "Intuitive interfaces draw heavily on earlier learned behavior, while unintuitive ones require distinct new skills or <bold>metaphorical</bold> connections."</p>
-<p>Igoe: "An interface’s ‘intuitiveness’ or ‘naturalness’ is a measure of the extent to which draws on existing learned behavior."</p>
+<p>What struck me most in this article is the idea of rethinking the “invisible” design. 
+  Many assistive devices try to hide disability — like skin-colored hearing aids meant to blend in. 
+  But the author argues that visibility itself can be empowering. 
+  The Hearwear exhibition turned hearing aids into jewelry, transforming them from objects of shame into symbols of identity and style. 
+  It made me realize that design doesn’t always need to “fix” or “erase” difference — sometimes it should celebrate it, make it visible, and let it shine.</p>
+
 
 
 <h4>Notes</h4>
 <div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/1.jpg">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/2.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/1.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/2.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/3.jpg">
 </div>
 
 
 <h4>Lab 01-Intro to Asynchronous Serial Communications</h4>
-<h5>A DC Motor</h5>
-<p>At the very beginning, the motor just kept spinning nonstop — there was no “blinking” effect at all. After poking around for a while, I realized the issue: I had flipped the diode the wrong way. Out of habit, I connected the diode’s anode to the collector and the cathode to the emitter, just like I usually did with other components. Later it hit me — <emph1>the diode’s actual job here is to block the current from passing through. Which means, of course, it should have been reversed.</emph1></p>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/3.jpg">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/13.jpg">
-</div>
+<h5>A Serial Output Sketch</h5>
 <video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/4.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/5.mp4" type="video/mp4">
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/5.mp4" type="video/mp4">
 </video>
-<video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/4.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/6.mp4" type="video/mp4">
-</video>
-<pre><code>const int transistorPin = 9;
-int transistorValue;
-const int potentiometerPin = A0;
-int potentiometerValue;
-
-void setup() {
-  Serial.begin(9600);
-  pinMode(potentiometerPin, INPUT);
-  pinMode(transistorPin, OUTPUT);
+<pre><code>void setup() {
+   // start serial port at 9600 bps:
+   Serial.begin(9600);
 }
-
+ 
 void loop() {
-  potentiometerValue = analogRead(potentiometerPin);
-  transistorValue = map(potentiometerValue, 0, 675, 0, 255);
-  analogWrite(transistorPin, transistorValue);
-
-  Serial.println(potentiometerValue);
-  Serial.println(transistorValue);
+   int analogValue = analogRead(A0);
+   Serial.println(analogValue);
 }
 </code></pre>
 
 
-<h5>A LED Lamp</h5>
-<p>I just wanna have a try so I borrowed this machine from the shop.</p>
+<h5>Serial Terminal Programs</h5>
+<h6>Connecting via the POSIX Command Line</h6>
+<p>I tried to use the WSL on my Windows laptop but ended up failing because my system version is not compatible with WSL.</p>
+<h6>GUI Serial Terminal Programs</h6>
+<p><emph2>The port selection in Coolterm is grey. I suspected the Arduino IDE is occupying the port so the Coolterm cannot perceive it. But when I turned off the IDE, the selection was still grey.</emph2></p>
 <div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/14.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/6.png">
 </div>
-<p><emph2>1. Is this light bulb DC or AC? If it’s DC, how do I check the polarity? I wired it randomly without paying attention to polarity, and it still lit up. Does that mean the bulb is actually AC? But then my classmate told me that this machine can only supply DC.</emph2></p>
-<p><emph2>2. Why do we need to replace the NPN with a MOSFET transistor for the bulb?</emph2></p>
-<p><emph2>3. I wired up the circuit, but when I turned on the power, the bulb didn’t light up. To double-check, I used serial.println to monitor the code—Arduino’s inputs and outputs were fine. Then I tested the bulb and the power supply: when I bypassed the transistor and connected the bulb directly to the power source, it lit up. That confirmed the problem had to be with the transistor. So I went to the shop and got another MOSFET transistor. With the new one, the circuit worked perfectly. Now I’m curious—what’s the difference between these two models? (The first one, above, didn’t work; the second one, below, did.)</emph2></p>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/18.jpg">
-</div>
-<video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/17.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/18.mp4" type="video/mp4">
-</video>
 <p>Figure it out in the class:</p>
 
-
-
-<h4>Lab 02-Serial Input to P5.js using WebSerial</h4>
-<p><emph2>I don't really understand the position of the capacitor in the schematic on the webpage. In my opinion, it should be on a different line:</emph2></p>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/12.png">
-</div>
-<div class="image-row">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/10.jpg">
-    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/11.jpg">
-</div>
+<h5>ASCII vs. Binary: What are you sending?</h5>
 <video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/7.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/8.mp4" type="video/mp4">
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/7.mp4" type="video/mp4">
 </video>
-<video controls preload="metadata" playsinline
-       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/7.jpg">
-  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/9.mp4" type="video/mp4">
-</video>
-<pre><code>const int switchPin = A0;
-const int motor1Pin = 3;
-const int motor2Pin = 4;
-const int pwmPin = 5;  
+<pre><code>void setup() {
+   // start serial port at 9600 bps:
+   Serial.begin(9600);
+}
+ 
+void loop() {
+   int analogValue = analogRead(A0);
+   Serial.write(analogValue);
+}
+</code></pre>
 
+<h5>Send the Data in Many Formats</h5>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/8.mp4" type="video/mp4">
+</video>
+<pre><code>void setup() {
+   // start serial port at 9600 bps:
+   Serial.begin(9600);
+}
+ 
+void loop() {
+// read analog input, map it to make the range 0-255:
+int analogValue = analogRead(A0);
+int mappedValue = map(analogValue, 0, 1023, 0, 255);
+Serial.println(mappedValue);
+ 
+// print different formats:
+Serial.write(mappedValue);  // Print the raw binary value
+Serial.print('\t');             // print a tab
+// print ASCII-encoded values:
+Serial.print(mappedValue, BIN); // print ASCII-encoded binary value
+Serial.print('\t');             // print a tab
+Serial.print(mappedValue);      // print decimal value
+Serial.print('\t');             // print a tab
+Serial.print(mappedValue, HEX); // print hexadecimal value
+Serial.print('\t');             // print a tab
+Serial.print(mappedValue, OCT); // print octal value
+Serial.println();               // print linefeed and carriage return
+}
+</code></pre>
+
+<h5>Send the Values for Several Sensors</h5>
+<h6>Formatting Multiple Serial Data: Punctuation</h6>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/9.mp4" type="video/mp4">
+</video>
+<pre><code>const int switchPin = 2;      // digital input
+ 
 void setup() {
-  pinMode(switchPin, INPUT); 
- 
-  pinMode(motor1Pin, OUTPUT);
-  pinMode(motor2Pin, OUTPUT);
-  pinMode(pwmPin, OUTPUT);
- 
-  analogWrite(pwmPin, 100);
-
+   // configure the serial connection:
+   Serial.begin(9600);
+   // configure the digital input:
+   pinMode(switchPin, INPUT);
 }
 
 void loop() {
-  // if the switch is high, motor will turn on one direction:
-    if (digitalRead(switchPin) == HIGH) {
-      digitalWrite(motor1Pin, LOW);   // set leg 1 of the motor driver low
-      digitalWrite(motor2Pin, HIGH);  // set leg 2 of the motor driver high
-      
-    }
-    // if the switch is low, motor will turn in the other direction:
-    else {
-      digitalWrite(motor1Pin, HIGH);  // set leg 1 of the motor driver high
-      digitalWrite(motor2Pin, LOW);   // set leg 2 of the motor driver low
-    }
+   // read the sensor:
+   int sensorValue = analogRead(A0);
+   // print the results:
+   Serial.print(sensorValue);
+   Serial.print(",");
+ 
+   // read the sensor:
+   sensorValue = analogRead(A1);
+   // print the results:
+   Serial.print(sensorValue);
+   Serial.print(",");
+ 
+   // read the sensor:
+   sensorValue = digitalRead(switchPin);
+   // print the results:
+   Serial.println(sensorValue);
 }
 </code></pre>
-<p>Figure it out in the class:</p>
+<h6>Flow Control: Call and Response (Handshaking)</h6>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/4.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/10.mp4" type="video/mp4">
+</video>
+<pre><code>const int switchPin = 2; 
+
+void setup() {
+   Serial.begin(9600);
+   while (Serial.available() <= 0) {
+     Serial.println("hello"); // send a starting message
+     delay(300);              // wait 1/3 second
+   }
+}
+
+void loop() {
+   if (Serial.available()) {
+      // read the incoming byte:
+      int inByte = Serial.read();
+      // read the sensor:
+      int sensorValue = analogRead(A0);
+      // print the results:
+      Serial.print(sensorValue);
+      Serial.print(",");
+ 
+      // read the sensor:
+      sensorValue = analogRead(A1);
+      // print the results:
+      Serial.print(sensorValue);
+      Serial.print(",");
+ 
+      // read the sensor:
+      sensorValue = digitalRead(switchPin);
+      // print the results:
+      Serial.println(sensorValue);
+   }
+}
+</code></pre>
 
 
-<h4>Lab 03-Serial Output From P5.js using WebSerial</h4>
+
+
+
+<h4>Lab 02-Serial Communication between Arduino and P5.js Using WebSerial</h4>
+
+<h5>Arduino ----> P5.js</h5>
+<h6>Number in P5.js</h6>
+<p><emph1>1. When working with Arduino and p5.js, remember that only one program can use the serial port at a time. 
+  Stop your browser sketch before uploading new code from the Arduino IDE, then restart it afterward. 
+  You don’t need to close the IDE, but always close the Serial Monitor when using WebSerial in the browser.</emph1></p>
+
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/11.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/12.mp4" type="video/mp4">
+</video>
+
+<p>Arduino code:</p>
+<pre><code>void setup() {
+  Serial.begin(9600); // initialize serial communications
+}
+ 
+void loop() {
+  // read the input pin:
+  int potentiometer = analogRead(A0);                  
+  // remap the pot value to fit in 1 byte:
+  int mappedPot = map(potentiometer, 0, 1023, 0, 255); 
+  // print it out the serial port:
+  Serial.write(mappedPot);                             
+  // slight delay to stabilize the ADC:
+  delay(1);                                            
+}
+</code></pre>
+<p>In this code, you may observed data change delays. That's because:</p>
+<p><emph1>2. When working with Arduino and p5.js, remember that delay() cannot be used in the Arduino code. Use millis() instead:</emph1></p>
+<pre><code>unsigned long lastSend = 0;
+
+void loop() {
+  int pot = analogRead(A0);
+  int mapped = map(pot, 0, 1023, 0, 255);
+
+  if (millis() - lastSend > 2) {  // 每2ms发送一次（约500Hz）
+    Serial.write(mapped);
+    lastSend = millis();
+  }
+}
+</code></pre>
+<p><emph1>3. Remember to import "&lt;script src="https://unpkg.com/p5-webserial@0.1.1/build/p5.webserial.js"&gt;&lt;/script&gt;" in the html file in all the communication between Arduino and P5.js.</emph1></p>
+<p>P5.js code:</p>
+<pre><code>// variable to hold an instance of the p5.webserial library:
+const serial = new p5.WebSerial();
+
+// HTML button object:
+let portButton;
+let inData; // for incoming serial data
+let outByte = 0; // for outgoing data
+
+/* Listeners for the events: */
+function setup() {
+  createCanvas(400, 300); // make the canvas
+  // check to see if serial is available:
+  if (!navigator.serial) {
+    alert("WebSerial is not supported in this browser. Try Chrome or MS Edge.");
+  }
+  // if serial is available, add connect/disconnect listeners:
+  navigator.serial.addEventListener("connect", portConnect);
+  navigator.serial.addEventListener("disconnect", portDisconnect);
+  // check for any ports that are available:
+  serial.getPorts();
+  // if there's no port chosen, choose one:
+  serial.on("noport", makePortButton);
+  // open whatever port is available:
+  serial.on("portavailable", openPort);
+  // handle serial errors:
+  serial.on("requesterror", portError);
+  // handle any incoming serial data:
+  serial.on("data", serialEvent);
+  serial.on("close", makePortButton);
+}
+
+function draw() {
+  background(0);
+  fill(255);
+  text("sensor value: " + inData, 30, 50);
+}
+
+/* The callback functions: */
+// if there's no port selected,
+// make a port select button appear:
+function makePortButton() {
+  // create and position a port chooser button:
+  portButton = createButton("choose port");
+  portButton.position(10, 10);
+  // give the port button a mousepressed handler:
+  portButton.mousePressed(choosePort);
+}
+
+// make the port selector window appear:
+function choosePort() {
+  if (portButton) portButton.show();
+  serial.requestPort();
+}
+
+// open the selected port, and make the port
+// button invisible:
+function openPort() {
+  // wait for the serial.open promise to return,
+  // then call the initiateSerial function
+  serial.open().then(initiateSerial);
+
+  // once the port opens, let the user know:
+  function initiateSerial() {
+    console.log("port open");
+  }
+  // hide the port button once a port is chosen:
+  if (portButton) portButton.hide();
+}
+
+// pop up an alert if there's a port error:
+function portError(err) {
+  alert("Serial port error: " + err);
+}
+// read any incoming data as a string
+// (assumes a newline at the end of it):
+function serialEvent() {
+  inData = Number(serial.read());
+  console.log(inData);
+}
+
+// try to connect if a new serial port
+// gets added (i.e. plugged in via USB):
+function portConnect() {
+  console.log("port connected");
+  serial.getPorts();
+}
+
+// if a port is disconnected:
+function portDisconnect() {
+  serial.close();
+  console.log("port disconnected");
+}
+
+function closePort() {
+  serial.close();
+}
+</code></pre>
+<p><emph1>4. The reason why the code is mapping the sensor value (0, 255) or dividing it by 4 in the Arduino sketch above is that in order to send the sensor value as a single byte, it must be between 0 and 255, or no more than 28 bits.</emph1></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/14.png">
+</div>
+<h6>Graph in P5.js</h6>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/11.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/13.mp4" type="video/mp4">
+</video>
+<pre><code>const serial = new p5.WebSerial();
+let portButton;
+let inData = 0;
+
+let xPos = 0;
+let prevY;
+
+function setup() {
+  createCanvas(400, 300);
+  background(8, 22, 64);
+  prevY = height / 2;
+
+  if (!navigator.serial) {
+    alert("WebSerial not supported");
+  }
+
+  navigator.serial.addEventListener("connect", portConnect);
+  navigator.serial.addEventListener("disconnect", portDisconnect);
+  serial.getPorts();
+  serial.on("noport", makePortButton);
+  serial.on("portavailable", openPort);
+  serial.on("requesterror", portError);
+  serial.on("data", serialEvent);
+  serial.on("close", makePortButton);
+}
+
+function draw() {
+  graphData(inData);
+}
+
+function serialEvent() {
+  inData = Number(serial.read());
+}
+
+function graphData(newData) {
+  let yPos = map(newData, 0, 255, height, 0);
+  stroke(168, 217, 167);
+  line(xPos, prevY, xPos + 1, yPos);
+  prevY = yPos;
+
+  xPos++;
+  if (xPos >= width) {
+    xPos = 0;
+    background(8, 22, 64);
+  }
+}
+
+function makePortButton() {
+  portButton = createButton("choose port");
+  portButton.position(10, 10);
+  portButton.mousePressed(choosePort);
+}
+function choosePort() { serial.requestPort(); }
+function openPort() {
+  serial.open().then(() => console.log("port open"));
+  if (portButton) portButton.hide();
+}
+function portConnect() { serial.getPorts(); }
+function portDisconnect() { serial.close(); }
+function portError(err) { alert("Serial port error: " + err); }
+</code></pre>
+
+
+<h5>P5.js ----> Arduino</h5>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/15.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/16.mp4" type="video/mp4">
+</video>
+<p>Arduino code:</p>
+<pre><code>void setup() {
+  Serial.begin(9600);     // initialize serial communications
+  pinMode(5, OUTPUT);
+}
+ 
+void loop() {
+  if (Serial.available() > 0) { // if there's serial data available
+    int inByte = Serial.read();   // read it
+    Serial.write(inByte);         // send it back out as raw binary data
+    analogWrite(5, inByte);       // use it to set the LED brightness
+  }
+}
+</code></pre>
+<p>P5.js code:</p>
+<pre><code>// variable to hold an instance of the p5.webserial library:
+const serial = new p5.WebSerial();
+ 
+// HTML button object:
+let portButton;
+let inData;                            // for incoming serial data
+let outByte = 0;                       // for outgoing data
+ 
+function setup() {
+  createCanvas(400, 300);          // make the canvas
+  // check to see if serial is available:
+  if (!navigator.serial) {
+    alert("WebSerial is not supported in this browser. Try Chrome or MS Edge.");
+  }
+  // if serial is available, add connect/disconnect listeners:
+  navigator.serial.addEventListener("connect", portConnect);
+  navigator.serial.addEventListener("disconnect", portDisconnect);
+  // check for any ports that are available:
+  serial.getPorts();
+  // if there's no port chosen, choose one:
+  serial.on("noport", makePortButton);
+  // open whatever port is available:
+  serial.on("portavailable", openPort);
+  // handle serial errors:
+  serial.on("requesterror", portError);
+  // handle any incoming serial data:
+  serial.on("data", serialEvent);
+  serial.on("close", makePortButton);
+}
+
+
+function draw() {
+  // black background, white text:
+  background(0);
+  fill(255);
+  // display the incoming serial data as a string:
+  text("incoming value: " + inData, 30, 30);
+}
+
+function mouseDragged() {
+  // map the mouseY to a range from 0 to 255:
+  outByte = byte(map(mouseY, 0, height, 0, 255));
+  // send it out the serial port:
+  serial.write(outByte);
+}
+
+function keyPressed() {
+  if (key >= 0 && key <= 9) { // if the user presses 0 through 9
+    outByte = (key * 25); // map the key to a range from 0 to 225
+    serial.write(outByte); // send it out the serial port
+  }
+}
+
+// if there's no port selected, 
+// make a port select button appear:
+function makePortButton() {
+  // create and position a port chooser button:
+  portButton = createButton("choose port");
+  portButton.position(10, 10);
+  // give the port button a mousepressed handler:
+  portButton.mousePressed(choosePort);
+}
+ 
+// make the port selector window appear:
+function choosePort() {
+  serial.requestPort();
+}
+ 
+// open the selected port, and make the port 
+// button invisible:
+function openPort() {
+  // wait for the serial.open promise to return,
+  // then call the initiateSerial function
+  serial.open().then(initiateSerial);
+ 
+  // once the port opens, let the user know:
+  function initiateSerial() {
+    console.log("port open");
+  }
+  // hide the port button once a port is chosen:
+  if (portButton) portButton.hide();
+}
+ 
+// read any incoming data as a byte:
+function serialEvent() {
+  // read a byte from the serial port:
+  var inByte = serial.read();
+  // store it in a global variable:
+  inData = inByte;
+}
+ 
+// pop up an alert if there's a port error:
+function portError(err) {
+  alert("Serial port error: " + err);
+}
+ 
+// try to connect if a new serial port 
+// gets added (i.e. plugged in via USB):
+function portConnect() {
+  console.log("port connected");
+  serial.getPorts();
+}
+ 
+// if a port is disconnected:
+function portDisconnect() {
+  serial.close();
+  console.log("port disconnected");
+}
+ 
+function closePort() {
+  serial.close();
+}
+</code></pre>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_019/17.png">
+</div>
+<p><emph1>If you want to read an ASCII-encoded numeric string as a number and not a string, convert the value into number by using Number().</emph1></p>

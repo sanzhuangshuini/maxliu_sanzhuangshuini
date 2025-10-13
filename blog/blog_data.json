@@ -174,5 +174,21 @@
     "contentFile": "blog_contents/blog_021.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "visual_language"]
-  }
+  },
+  {
+    "title": "Hypercinema-006",
+    "slug": "blog-022",
+    "date": "2025-10-14",
+    "contentFile": "blog_contents/blog_022.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
+  },
+  {
+    "title": "Hypercinema-007",
+    "slug": "blog-024",
+    "date": "2025-10-20",
+    "contentFile": "blog_contents/blog_024.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
+  } 
 ]

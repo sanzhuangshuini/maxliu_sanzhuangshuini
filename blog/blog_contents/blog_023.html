@@ -1,0 +1,190 @@
+<!-- ICM-006 -->
+
+<p>I combined this assignment with the final poster design of Visual Language by using the outcome of the sketch as the main visual element of the poster.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_023/3.png">
+</div>
+
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_023/1.png">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_023/2.mp4" type="video/mp4">
+</video>
+<p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/ylxXJZ_DG">This is a link to the code.</a></quote></p>
+<pre><code>let mic;
+let fft; // 麦克风输入与FFT分析
+let preWaveform = []; // 上一帧波形用于平滑处理
+let waves; // 在 setup() 中再初始化
+
+function setup() {
+  createCanvas(800, 1000);
+  noStroke();
+
+  userStartAudio(); // 激活音频语境
+  mic = new p5.AudioIn();
+  mic.start();
+
+  fft = new p5.FFT(0.9, 128); // 显示较少的周期数
+  fft.setInput(mic);
+
+  waves = new WaveParticles(
+    0.4, // timeSmoothExp
+    3,  // neighbourNum
+    9, // rectNum
+    380, // rectHeightMax
+    2, // rectHeightMin
+    7, // spacing
+    0.2, // heightExp
+    0.3, // spaceExp
+    4, // particleSpacingHorizontal
+    200, // particleVerticalRows
+    5, // particleSizeTop
+    1 // particleSizeBottom
+  ); // 在类定义之后再创建实例
+}
+
+function draw() {
+  background(245, 240, 220);
+  fill(20);
+  noStroke();
+  waves.timeSmooth();
+  waves.graphicSmooth();
+  waves.drawRectAreas();
+  waves.drawParticles();
+}
+
+class WaveParticles {
+  constructor(
+    timeSmoothExp,
+    neighbourNum,
+    rectNum,
+    rectHeightMax,
+    rectHeightMin,
+    spacing,
+    heightExp,
+    spaceExp,
+    particleSpacingHorizontal,
+    particleVerticalRows,
+    particleSizeTop,
+    particleSizeBottom
+  ) {
+    this.nowWaveform = fft.waveform();
+    this.timeSmoothResult = [];
+    this.timeSmoothExp = timeSmoothExp; // 平滑系数
+
+    this.neighbourNum = neighbourNum; // 从中间粒子开始左右各三个粒子，加起来一共7个粒子
+    this.graphicSmoothResult = [];
+
+    this.rectNum = rectNum; // 矩形层数
+    this.rectWidth = width * 0.95; // 各层宽度
+    this.rectHeightMax = rectHeightMax; // 顶层矩形高度
+    this.rectHeightMin = rectHeightMin; // 底层矩形高度
+    this.spacing = spacing; // 第一个层间距
+    this.heightExp = heightExp; // 高度变化指数
+    this.spaceExp = spaceExp; // 间距变化指数
+
+    this.particleSpacingHorizontal = particleSpacingHorizontal; // 粒子行距
+    this.particleVerticalRows = particleVerticalRows; // 每行粒子列数
+    this.particleSizeTop = particleSizeTop; // 顶部粒径
+    this.particleSizeBottom = particleSizeBottom; // 底部粒径
+
+    this.heights = [];
+    this.spaces = [];
+    this.yPositions = [];
+  }
+
+  
+  
+  timeSmooth() {
+    /* --- 获取与（时间上）平滑音频波形（防止音频随着帧的播放跳动） --- */
+    this.nowWaveform = fft.waveform();
+    if (preWaveform.length === this.nowWaveform.length) {
+      for (let i = 0; i < this.nowWaveform.length; i++) {
+        this.timeSmoothResult[i] = lerp(preWaveform[i], this.nowWaveform[i], this.timeSmoothExp);
+      }
+    } else {
+      this.timeSmoothResult = this.nowWaveform.slice(); // slice()是复制波形的函数，不属于p5，属于JS
+    }
+    preWaveform = this.timeSmoothResult.slice(); // 一开始preWaveform是没有的，但是在这里与this.nowWaveform同步了之后就有了而且变得长度和this.nowWaveform一样了，就会一直执行if语句
+  }
+
+  
+  
+  graphicSmooth() {
+    /* --- （图形上/空间上）柔化波形 --- */
+
+    // 定位在现有的波形（时间平滑完之后的波形结果） //第一个for loop：对于每一个粒子执行
+    for (let i = 0; i < this.timeSmoothResult.length; i++) {
+      let ySum = 0; // 粒子fft值的总和（y轴）
+      let xCount = 0; // 粒子数量（x轴）
+
+      // -3 -2 -1 0（中间粒子） 1 2 3 // 第二个for loop：遍历每个粒子的左右三个邻居粒子
+      for (let neighbourIndex = -this.neighbourNum; neighbourIndex <= this.neighbourNum; neighbourIndex++) {
+        let neighbourParticleItself = constrain(i + neighbourIndex, 0, this.timeSmoothResult.length - 1); // 把当前的邻居点（i+neighbourIndex）的值限制在0-数组最后一个数字之间，此时neighbourParticleItself=i+neighbourIndex
+        ySum += this.timeSmoothResult[neighbourParticleItself];
+        xCount++;
+      }
+
+      this.timeSmoothResult[i] = ySum / xCount; // 每个粒子都得到一个值，即；以自身为中心的区域范围内的一个平均值
+      this.graphicSmoothResult = this.timeSmoothResult.slice();
+    }
+  }
+
+  
+  
+  drawRectAreas() {
+    /* --- 计算每层矩形的高度与间距 --- */
+    // 把所有矩形的高度和间距都捆绑在第一个矩形的高度和第一个间距上
+    this.heights = [];
+    this.spaces = [];
+    for (let i = 0; i < this.rectNum; i++) {
+      let rectHeightRatio = i / (this.rectNum - 1); // 计算每个矩形高度的比例，-1是为了让最后i=7的时候除出来的结果刚好是1
+
+      // 控制矩形高度
+      this.heights[i] = this.rectHeightMax - (this.rectHeightMax - this.rectHeightMin) * pow(rectHeightRatio, this.heightExp); // pow制造指数变化，输出的是一个小数
+
+      // 控制矩形间距
+      this.spaces[i] = this.spacing * pow(rectHeightRatio, this.spaceExp);
+    }
+
+    // 计算每层中心Y位置
+    this.yPositions = [];
+    this.yPositions[0] = 230;
+    for (let i = 1; i < this.rectNum; i++) {
+      this.yPositions[i] = this.yPositions[i - 1] + this.heights[i - 1] / 2 + this.heights[i] / 2 + this.spaces[i - 1];
+    }
+  }
+
+  
+  
+  drawParticles() {
+    for (let i = 0; i < this.rectNum; i++) {
+      let currentRectRatio = i / (this.rectNum - 1); // 当前层位置比例
+      let particleSize = lerp(this.particleSizeTop, this.particleSizeBottom, currentRectRatio);
+
+      let rectYCenter = this.yPositions[i];
+      let rectH = this.heights[i];
+      let rectTop = rectYCenter - rectH / 2;
+      let rectBottom = rectYCenter + rectH / 2;
+
+      // 弯曲幅度随层数衰减
+      let waveBendDecay = 0.9; // 弯曲衰减（越往下越平）
+      let waveBendStrength1 = max(pow(1 - currentRectRatio, waveBendDecay), 0.05); // max()函数用来比较哪个值更大，返回更大的值，不加max最下面一行不会动，因为最后的值可能太小<0，所以需要一个0.05来垫底
+      let waveBendStrength2 = 500;
+
+      // 棋盘格嵌套循环
+      for (let i = 0, y = rectTop; y <= rectBottom; y += this.particleSpacingHorizontal, i++) {
+        for (let j = 0; j < this.particleVerticalRows; j++) {
+          let x = width / 2 - this.rectWidth / 2 /* --- 左右两边留空 --- */ + (this.rectWidth / this.particleVerticalRows) /* --- 单位列距 --- */ * j;
+          let waveformIndex = int(map(j, 0, this.particleVerticalRows, 0, this.graphicSmoothResult.length)); // int()函数把数字转为整数
+
+          // 根据音频波形位移粒子
+          let offset = this.graphicSmoothResult[waveformIndex] * waveBendStrength1 * waveBendStrength2;
+          circle(x, y + offset, particleSize);
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<p><quote><a href="https://p5js.org/reference/">Reference 1</a></quote></p>
+<p>Reference 2: ChatGPT</p>

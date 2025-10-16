@@ -184,6 +184,14 @@
     "categories": ["all", "hypercinema"]
   },
   {
+    "title": "ICM-006",
+    "slug": "blog-023",
+    "date": "2025-10-16",
+    "contentFile": "blog_contents/blog_023.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
+  },
+  {
     "title": "Hypercinema-007",
     "slug": "blog-024",
     "date": "2025-10-20",

@@ -1,6 +1,6 @@
 [
   {
-    "title": "IPC-001",
+    "title": "Pcomp-001-Electrical Engineering Foundamentals",
     "slug": "blog-001",
     "date": "2025-09-07",
     "contentFile": "blog_contents/blog_001.html",
@@ -8,7 +8,7 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "IPC-002",
+    "title": "Pcomp-002-Digital/Analog I/O",
     "slug": "blog-002",
     "date": "2025-09-9",
     "contentFile": "blog_contents/blog_002.html",
@@ -16,7 +16,7 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "ICM-001",
+    "title": "ICM-001-Self-Portrait",
     "slug": "blog-003",
     "date": "2025-09-11",
     "contentFile": "blog_contents/blog_003.html",
@@ -32,7 +32,7 @@
     "categories": ["all", "hypercinema"]
   },
   {
-    "title": "ICM-002",
+    "title": "ICM-002-Opposites",
     "slug": "blog-005",
     "date": "2025-09-15",
     "contentFile": "blog_contents/blog_005.html",
@@ -40,7 +40,7 @@
     "categories": ["all", "introduction_to_computational_media"]
   },
   {
-    "title": "IPC-003",
+    "title": "Pcomp-003-Servo and Speaker",
     "slug": "blog-006",
     "date": "2025-09-16",
     "contentFile": "blog_contents/blog_006.html",
@@ -48,7 +48,7 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "Hypercinema-002",
+    "title": "Hypercinema-002-Sound Vacation",
     "slug": "blog-007",
     "date": "2025-09-18",
     "contentFile": "blog_contents/blog_007.html",
@@ -56,7 +56,7 @@
     "categories": ["all", "hypercinema"]
   },
   {
-    "title": "Visual Language-001",
+    "title": "Visual Language-001-Boarding Pass Design",
     "slug": "blog-008",
     "date": "2025-09-18",
     "contentFile": "blog_contents/blog_008.html",
@@ -64,7 +64,7 @@
     "categories": ["all", "visual_language"]
   },
   {
-    "title": "Visual Language-002",
+    "title": "Visual Language-002-Mark, Logo, and Bussiness Card Design",
     "slug": "blog-009",
     "date": "2025-09-22",
     "contentFile": "blog_contents/blog_009.html",
@@ -72,7 +72,7 @@
     "categories": ["all", "visual_language"]
   },
     {
-    "title": "ICM-003",
+    "title": "ICM-003-Choices",
     "slug": "blog-010",
     "date": "2025-09-22",
     "contentFile": "blog_contents/blog_010.html",
@@ -80,7 +80,7 @@
     "categories": ["all", "introduction_to_computational_media"]
   },
     {
-    "title": "IPC-004",
+    "title": "Pcomp-004-Sensor Detection",
     "slug": "blog-011",
     "date": "2025-09-23",
     "contentFile": "blog_contents/blog_011.html",
@@ -88,7 +88,7 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
    {
-    "title": "Hypercinema-003",
+    "title": "Hypercinema-003-Stop Motion",
     "slug": "blog-012",
     "date": "2025-09-29",
     "contentFile": "blog_contents/blog_012.html",
@@ -112,7 +112,7 @@
     "categories": ["all", "introduction_to_computational_media"]
   },
    {
-    "title": "IPC-005",
+    "title": "Pcomp-005-High-Current Loads",
     "slug": "blog-014",
     "date": "2025-09-30",
     "contentFile": "blog_contents/blog_014.html",
@@ -120,7 +120,7 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "ICM-004",
+    "title": "ICM-004-Patterns",
     "slug": "blog-015",
     "date": "2025-09-30",
     "contentFile": "blog_contents/blog_015.html",
@@ -128,7 +128,7 @@
     "categories": ["all", "introduction_to_computational_media"]
   },
   {
-    "title": "Visual Language-003",
+    "title": "Visual Language-003-Palatte and Composition",
     "slug": "blog-016",
     "date": "2025-10-01",
     "contentFile": "blog_contents/blog_016.html",
@@ -144,7 +144,7 @@
     "categories": ["all", "hypercinema"]
   },
   {
-    "title": "IPC-006-Midterm",
+    "title": "IPC-006-Midterm-Rock, Paper, Scissors Machine",
     "slug": "blog-018",
     "date": "2025-10-06",
     "contentFile": "blog_contents/blog_018.html",
@@ -152,7 +152,7 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "IPC-007",
+    "title": "Pcomp-007-Asynchronous Serial Communications",
     "slug": "blog-019",
     "date": "2025-10-07",
     "contentFile": "blog_contents/blog_019.html",
@@ -160,7 +160,7 @@
     "categories": ["all", "introduction_to_physical_computing"]
   },
   {
-    "title": "ICM-005",
+    "title": "ICM-005-Time",
     "slug": "blog-020",
     "date": "2025-10-08",
     "contentFile": "blog_contents/blog_020.html",
@@ -168,7 +168,7 @@
     "categories": ["all", "introduction_to_computational_media"]
   },
   {
-    "title": "Visual Language-004",
+    "title": "Visual Language-004-Final-Poster Design",
     "slug": "blog-021",
     "date": "2025-10-09",
     "contentFile": "blog_contents/blog_021.html",
@@ -184,7 +184,7 @@
     "categories": ["all", "hypercinema"]
   },
   {
-    "title": "ICM-006",
+    "title": "ICM-006-Simulation",
     "slug": "blog-023",
     "date": "2025-10-16",
     "contentFile": "blog_contents/blog_023.html",
@@ -192,11 +192,19 @@
     "categories": ["all", "introduction_to_computational_media"]
   },
   {
-    "title": "Hypercinema-007",
+    "title": "Hypercinema-007-Experimental Syhthetic Short",
     "slug": "blog-024",
     "date": "2025-10-20",
     "contentFile": "blog_contents/blog_024.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"]
-  } 
+  },
+  {
+    "title": "ICM-007-Iteration",
+    "slug": "blog-025",
+    "date": "2025-10-21",
+    "contentFile": "blog_contents/blog_025.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
+  }
 ]

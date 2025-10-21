@@ -1,0 +1,359 @@
+<!-- ICM-007 -->
+
+<p>I tried to use ChatGPT to iterate on "OPPOSITES", <quote><a href="https://maxliu-sanzhuangshuini.com/blog/index.html?slug=blog-005">the creative sketch in week 2</a></quote>.</p>
+<p>Because I considered the movement of the balls in the wind could be more elegant.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_025/1.png">
+</div>
+<p>prompt: Help me optimize the movement of the goneballs as they drift away to make them more elegant.</p>
+<p>The code it gave:</p>
+<pre><code>function GoneBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.baseAngle = random(10, 80);
+  this.angleOffset = random(1000);
+  this.baseSpeed = random(0.5, 2);
+  this.speedInitial = speedInitialBoth;
+  this.t = 0;
+  this.alpha = 255;
+
+  this.display = function () {
+    fill(146, 194, 98, this.alpha);
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+
+  this.move = function () {
+    if (wind == true) {
+      this.t++;
+
+      // Smooth acceleration using exponential easing
+      let accel = 1 - exp(-this.t * 0.03);
+      let currentSpeed = this.baseSpeed * accel * 5;
+
+      // Use noise to make the angle gently oscillate over time
+      let windJitter = map(
+        noise(this.angleOffset + this.t * 0.02),
+        0,
+        1,
+        -15,
+        15
+      );
+      let angle = this.baseAngle + windJitter;
+
+      // The movement trajectory has a slight wave-like quality.
+      this.x += currentSpeed * cos(angle);
+      this.y -= currentSpeed * sin(angle) + sin(this.t * 0.1) * 0.5;
+
+      // gradually becoming transparent
+      this.alpha -= 1.5;
+      this.alpha = max(this.alpha, 0);
+    } else {
+      this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+      this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+    }
+  };
+}
+</code></pre>
+<p>It interpreted my rather vague requests into several clear, specific changes and wrote annotation, which is good for learning.</p>
+<p>But the actual result was not fully ideal. To me, it was not elegant enough to meet my expectation.</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_005/1.png">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_025/2.mp4" type="video/mp4">
+</video>
+<p>I think it's because I didn't provide my expectation for "being elegant", that is, the specific context.</p>
+<p>But since it had given me a framework. I tried to alter the values of some variables to make it better.</p>
+<p>I this process, I also asked chatGPT for the meaning of some unfamilliar functions in its sketch that I knew how to change the values.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_025/3.png">
+</div>
+<p>I code I modified:</p>
+<pre><code>function GoneBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.baseAngle = random(10, 80);
+  this.angleOffset = random(1000);
+  this.baseSpeed = random(0.5, 2);
+  this.speedInitial = speedInitialBoth;
+  this.t = 0;
+  this.alpha = 255;
+
+  this.display = function () {
+    fill(146, 194, 98, this.alpha);
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+
+  this.move = function () {
+    if (wind == true) {
+      this.t++;
+
+      // Smooth acceleration using exponential easing
+      let accel = 1 - exp(-this.t * 0.9);
+      let currentSpeed = this.baseSpeed * accel * 3;
+
+      // Use noise to make the angle gently oscillate over time
+      let windJitter = map(noise(this.angleOffset + this.t * 0.02), 0, 1, -110, 110);
+      
+      let angle = this.baseAngle + windJitter;
+
+      // The movement trajectory has a slight wave-like quality.
+      this.x += currentSpeed * cos(angle);
+      this.y -= currentSpeed * sin(angle) + sin(this.t * 0.1);
+
+      // gradually becoming transparent
+      this.alpha -= 0.8;
+      this.alpha = max(this.alpha, 0);
+    } else {
+      this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+      this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+    }
+  };
+}
+</code></pre>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_005/1.png">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_025/4.mp4" type="video/mp4">
+</video>
+<p>After altered all the values that is alterable. I asked chatGPT again to change the function with specific requirement.</p>
+<p>Prompt: Please modify the speed function to achieve the effect of “starting off extremely fast, then immediately slowing down, and gradually accelerating until drifting away.”</p>
+<p>The code it gave:</p>
+<pre><code>function GoneBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.baseAngle = random(10, 80);
+  this.angleOffset = random(1000);
+  this.baseSpeed = random(0.5, 2);
+  this.speedInitial = speedInitialBoth;
+  this.t = 0;
+  this.alpha = 255;
+
+  this.display = function () {
+    fill(146, 194, 98, this.alpha);
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+
+  this.move = function () {
+    if (wind == true) {
+      this.t++;
+      
+      // Acceleration with phases
+      let phase1 = exp(-this.t * 0.1); // Rapid decay (initial burst)
+      let phase2 = sin(this.t * 0.09); // A slight rise later on
+      let accel = constrain(phase1 + phase2, 0, 1);
+
+      let currentSpeed = this.baseSpeed * accel * 8; // Control the overall amplitude
+
+      // Use noise to make the angle gently oscillate over time
+      let windJitter = map(noise(this.angleOffset + this.t * 0.02), 0, 1, -110, 110);
+      let angle = this.baseAngle + windJitter;
+
+      // The movement trajectory has a slight wave-like quality.
+      this.x += currentSpeed * cos(angle);
+      this.y -= currentSpeed * sin(angle) + sin(this.t * 0.1) * 0.5;
+
+      // gradually becoming transparent
+      this.alpha -= 0.6;
+      this.alpha = max(this.alpha, 0);
+    } else {
+      this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+      this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+    }
+  };
+}
+</code></pre>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_005/1.png">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_025/5.mp4" type="video/mp4">
+</video>
+<p>This time, the effect was perfect.</p>
+<p>Reflecting on the iteration process, I summarized 3 main applications of AI in creative coding:</p>
+<p>1. Discussing concepts and having it suggest general approaches to achieve the goals.</p>
+<p>2. Asking it to generate code with a specific effect description.</p>
+<p>3. Making it explain the unfamilliar functions or equations in its code so that you can use them in organic coding.</p>
+
+<p><quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/3vkNbNewI">This is a link to the full code.</a></quote></p>
+<pre><code>let wind = false;
+let goneBall = []; // goneBall is an array.
+let goneBallNum = 800;
+let stayBall;
+let speedInitialBoth = 0.03;
+let xMinBoth = -10;
+let xMaxBoth = 10;
+let yMinBoth = -10;
+let yMaxBoth = 10;
+
+// Constructor function for the stay ball, essentially object.
+function StayBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.speedInitial = speedInitialBoth;
+
+  this.display = function () {
+    fill("#92c262");
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+  this.move = function () {
+    this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+    this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+  };
+}
+
+/*
+function GoneBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.angle = random(0, 90);
+  this.baseSpeed = random(1, 3);
+  this.speedInitial = speedInitialBoth;
+  this.t = 0;
+  this.display = function () {
+    fill("#92c262");
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+  this.move = function () {
+    if (wind == true) {
+      this.t++;
+      let currentSpeed = this.baseSpeed * (this.t * 0.01);
+      this.x += currentSpeed * cos(this.angle) + 1.5;
+      this.y -= currentSpeed * abs(sin(this.angle)) + 0.5;
+    } else {
+      this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+      this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+    }
+  };
+}
+*/
+
+/*
+function GoneBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.baseAngle = random(10, 80);
+  this.angleOffset = random(1000);
+  this.baseSpeed = random(0.5, 2);
+  this.speedInitial = speedInitialBoth;
+  this.t = 0;
+  this.alpha = 255;
+
+  this.display = function () {
+    fill(146, 194, 98, this.alpha);
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+
+  this.move = function () {
+    if (wind == true) {
+      this.t++;
+
+      // Smooth acceleration using exponential easing
+      let accel = 1 - exp(-this.t * 0.9);
+      let currentSpeed = this.baseSpeed * accel * 3;
+
+      // Use noise to make the angle gently oscillate over time
+      let windJitter = map(noise(this.angleOffset + this.t * 0.02), 0, 1, -110, 110);
+      
+      let angle = this.baseAngle + windJitter;
+
+      // The movement trajectory has a slight wave-like quality.
+      this.x += currentSpeed * cos(angle);
+      this.y -= currentSpeed * sin(angle) + sin(this.t * 0.1);
+
+      // gradually becoming transparent
+      this.alpha -= 0.8;
+      this.alpha = max(this.alpha, 0);
+    } else {
+      this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+      this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+    }
+  };
+}
+*/
+
+function GoneBall(x, y, d) {
+  this.x = x;
+  this.y = y;
+  this.d = d;
+  this.baseAngle = random(10, 80);
+  this.angleOffset = random(1000);
+  this.baseSpeed = random(0.5, 2);
+  this.speedInitial = speedInitialBoth;
+  this.t = 0;
+  this.alpha = 255;
+
+  this.display = function () {
+    fill(146, 194, 98, this.alpha);
+    noStroke();
+    circle(this.x, this.y, this.d);
+  };
+
+  this.move = function () {
+    if (wind == true) {
+      this.t++;
+      
+      // Acceleration with phases
+      let phase1 = exp(-this.t * 0.1); // Rapid decay (initial burst)
+      let phase2 = sin(this.t * 0.09); // A slight rise later on
+      let accel = constrain(phase1 + phase2, 0, 1);
+
+      let currentSpeed = this.baseSpeed * accel * 8; // Control the overall amplitude
+
+      // Use noise to make the angle gently oscillate over time
+      let windJitter = map(noise(this.angleOffset + this.t * 0.02), 0, 1, -110, 110);
+      let angle = this.baseAngle + windJitter;
+
+      // The movement trajectory has a slight wave-like quality.
+      this.x += currentSpeed * cos(angle);
+      this.y -= currentSpeed * sin(angle) + sin(this.t * 0.1) * 0.5;
+
+      // gradually becoming transparent
+      this.alpha -= 0.6;
+      this.alpha = max(this.alpha, 0);
+    } else {
+      this.x += random(xMinBoth, xMaxBoth) * this.speedInitial;
+      this.y += random(yMinBoth, yMaxBoth) * this.speedInitial;
+    }
+  };
+}
+
+
+function setup() {
+  createElement("p", "try to click the canvas with your mouse.");
+  angleMode(DEGREES); // equals to createCanvas, is p5 internal API, can only be used inside setup/draw, non global.
+  createCanvas(600, 600);
+
+  for (let i = 0; i < goneBallNum; i++) {
+    goneBall.push(new GoneBall(random(0, width), random(0, height), 60));
+  }
+  // goneBall array inherits GoneBall.
+  stayBall = new StayBall(width / 3, (height * 2) / 3, 60);
+  // stayBall inherits StayBall.
+}
+
+function draw() {
+  background(240);
+
+  for (let i = 0; i < goneBall.length; i++) {
+    goneBall[i].move();
+    goneBall[i].display();
+  }
+
+  stayBall.display();
+  stayBall.move();
+}
+
+function mousePressed() {
+  wind = true;
+}
+</code></pre>
+<p><quote><a href="https://p5js.org/reference/">Reference 1</a></quote></p>
+<p>Reference 2: ChatGPT</p>

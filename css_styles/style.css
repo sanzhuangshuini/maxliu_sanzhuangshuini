@@ -2,7 +2,7 @@
    全局基础样式
 ================================ */
 html, body {
-  font-family: "Helvetica";       /* 全局字体 */
+  font-family: "Helvetica", "Microsoft YaHei";       /* 全局字体 */
   font-size: 16px;                /* 基础字号 */
   line-height: 1.6;               /* 行距 */
   color: #111;                    /* 主文字颜色 */
@@ -73,7 +73,7 @@ emph2 { background: #f9b4ff; }
    代码与预格式化文本
 ================================ */
 pre code {
-  font-family: "Consolas", monospace;
+  font-family: "Consolas", "Microsoft YaHei", monospace;
   font-size: 16px;
   background: #f4f4f4;
   padding: 15px;

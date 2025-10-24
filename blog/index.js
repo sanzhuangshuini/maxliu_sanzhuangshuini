@@ -174,6 +174,9 @@ function setup() {
   cnv.id("canvas_cnv");
   cnv.parent(canvasParent);
 
+  // 让BlogBox在post很多的情况下一九保持清晰度
+  pixelDensity(window.devicePixelRatio || 1);
+
   // 如果是列表模式，显示加载提示
   if (!isDetail) {
     background(255);

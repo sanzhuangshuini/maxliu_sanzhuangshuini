@@ -222,5 +222,13 @@
     "contentFile": "blog_contents/blog_027.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"]
+  },
+  {
+    "title": "ICM-008-Parts of a Whole",
+    "slug": "blog-028",
+    "date": "2025-10-27",
+    "contentFile": "blog_contents/blog_028.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
   }
 ]

@@ -1,0 +1,90 @@
+<!-- ICM-008 -->
+
+<p>I decided to work on this image posted by <quote><a href="https://steamcommunity.com/profiles/76561198806883712/">user 222</a></quote> I found on the fan art page of <quote>Silent Hill 2: Remake</quote> on Steam. The story of the game is basically about a man exploring his inner world that full of guilt and love towards his wife.</p>
+<p>I really love this fan art because it portrays very well the protagonist's inner conflict and division with strong visual and emotional impact.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_028/inner.png">
+</div>
+<p>I added a layer of the game's poster on the image and made a bleeding/melting effect on the poster. 
+  As the user drag the mouse, the poster will bleed out and show the image underneath, 
+  symbolizing the protagonist's calm exterior being gradually and brutally torn apart by the Silent Hill town, revealing the inner turmoil beneath.
+</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_028/cover.png">
+</div>
+<quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/GiIodIf8n">This is a link to the code.</a></quote>
+<pre><code>let img1;
+let img2;
+let dragBlocks = [];
+let bleedingSpeed = 2;
+
+function preload() {
+  img1 = loadImage("inner.png");
+  img2 = loadImage("cover.png");
+}
+
+function setup() {
+  createCanvas(img2.width, img2.height);
+  pixelDensity(1);
+}
+
+function draw() {
+  background(0);
+  image(img1, 0, 0);
+  image(img2, 0, 0);
+
+  img2.loadPixels();
+
+  // 遍历每一块血液区域（现在每块本身就是一个数组）
+  for (let g = 0; g < dragBlocks.length; g++) {
+  let group = dragBlocks[g];
+
+  for (let i = 0; i < group.length; i++) {
+    let p = group[i];
+    let oldY = p.y;
+    let newY = oldY + bleedingSpeed;
+
+    if (newY < height) {
+      let oldIndex = (oldY * img2.width + p.x) * 4;
+      let newIndex = (int(newY) * img2.width + p.x) * 4;
+
+      // 像素颜色往下移动
+      for (let c = 0; c < 4; c++) {
+        img2.pixels[newIndex + c] = img2.pixels[oldIndex + c];
+      }
+
+      // 原位置透明
+      img2.pixels[oldIndex + 3] = 0;
+
+      // 更新这个像素的 y 值（直接改原对象）
+      p.y = newY;
+    }
+  }
+}
+  img2.updatePixels();
+}
+
+function mouseDragged() {
+  if (mouseIsPressed) {
+    let radius = 20;
+    let newGroup = [];
+
+    for (let dx = -radius; dx <= radius; dx++) {
+      for (let dy = -radius; dy <= radius; dy++) {
+        let x = int(mouseX + dx);
+        let y = int(mouseY + dy);
+
+        if (x >= 0 && x < img2.width && y >= 0 && y < img2.height) {
+          if (dist(0, 0, dx, dy) < radius) {
+            let oneBleedUnit = ({x, y}); // Create one bleed unit with the mouseX and mouseY and the radius.
+            newGroup.push(oneBleedUnit); // One new group consists of bleed units.
+          }
+        }
+      }
+    }
+
+    // 把像素数组加入 dragBlocks
+    dragBlocks.push(newGroup); // One drag block consists of new groups.
+  }
+}
+</code></pre>

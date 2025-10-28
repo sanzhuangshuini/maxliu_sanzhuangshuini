@@ -36,20 +36,20 @@ function draw() {
   img2.loadPixels();
 
   // 遍历每一块血液区域（现在每块本身就是一个数组）
-  for (let g = 0; g < dragBlocks.length; g++) {
+  for (let g = 0; g &lt; dragBlocks.length; g++) {
   let group = dragBlocks[g];
 
-  for (let i = 0; i < group.length; i++) {
+  for (let i = 0; i &lt; group.length; i++) {
     let p = group[i];
     let oldY = p.y;
     let newY = oldY + bleedingSpeed;
 
-    if (newY < height) {
+    if (newY &lt; height) {
       let oldIndex = (oldY * img2.width + p.x) * 4;
       let newIndex = (int(newY) * img2.width + p.x) * 4;
 
       // 像素颜色往下移动
-      for (let c = 0; c < 4; c++) {
+      for (let c = 0; c &lt; 4; c++) {
         img2.pixels[newIndex + c] = img2.pixels[oldIndex + c];
       }
 
@@ -69,13 +69,13 @@ function mouseDragged() {
     let radius = 20;
     let newGroup = [];
 
-    for (let dx = -radius; dx <= radius; dx++) {
-      for (let dy = -radius; dy <= radius; dy++) {
+    for (let dx = -radius; dx &lt;= radius; dx++) {
+      for (let dy = -radius; dy &lt;= radius; dy++) {
         let x = int(mouseX + dx);
         let y = int(mouseY + dy);
 
-        if (x >= 0 && x < img2.width && y >= 0 && y < img2.height) {
-          if (dist(0, 0, dx, dy) < radius) {
+        if (x >= 0 && x &lt; img2.width && y >= 0 && y &lt; img2.height) {
+          if (dist(0, 0, dx, dy) &lt; radius) {
             let oneBleedUnit = ({x, y}); // Create one bleed unit with the mouseX and mouseY and the radius.
             newGroup.push(oneBleedUnit); // One new group consists of bleed units.
           }

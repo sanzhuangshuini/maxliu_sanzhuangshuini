@@ -230,5 +230,13 @@
     "contentFile": "blog_contents/blog_028.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"]
+  },
+  {
+    "title": "Hypercinema-008",
+    "slug": "blog-029",
+    "date": "2025-10-28",
+    "contentFile": "blog_contents/blog_029.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
   }
 ]

@@ -42,8 +42,8 @@ function BlogBox (title, date, previewText, thumbUrl, url) {
     this._bounds = {x, y, w, h};
 
     // 外框
-    stroke(200);
-    fill(250);
+    noStroke();
+    fill(255);
     rect(x, y, w, h);
 
     // 右侧固定缩略图区域（固定尺寸，cover）

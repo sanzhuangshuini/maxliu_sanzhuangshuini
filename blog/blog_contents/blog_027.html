@@ -8,7 +8,87 @@
 
 
 <h4>Lab 01-SPI Lab-Data Logging With an SD Card Reader using SPI Communication</h4>
-<h5></h5>
+<h5>Connect a DHT-11 Temp & Humidity Sensor to a Microcontroller</h5>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_027/6.png">
+</div>
+<h5>Connect a SD Card Reader and Store the Data Read in the SD Card</h5>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_027/7.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_027/8.png">
+</div>
+<pre><code>#include <SPI.h>
+#include <SD.h>
+#include "DHT.h"
+
+// SD 卡设置
+const int chipSelect = 10;
+const char fileName[] = "datalog.csv";
+long lastReading = 0;
+
+// DHT 传感器设置
+#define DHTPIN 2        // DHT11 数据引脚接 D2
+#define DHTTYPE DHT11   // DHT11 类型（如果是 DHT22 就改成 DHT22）
+DHT dht(DHTPIN, DHTTYPE);  
+
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.begin(9600);
+  Serial.println("Initializing SD card...");
+
+  // 初始化 SD 卡
+  if (!SD.begin(chipSelect)) {
+    Serial.println("SD card initialization failed!");
+    while (true) {
+      digitalWrite(LED_BUILTIN, HIGH);
+    }
+  }
+
+  Serial.println("SD card initialized successfully.");
+  dht.begin(); // 初始化温湿度传感器
+  digitalWrite(LED_BUILTIN, LOW);
+}
+
+void loop() {
+  // 每 2 秒记录一次温湿度
+  if (millis() - lastReading > 2000) {
+    float humidity = dht.readHumidity();
+    float temperature = dht.readTemperature(); // 摄氏度
+
+    // 检查读取是否成功
+    if (isnan(humidity) || isnan(temperature)) {
+      Serial.println("Failed to read from DHT sensor!");
+      return;
+    }
+
+    // 拼接成 CSV 字符串：时间,温度,湿度
+    String dataString = "";
+    dataString += String(millis() / 1000.0, 1); // 秒为单位的时间戳
+    dataString += ",";
+    dataString += String(temperature, 1);
+    dataString += ",";
+    dataString += String(humidity, 1);
+
+    // 打开 SD 文件（追加写入）
+    File dataFile = SD.open(fileName, FILE_WRITE);
+
+    if (dataFile) {
+      digitalWrite(LED_BUILTIN, HIGH);
+      dataFile.println(dataString);
+      dataFile.close();
+      digitalWrite(LED_BUILTIN, LOW);
+      lastReading = millis();
+
+      // 同时在串口打印
+      Serial.print("Logged: ");
+      Serial.println(dataString);
+    } else {
+      Serial.println("Error opening datalog.csv");
+      digitalWrite(LED_BUILTIN, HIGH);
+    }
+  }
+}
+</code></pre>
 
 <h4>Lab 02-I2C Lab-OLED Screen Display using I2C</h4>
 <p>This week, I was trying to make a little birthday gift for my friend in China. 

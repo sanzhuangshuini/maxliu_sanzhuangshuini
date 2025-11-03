@@ -238,5 +238,13 @@
     "contentFile": "blog_contents/blog_029.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"]
+  },
+  {
+    "title": "ICM-009-Body",
+    "slug": "blog-030",
+    "date": "2025-11-3",
+    "contentFile": "blog_contents/blog_030.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
   }
 ]

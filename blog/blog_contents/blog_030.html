@@ -1,0 +1,143 @@
+<!-- ICM-009 -->
+
+<p>I made a air finger drawing program with undo function, because I've been having a habit of randomly drawing something in the air and I think it's a good chance to visualize this old habit.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_030/1.png">
+</div>
+
+<quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/JwOk2mphY">This is a link to the code.</a></quote>
+<pre><code>let cam;
+let handPose;
+let handPoses = [];
+
+let myStrokeWeight = 10;
+let r = 0;
+let g = 0;
+let b = 255;
+let drawingHistory = [];
+let stabilizerStrength = 0.2;
+let stabilizerX, stabilizerY;
+
+// 捏手指判断是否需要绘制线条
+let isDrawing = false;
+let wasDrawing = false; // 上一帧状态，用来判断“状态变化”
+let pinchThreshold = 30;
+
+// 撤销功能
+let lastGestureTime = 0; // 避免重复触发
+let gestureCooldown = 1000; // 两次撤销的最小间隔（毫秒）
+let lastY = 0; // 用于检测向下滑
+
+function preload() {
+  handPose = ml5.handPose({ flipped: true });
+}
+
+function setup() {
+  createCanvas(640, 480);
+  cam = createCapture(VIDEO, { flipped: true });
+  cam.size(width, height);
+  cam.hide();
+  handPose.detectStart(cam, gotFinger);
+}
+
+function gotFinger(results) {
+  handPoses = results;
+}
+
+function draw() {
+  image(cam, 0, 0);
+
+  if (handPoses.length > 0) {
+    let hand = handPoses[0];
+    let indexTip = hand.keypoints[8]; // 食指尖
+    let thumbTip = hand.keypoints[4]; // 拇指尖
+    let middleTip = hand.keypoints[12]; // 中指尖
+
+    fill(255, 0, 0);
+    noStroke();
+    ellipse(indexTip.x, indexTip.y, 10);
+    fill(0, 255, 0);
+    ellipse(thumbTip.x, thumbTip.y, 10);
+
+    // 计算两指间距离
+    let d = dist(indexTip.x, indexTip.y, thumbTip.x, thumbTip.y);
+
+    // 更新状态
+    isDrawing = d &lt; pinchThreshold;
+
+    // 检测状态变化（从画 → 不画）
+    if (wasDrawing && !isDrawing) {
+      // 松开后插入断点
+      drawingHistory.push(null);
+    }
+
+    // 平滑位置
+    if (stabilizerX === undefined || stabilizerY === undefined) {
+      stabilizerX = indexTip.x;
+      stabilizerY = indexTip.y;
+    }
+    stabilizerX = lerp(stabilizerX, indexTip.x, stabilizerStrength);
+    stabilizerY = lerp(stabilizerY, indexTip.y, stabilizerStrength);
+
+    // 绘制当前点
+    if (isDrawing) {
+      fill(r, g, b);
+      noStroke();
+      ellipse(stabilizerX, stabilizerY, myStrokeWeight);
+      drawingHistory.push({ x: stabilizerX, y: stabilizerY });
+    }
+
+    wasDrawing = isDrawing; // 保存上一帧状态
+
+    // 计算食指与中指的距离
+    let pinchIM = dist(indexTip.x, indexTip.y, middleTip.x, middleTip.y);
+
+    // 如果两指靠得很近
+    if (pinchIM &lt; 25) {
+      // 检测是否“往下滑”
+      if (lastY !== 0 && indexTip.y - lastY > 40) {
+        // 防抖：间隔足够长才触发
+        if (millis() - lastGestureTime > gestureCooldown) {
+          console.log("Undo gesture detected!");
+          undoLastStroke(); // 调用撤销函数
+          lastGestureTime = millis();
+        }
+      }
+
+      // 更新 Y 坐标以判断下滑趋势
+      lastY = indexTip.y;
+    } else {
+      // 如果两指分开，重置 lastY
+      lastY = 0;
+    }
+  }
+
+  noFill();
+  stroke(r, g, b);
+  strokeWeight(myStrokeWeight);
+  beginShape();
+  for (let i = 0; i &lt; drawingHistory.length; i++) {
+    let p = drawingHistory[i];
+    if (p === null) {
+      endShape();
+      beginShape();
+    } else {
+      vertex(p.x, p.y);
+    }
+  }
+  endShape();
+}
+
+function undoLastStroke() {
+  // 找到最后一个断点（null）的位置
+  for (let i = drawingHistory.length - 1; i >= 0; i--) {
+    if (drawingHistory[i] === null || i === 0) {
+      // 从该处往后删除
+      drawingHistory.splice(i);
+      break;
+    }
+  }
+}
+</code></pre>
+<p><quote><a href="https://p5js.org/reference/">Reference 1</a></quote></p>
+<p>Reference 2: ChatGPT</p>

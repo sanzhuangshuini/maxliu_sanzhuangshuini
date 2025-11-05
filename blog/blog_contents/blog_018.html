@@ -1,14 +1,14 @@
 <!-- Pcomp-006 -->
 
 <h4>Rock, paper, scissors machine</h4>
-<h5>9.26.2025</h5>
+<h5>2025-09-26</h5>
 <p>We settled down on the idea of a finger guessing machine and bought the materials.</p>
 
-<h5>9.30.2025</h5>
+<h5>2025-09-30</h5>
 <p>We started building our prototype. At first, we made the most basic model on a breadboard.
 Step one: we connected only the HC-SR04 ultrasonic sensor to test whether it worked properly. At first, we failed. Maybe it was because we used a resistor that was too large—once I swapped in a smaller one, the sensor suddenly started working. Honestly, I’m still not sure if the resistor was the real issue, but after switching it, the Nano board began to heat up a little, which made me nervous.</p>
 
-<h5>10.01.2025</h5>
+<h5>2025-10-01</h5>
 <p>Step two: we added a servo motor. To our relief, it worked right away.
 Step three: we connected three servos, which meant all the main functions were now in place. For a short while, the prototype ran smoothly. But after just three or four test runs, problems appeared. Some of the servos stopped working—specifically servos 1 and 3, while servo 2 kept running without issues. The broken ones wouldn’t reset, and once they failed to reset, they simply stopped moving altogether. I could still hear some sound from inside, but there was no mechanical motion.
 </p>
@@ -22,7 +22,7 @@ Step three: we connected three servos, which meant all the main functions were n
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_018/5.mp4" type="video/mp4">
 </video>
 
-<h5>10.03.2025</h5>
+<h5>2025-10-03</h5>
 <p>Problem 2 is solved by changing the servo and altering the random function in the code (A0 noise→randomSeed(micros());).</p>
 <p>The new code:</p>
 <pre><code>#include <Servo.h>  // 引入舵机控制库
@@ -113,7 +113,7 @@ float getUltrasonicDist() {
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_018/7.jpg">
 </div>
 
-<h5>10.08.2025</h5>
+<h5>2025-10-08</h5>
 <p>We booked the office hour with Mr. Igeo and we got the answers to our questions.</p>
 <p><emph2>1. Current battery is 3V not enough for everything. We need a battery 6_9V. </emph2></p>
 <p><emph1>2. Because we need to solder the bridge on the back of the 5V pin of Nano 33 Iot otherwise it wouldn’t work.</emph1></p>
@@ -129,7 +129,7 @@ float getUltrasonicDist() {
 </video>
 <p>We are now pretty sure now that we need to break through this limit.</p>
 
-<h5>10.11.2025</h5>
+<h5>2025-10-11</h5>
 <p>To solve the issue, we decided to give up on the red adapter and use only the breadboard. The sensor and servos were powered by a 6V battery pack, while the Nano ran on a 4.5V battery pack—two separate power sources.</p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_018/10.jpg">
@@ -140,7 +140,7 @@ float getUltrasonicDist() {
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_018/12.mp4" type="video/mp4">
 </video>
 
-<h5>10.12.2025</h5>
+<h5>2025-10-12</h5>
 <p>We used cardboard box for the packaging.</p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_018/13.jpg">

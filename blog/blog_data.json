@@ -242,9 +242,25 @@
   {
     "title": "ICM-009-Body",
     "slug": "blog-030",
-    "date": "2025-11-3",
+    "date": "2025-11-03",
     "contentFile": "blog_contents/blog_030.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"]
+  },
+  {
+    "title": "Hypercinema-009",
+    "slug": "blog-031",
+    "date": "2025-11-03",
+    "contentFile": "blog_contents/blog_031.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
+  },
+  {
+    "title": "Pcomp-010-Final-Fortune-Telling Machine",
+    "slug": "blog-032",
+    "date": "2025-11-04",
+    "contentFile": "blog_contents/blog_032.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_physical_computing"]
   }
 ]

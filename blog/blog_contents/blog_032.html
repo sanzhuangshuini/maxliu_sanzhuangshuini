@@ -6,6 +6,7 @@
 <div class="image-row">
     <img src="../images_videos/learning_blogs/hypercinema/blog_031/1.jpg">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/1.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/2.jpg">
 </div>
 
 <h5>2025-11-05</h5>
@@ -20,4 +21,52 @@
   Think about how you can make your project something we continue to work with, rather than activate, then passively watch, or worse, activate, then ignore."
 </p>
 <p>According to Tom, we improved our interaction design:</p>
+<p>Instead of placing an object on a plate, 
+  users will now hold a single fortune stick for several seconds to “convey” their wish to Guanyin.
+  We plan to detect this sustained contact with a temperature sensor.
+  This turns the ritual into a focused, time-based action rather than a one-time trigger.
+  Fortune sticks are traditionally used for divination in Chinese temples.
+  Seekers silently pose a question or wish, and then ask for the explanation for the text or number on their stick to receive guidance from the god.
+</p>
 
+<h5>2025-11-07</h5>
+<p>Bagua shifting and GPT engaging in Unity.</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/hypercinema/blog_031/4.png">
+  <source src="../images_videos/learning_blogs/hypercinema/blog_031/5.mp4" type="video/mp4">
+</video>
+
+<h5>2025-11-09</h5>
+<p>Arduino serially communicate with Unity.</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/3.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/4.mp4" type="video/mp4">
+</video>
+<p>Arduino code: Read sensor readings to three decimal places.</p>
+<pre><code>const int TMP36_PIN = A0;
+const float ADC_REF_VOLT = 3.3;
+unsigned long lastSend = 0;
+float tempC = 0;
+
+void setup() {
+  Serial.begin(9600);
+  analogReadResolution(12);      // 提升到 12-bit 精度（0–4095）
+  pinMode(TMP36_PIN, INPUT);
+}
+
+void loop() {
+  // 采样并换算温度
+  int adc = analogRead(TMP36_PIN);
+  float voltage = adc * (ADC_REF_VOLT / 4095.0f);
+  tempC = (voltage - 0.5f) * 100.0f;
+
+  // 每隔 1 秒发送一次，保留三位小数
+  if (millis() - lastSend >= 1000) {
+    lastSend = millis();
+    Serial.print("TEMP:");
+    Serial.println(tempC, 3);
+  }
+
+  delay(50);
+}
+</code></pre>

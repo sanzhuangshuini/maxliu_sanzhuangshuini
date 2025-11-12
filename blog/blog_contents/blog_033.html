@@ -1,0 +1,133 @@
+<!-- ICM-010 -->
+
+<p>I know nothing about composing from scratch so I decided to do a generative music system that can play a certain melody.</p>
+<p>The meloody played is the prelude of a song called Haruhikage from a Japanese anime TV show call <quote>BanG Dream! It's MyGO!!!!!</quote>.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_033/cover.jpg">
+</div>
+<p>Function intro:</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_033/1.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_033/2.mp4" type="video/mp4">
+</video>
+<p>Playing melody:</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_033/1.jpg">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_033/3.mp4" type="video/mp4">
+</video>
+
+<quote><a href="https://editor.p5js.org/sanzhuangshuini/sketches/mOWnsu0Z3">This is a link to the code.</a></quote>
+<pre><code>// Polyphonic Oscillators
+
+let oscillators = {}; //
+
+const noteFreq = {
+  a: 493.88,   // 1 = B4  (第30白)
+  s: 554.37,   // 2 = C#5 (第22黑)
+  d: 622.25,   // 3 = D#5 (第23黑)
+  f: 659.25,   // 4 = E5  (第33白)
+  g: 739.99,   // 5 = F#5 (第24黑)
+  h: 830.61,   // 6 = G#5 (第25黑)
+  j: 932.33,  // 7 = A#5 (第26黑)
+  k: 987.77    // 8 = B5  (第37白)
+};
+
+// Effecters
+
+let reverb, delay, lowpass, highpass;
+
+let activeEffects = {
+  reverb: false,
+  delay: false,
+  lowpass: false,
+  highpass: false,
+};
+
+function setup() {
+  createCanvas(550, 260);
+
+  reverb = new p5.Reverb();
+  delay = new p5.Delay();
+  lowpass = new p5.LowPass();
+  highpass = new p5.HighPass();
+}
+
+function draw() {
+  background(10);
+  fill(255);
+  textSize(16);
+  text("Use a–k + z–m + w/e/r/t/y + ; (A#5)", 20, 40);
+  text("u/i/o/p = toggle effects (click to on/off)", 20, 70);
+
+  text("Active effects:", 20, 120);
+  let y = 150;
+  for (let e in activeEffects) {
+    if (activeEffects[e]) {
+      text("-" + e, 40, y);
+      y += 25;
+    }
+  }
+
+  checkReleasedNotes();
+}
+
+function keyPressed() {
+  let k = key.toLowerCase(); // Transfer the alphabets to the numbers
+
+  if (noteFreq[k] && !oscillators[k]) {
+    let osc = new p5.Oscillator("sine");
+    osc.freq(noteFreq[k]);
+    osc.start();
+    osc.amp(0.35, 0.1);
+
+    osc.disconnect();
+    osc.connect();
+
+    applyEffectsTo(osc);
+    oscillators[k] = osc;
+  }
+
+  if (k == "u") toggleEffect("reverb");
+  if (k == "i") toggleEffect("delay");
+  if (k == "o") toggleEffect("lowpass");
+  if (k == "p") toggleEffect("highpass");
+
+  refreshAllOscConnections();
+}
+
+function checkReleasedNotes() {
+  for (let k in oscillators) {
+    let code = k.toUpperCase().charCodeAt(0); // Transfer the alphabets to the numbers
+    if (!keyIsDown(code)) {
+      oscillators[k].amp(0, 0.2); // Fade gradually.
+      oscillators[k].stop(0.2);
+      delete oscillators[k];
+    }
+  }
+}
+
+function toggleEffect(name) {
+  activeEffects[name] = !activeEffects[name];
+}
+
+function refreshAllOscConnections() {
+  for (let k in oscillators) {
+    applyEffectsTo(oscillators[k]);
+  }
+}
+
+function applyEffectsTo(osc) {
+  osc.disconnect();
+
+  if (activeEffects.lowpass) osc.connect(lowpass), lowpass.freq(600);
+  if (activeEffects.highpass) osc.connect(highpass), highpass.freq(800);
+  if (activeEffects.delay) osc.connect(delay), delay.delayTime(0.3);
+  if (activeEffects.reverb) osc.connect(reverb), reverb.set(3, 2);
+
+  if (!Object.values(activeEffects).includes(true)) {
+    osc.connect();
+  }
+}
+</code></pre>
+<p><quote><a href="https://p5js.org/reference/">Reference 1</a></quote></p>
+<p>Reference 2: ChatGPT</p>

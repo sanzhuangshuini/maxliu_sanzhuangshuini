@@ -104,14 +104,6 @@
     "categories": ["all", "hypercinema"]
   },
    {
-    "title": "ICM-preview questions",
-    "slug": "blog_depend",
-    "date": "2025-09-30",
-    "contentFile": "blog_contents/blog_depend.html",
-    "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "introduction_to_computational_media"]
-  },
-   {
     "title": "Pcomp-005-High-Current Loads",
     "slug": "blog-014",
     "date": "2025-09-30",
@@ -262,5 +254,13 @@
     "contentFile": "blog_contents/blog_032.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"]
+  },
+  {
+    "title": "ICM-010-Compose",
+    "slug": "blog-033",
+    "date": "2025-11-10",
+    "contentFile": "blog_contents/blog_033.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
   }
 ]

@@ -262,5 +262,13 @@
     "contentFile": "blog_contents/blog_033.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"]
+  },
+  {
+    "title": "ICM-011-Final",
+    "slug": "blog-034",
+    "date": "2025-11-17",
+    "contentFile": "blog_contents/blog_034.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "introduction_to_computational_media"]
   }
 ]

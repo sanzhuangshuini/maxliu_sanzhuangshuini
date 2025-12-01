@@ -1,0 +1,174 @@
+<!-- ICM-011-Final -->
+<h4>2025-11-17</h4>
+<h5>Inspirations</h5>
+<p>I want to make this project the main element on the homepage of my personal website. So, I anticipate it to be eye-catching and interactive.</p>
+<p>Because I intend to address my identity as a new media visual artist since this website acts as a portfolio. I would like to focus on something visual and aesthetic.</p>
+<p>White or light background color.</p>
+<p>I decide to make a digital sketchbook showcasing my previous illustration works. Users can use their mouses to drag the pages to browse through the whole artbook.</p>
+<h6>Reference:</h6>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/2.jpg">
+</div>
+<h6>Storyboard:</h6>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/3.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/4.jpg">
+</div>
+
+
+<h5>Source Materials</h5>
+<p>My drawings.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/1.png">
+</div>
+
+<h5>Code</h5>
+<p>I plan to use p5.js to unify the texture of the images and three.js to construct the 3d space.</p>
+<p>I haven't found any pre-existing code of this effect.</p>
+
+<h5>Ideas for Title</h5>
+<p>My Sketchbook.</p>
+
+<h5>Context</h5>
+<p>This is a digital gallery for web users, displaying my past 2D works.</p>
+
+<h5>Questions for my Classmates</h5>
+<p>Can three.js achieve this effect?</p>
+
+<h4>2025-11-24</h4>
+<h5>What I Built for my Prototype</h5>
+<p>I used P5.js to create a random-edge effect for the images.</p>
+<pre><code>let imgs = [];
+let numImages = 5;
+let currentIndex = 0;
+let jaggedAmount = 7;
+let jaggedFrequency = 0.05;
+
+function preload() {
+  for (let i = 0; i &lt; numImages; i++) {
+    imgs[i] = loadImage(`images/${i}.jpg`);
+  }
+}
+
+function setup() {
+  createCanvas(800, 800);
+  imageMode(CENTER);
+  noLoop();
+
+  processNextImage();
+}
+
+function processNextImage() {
+  if (currentIndex >= imgs.length) {
+    console.log("All compleated.");
+    return;
+  }
+
+  let img = imgs[currentIndex];
+  console.log("Handling img:", currentIndex);
+
+  drawJaggedImage(img, currentIndex);
+
+  currentIndex++;
+  setTimeout(processNextImage, 300);
+}
+
+function drawJaggedImage(img, index) {
+  clear();
+
+  let cx = width / 2;
+  let cy = height / 2;
+  let w = img.width;
+  let h = img.height;
+
+  image(img, cx, cy);
+  img.loadPixels();
+
+  strokeWeight(1);
+
+  drawJaggedEdge(cx, cy, w, h, img, "top");
+  drawJaggedEdge(cx, cy, w, h, img, "bottom");
+  drawJaggedEdge(cx, cy, w, h, img, "left");
+  drawJaggedEdge(cx, cy, w, h, img, "right");
+
+  saveCanvas(`jagged_${index}`, "png");
+}
+
+function drawJaggedEdge(cx, cy, w, h, img, side) {
+  for (let i = 0; i &lt; (side === "top" || side === "bottom" ? w : h); i++) {
+    let n = noise(i * jaggedFrequency);
+    let offset = map(n, 0, 1, -jaggedAmount, jaggedAmount);
+
+    let imgX = 0,
+      imgY = 0;
+    if (side === "top") {
+      imgX = i;
+      imgY = 0;
+    }
+    if (side === "bottom") {
+      imgX = i;
+      imgY = h - 1;
+    }
+    if (side === "left") {
+      imgX = 0;
+      imgY = i;
+    }
+    if (side === "right") {
+      imgX = w - 1;
+      imgY = i;
+    }
+
+    let idx = (imgX + imgY * w) * 4;
+    let r = img.pixels[idx];
+    let g = img.pixels[idx + 1];
+    let b = img.pixels[idx + 2];
+
+    if (offset >= 0) {
+      stroke(r, g, b);
+      noErase();
+    } else {
+      erase();
+    }
+
+    if (side === "top") {
+      let x = cx - w / 2 + i;
+      let y = cy - h / 2;
+      line(x, y, x, y - offset);
+    }
+
+    if (side === "bottom") {
+      let x = cx - w / 2 + i;
+      let y = cy + h / 2;
+      line(x, y, x, y + offset);
+    }
+
+    if (side === "left") {
+      let x = cx - w / 2;
+      let y = cy - h / 2 + i;
+      line(x, y, x - offset, y);
+    }
+
+    if (side === "right") {
+      let x = cx + w / 2;
+      let y = cy - h / 2 + i;
+      line(x, y, x + offset, y);
+    }
+
+    noErase();
+  }
+}
+</code></pre>
+<p>And I imported the images into a Unity plug-in to have the flipping function.</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/5.png">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/6.mp4" type="video/mp4">
+</video>
+
+
+<h5>My User-Testing Plan</h5>
+<p>1. Would it be better if users could drag on the bottom left, middle, and bottom right corners?</p>
+<p>2. What would invite you to interact with this sketchbook when you open the webpage?</p>
+
+
+<p><quote><a href="https://p5js.org/reference/">Reference 1</a></quote></p>
+<p>Reference 2: ChatGPT</p>

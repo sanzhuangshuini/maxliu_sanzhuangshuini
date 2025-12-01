@@ -6,7 +6,7 @@ function setup() {
 }
 
 function draw() { //只影响画布内。
-  background(200);
+  background(255);
   var box = new WorkBox(100, 100, 300, 200, "images/work1.png", "work1.html");
   box.display();
 }

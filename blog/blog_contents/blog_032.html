@@ -77,7 +77,7 @@ void loop() {
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/5.jpg">
 </div>
-<p>Through adjustments, we got the ideal aslignment.</p>
+<p>Through adjustments, we got the ideal alignment.</p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/6.jpg">
 </div>
@@ -95,8 +95,67 @@ void loop() {
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/9.jpg">
 </div>
 <p>We found that the reading of this temp sensor is not stable. Therefore, we used a FSR instead.</p>
+<pre><code>const int FSR_PIN = A0;
+unsigned long lastSend = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(FSR_PIN, INPUT);
+}
+
+void loop() {
+
+  int adc = analogRead(FSR_PIN);
+
+  // 每秒发送
+  if (millis() - lastSend >= 1000) {
+    lastSend = millis();
+    Serial.println(adc);
+  }
+
+  delay(10);
+}
+</code></pre>
 <p>Now, the basic prototype is ready.</p>
 <video controls preload="metadata" playsinline
        poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/10.jpg">
   <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/11.mp4" type="video/mp4">
+</video>
+<p>I implemented the UI jumping logic and started to play around with shaders.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/12.png">
+</div>
+
+<h5>2025-11-19</h5>
+<p>We add a bac=kground design to the printed result.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/13.jpg">
+</div>
+<p>The experiment on the ASCII shader is somehow successful.</P>
+  <video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/14.png">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/15.mp4" type="video/mp4">
+</video>
+
+<h5>2025-11-24</h5>
+<p>We started on fabrication.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/16.jpg">
+    <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/17.jpg">
+</div>
+
+<h5>2025-11-25</h5>
+<p>
+  Today we had the first round of user-testing. 
+</p>
+<div class="image-row">
+  <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/22.jpg">
+  <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/21.jpg">
+  <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/20.jpg">
+</div>
+<p>Most of the feedbacks are related to the unclear interaction with the wooden stick and the loading scene on the screen. Therefore, we are now improving these parts.</p>
+<p>Additionally, I engaged a post-processing effect on the screen.</p>
+  <video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/18.png">
+  <source src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_032/19.mp4" type="video/mp4">
 </video>

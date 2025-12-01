@@ -37,7 +37,7 @@
         left: 0;
         width: 200px;
         height: 100%;
-        background-color: #f3f3f3;
+        background-color: rgba(243, 243, 243, 0); /* Changed from #f3f3f3 to rgba with alpha */
         display: flex;
         flex-direction: column;
         gap: 130px;
@@ -61,14 +61,14 @@
 
       /* 鼠标悬浮效果 */
       #sidebar a:hover {
-        color: #96b351;
-        text-decoration: underline;
+        color: #bbdc7f;
+        /* text-decoration: underline; */
       }
 
       /* 当前高亮（绿色 + 下划线） */
       #sidebar a.active {
-        color: #96b351 !important;
-        text-decoration: underline !important;
+        color: #bbdc7f !important;
+        /* text-decoration: underline !important; */
       }
 
       /* === 主内容区（右侧） === */

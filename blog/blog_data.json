@@ -264,11 +264,19 @@
     "categories": ["all", "introduction_to_computational_media"]
   },
   {
-    "title": "ICM-011-Final",
+    "title": "ICM-011-Final-My Sketchbook",
     "slug": "blog-034",
     "date": "2025-11-17",
     "contentFile": "blog_contents/blog_034.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"]
+  },
+  {
+    "title": "Hypercinema-010-Final-Fortune-Telling Machine",
+    "slug": "blog-035",
+    "date": "2025-12-02",
+    "contentFile": "blog_contents/blog_035.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "hypercinema"]
   }
 ]

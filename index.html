@@ -1,72 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>home</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="css_styles/style.css">
+  <title>home</title>
 
-    <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css_styles/style.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.164/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.164/examples/js/controls/OrbitControls.js"></script>
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
 
-    <style>
-      body {
-        margin: 0; /* 去掉默认边距 */
-        background: #fff;
-      }
+  <script src="https://cdn.jsdelivr.net/npm/three@0.164/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.164/examples/js/controls/OrbitControls.js"></script>
 
-      /* 导航栏样式。 */
-      #navbar {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100px;
-        background-color: rgba(243, 243, 243, 0); /* Changed from #f3f3f3 to rgba with alpha */
-        display: flex;
-        align-items: center; /* 垂直居中 */
-        justify-content: center; /* 水平居中 */
-        gap: 20px; /* 元素之间的间距 */
-        padding: 0px 20px;
-        box-sizing: border-box;
-        /* border-bottom: 2px solid #ccc; */
-        z-index: 1000; /* 图层 */
-      }
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      display: flex;
+      /* 让左栏 + 右侧内容并排 */
+      height: 100vh;
+    }
 
-      /* logo样式。 */
-      #navbar #logo {
-        width: 50px; /* 调整大小 */
-        height: auto;
-      }
+    /* 左侧 Sidebar（由原 navbar 改造） */
+    #navbar {
+      position: relative;
+      /* 不再固定顶部 */
+      width: 180px;
+      height: 100vh;
+      /* 占满整条左侧 */
+      background-color: rgba(243, 243, 243, 0);
+      display: flex;
+      flex-direction: column;
+      /* 改成竖排 */
+      align-items: flex-start;
+      /* 左对齐 */
+      justify-content: flex-start;
+      gap: 20px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-      #navbar a {
-        font-size: 1em; /* h5 的字号 */
-        font-weight: bold; /* h5 的粗体 */
-        text-decoration: none; /* 去掉下划线 */
-        transition: color 0.2s ease;
-      }
+    /* logo 样式保留 */
+    #navbar #logo {
+      width: 50px;
+      height: auto;
+      margin-bottom: 20px;
+    }
 
-      #navbar a:hover {
-        color: #bbdc7f; /* 鼠标悬浮变色 */
-      }
-  
-    </style>
-  </head>
+    /* 链接样式保留，但适配竖排 */
+    #navbar a {
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
 
-  <body>
-    <nav id="navbar">
-      <a href="index.html"> <!-- 用来跳转到新的html的格式 -->
-        <img id="logo" src="images_videos/logo.png">
-      </a>
-      <a href="index.html">HOME</a>
-      <a href="gallery/index.html">GALLERY</a>
-      <a href="about.html">ABOUT</a>
-      <a href="blog/index.html">BLOG</a>
-      <a href="contact.html">CONTACT</a>
-    </nav>
+    #navbar a:hover {
+      color: #bbdc7f;
+    }
+
+    /* 右侧主内容区 —— 占满整个右边空间 */
+    #main-area {
+      flex: 1;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      /* 不出现滚动条 */
+      position: relative;
+      /* 允许内部绝对定位 */
+      background: #fff;
+    }
+
+    /* WebGL 占满整个右侧区域 */
+    #webgl-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      /* 横向撑满 */
+      height: 100%;
+      /* 纵向撑满 */
+      border: none;
+      background: #000;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- 左侧 Sidebar -->
+  <nav id="navbar">
+    <a href="index.html">
+      <img id="logo" src="images_videos/logo.png">
+    </a>
+    <a href="index.html">HOME</a>
+    <a href="gallery/index.html">GALLERY</a>
+    <a href="about.html">ABOUT</a>
+    <a href="blog/index.html">BLOG</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <!-- 右侧主区域，用来放 WebGL -->
+  <div id="main-area">
+    <iframe id="webgl-frame" src="unity/home_main_element/index.html" allow="fullscreen" style="width:100%; height:100%; border:none;">
+    </iframe>
+  </div>
+
+</body>
+
 </html>

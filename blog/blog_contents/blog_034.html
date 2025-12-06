@@ -17,7 +17,7 @@
 
 
 <h5>Source Materials</h5>
-<p>My drawings.</p>
+<p>My drawings (only horizontal drawings are selected)</p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/1.png">
 </div>
@@ -169,7 +169,123 @@ function drawJaggedEdge(cx, cy, w, h, img, side) {
 <p>1. Would it be better if users could drag on the bottom left, middle, and bottom right corners?</p>
 <p>2. What would invite you to interact with this sketchbook when you open the webpage?</p>
 
-<h4>2025-12-02</h4>
+<h4>2025-12-04</h4>
+<p>I refined my sketches according to some feedbacks from last playertest:</p>
+<p>1. Curling corner while the mouse is hovering (which is unstable because there are some kinds of conflicts between hover and curl and press and drag)</p>
+<p>2. Display ratio changed for the upper part to show</p>
+<p>3. Shadow adjustment to make it look more like a sketchbook</p>
+<p>4. Last blank page to suggest that the last page has been reached</p>
+<p>5. Text information to suggest that this book is a gallery rathter than a narrative picture book</p>
+<p>6. I tried to make the right side capable of interaction but failed. It's too complecated!</p>
+<p>After altering these issues, I deployed it to my website that was also being slowly constructed during the past few weeks.</p>
+<h1><emph1><a href="https://maxliu-sanzhuangshuini.com/">Link to my website</a></emph1></h1>
+<p>The html piece integrating the WebGL:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+  &lt;html lang=&quot;en&quot;&gt;
 
-<p><quote><a href="https://p5js.org/reference/">Reference 1</a></quote></p>
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+
+    &lt;title&gt;home&lt;/title&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css_styles/style.css&quot;&gt;
+
+    &lt;script src=&quot;libraries/p5.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;libraries/p5.sound.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/three@0.164/build/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/three@0.164/examples/js/controls/OrbitControls.js&quot;&gt;&lt;/script&gt;
+
+    &lt;style&gt;
+      body {
+        margin: 0;
+        background: #fff;
+        display: flex;
+        height: 100vh;
+      }
+
+      #navbar {
+        position: relative;
+        width: 180px;
+        height: 100vh;
+        background-color: rgba(243, 243, 243, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      #navbar #logo {
+        width: 50px;
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      #navbar a {
+        font-size: 1em;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      #navbar a:hover {
+        color: #bbdc7f;
+      }
+
+      #main-area {
+        flex: 1;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+        background: #fff;
+      }
+
+      #webgl-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: #000;
+      }
+    &lt;/style&gt;
+
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;nav id=&quot;navbar&quot;&gt;
+      &lt;a href=&quot;index.html&quot;&gt;
+        &lt;img id=&quot;logo&quot; src=&quot;images_videos/logo.png&quot;&gt;
+      &lt;/a&gt;
+      &lt;a href=&quot;index.html&quot;&gt;HOME&lt;/a&gt;
+      &lt;a href=&quot;gallery/index.html&quot;&gt;GALLERY&lt;/a&gt;
+      &lt;a href=&quot;about.html&quot;&gt;ABOUT&lt;/a&gt;
+      &lt;a href=&quot;blog/index.html&quot;&gt;BLOG&lt;/a&gt;
+      &lt;a href=&quot;contact.html&quot;&gt;CONTACT&lt;/a&gt;
+    &lt;/nav&gt;
+
+    &lt;div id=&quot;main-area&quot;&gt;
+      &lt;iframe id=&quot;webgl-frame&quot; src=&quot;unity/home_main_element/index.html&quot; allow=&quot;fullscreen&quot; style=&quot;width:100%; height:100%; border:none;&quot;&gt;
+      &lt;/iframe&gt;
+    &lt;/div&gt;
+
+  &lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<p>Final result:</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/5.png">
+  <source src="../images_videos/learning_blogs/introduction_to_computational_media/blog_034/6.mp4" type="video/mp4">
+</video>
+
+<p><quote><a href="https://p5js.org/reference/">Reference 1: P5.js reference page</a></quote></p>
 <p>Reference 2: ChatGPT</p>
+<p><quote><a href="https://assetstore.unity.com/packages/tools/gui/book-page-curl-pro-77222?srsltid=AfmBOoq6XL21boTIi-KO9x4hXwqOQUs-SdgrBeri6dG_Ot1xrkNQcgQk">Asset 1: Book-Page Curl Pro from Unity Asset Store</a></quote></p>

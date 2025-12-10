@@ -40,7 +40,7 @@
       justify-content: flex-start;
       gap: 130px;
       padding: 20px;
-      padding-left: 300px;
+      padding-left: 380px;
       box-sizing: border-box;
       z-index: 9999;
     }
@@ -58,6 +58,12 @@
       font-weight: bold;
       text-decoration: none;
       transition: color 0.2s ease;
+    }
+
+    /* 当前高亮 */
+    #navbar a.active {
+      color: #bbdc7f !important;
+      /* text-decoration: underline !important; */
     }
 
     #navbar a:hover {
@@ -99,18 +105,35 @@
     <a href="index.html">
       <img id="logo" src="images_videos/logo.png">
     </a>
-    <a href="index.html">HOME</a>
-    <a href="gallery/index.html">GALLERY</a>
-    <a href="about.html">ABOUT</a>
-    <a href="blog/index.html">BLOG</a>
-    <a href="contact.html">CONTACT</a>
+    <a href="/maxliu-sanzhuangshuini.com/index.html">HOME</a>
+    <a href="/maxliu-sanzhuangshuini.com/gallery/index.html">GALLERY</a>
+    <a href="/maxliu-sanzhuangshuini.com/about/index.html">ABOUT</a>
+    <a href="/maxliu-sanzhuangshuini.com/blog/index.html">BLOG</a>
+    <a href="/maxliu-sanzhuangshuini.com/contact/index.html">CONTACT</a>
   </nav>
 
   <!-- 右侧主区域，用来放 WebGL -->
   <div id="main-area">
-    <iframe id="webgl-frame" src="unity/home_main_element/index.html" allow="fullscreen" style="width:100%; height:100%; border:none;">
+    <iframe id="webgl-frame" src="unity/home_main_element/index.html" allow="fullscreen"
+      style="width:100%; height:100%; border:none;">
     </iframe>
   </div>
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll("#navbar a:not(:first-child)");
+      const currentPath = location.pathname;
+
+      links.forEach(a => {
+        const url = new URL(a.href, location.origin);
+        const linkPath = url.pathname;
+
+        if (currentPath === linkPath || currentPath.startsWith(linkPath.replace(/index\.html$/, ""))) {
+          a.classList.add("active");
+        }
+      });
+    })();
+  </script>
 
 </body>
 

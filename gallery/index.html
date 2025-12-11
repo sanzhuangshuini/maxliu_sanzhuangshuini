@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>home</title>
+  <title>gallery</title>
 
   <link rel="stylesheet" type="text/css" href="../css_styles/style.css">
 
@@ -21,7 +21,7 @@
       background: #fff;
       display: flex;
       /* 让左栏 + 右侧内容并排 */
-      height: 100vh;
+      min-height: 100vh;
     }
 
     /* 左侧 Sidebar（由原 navbar 改造） */
@@ -105,11 +105,11 @@
     <a href="index.html">
       <img id="logo" src="../images_videos/logo.png">
     </a>
-    <a href="/maxliu_sanzhuangshuini.com/index.html">HOME</a>
-    <a href="/maxliu_sanzhuangshuini.com/gallery/index.html">GALLERY</a>
-    <a href="/maxliu_sanzhuangshuini.com/about/index.html">ABOUT</a>
-    <a href="/maxliu_sanzhuangshuini.com/blog/index.html">BLOG</a>
-    <a href="/maxliu_sanzhuangshuini.com/contact/index.html">CONTACT</a>
+    <a href="/index.html">HOME</a>
+    <a href="/gallery/index.html">GALLERY</a>
+    <a href="/about/index.html">ABOUT</a>
+    <a href="/blog/index.html">BLOG</a>
+    <a href="/contact/index.html">CONTACT</a>
   </nav>
 
 
@@ -118,17 +118,262 @@
       const links = document.querySelectorAll("#navbar a");
       const currentPath = location.pathname;
 
+      // 获取当前所在目录名
+      function getDir(path) {
+        const parts = path.split("/").filter(Boolean);
+        if (parts.length === 0) return "";  // 根目录 = HOME
+        if (parts.length === 1) return "";  // /index.html 还是 HOME
+        return parts[0];  // gallery, blog, about, contact...
+      }
+
+      const currentDir = getDir(currentPath);
+
       links.forEach(a => {
         const url = new URL(a.href, location.origin);
-        const linkPath = url.pathname;
+        const linkDir = getDir(url.pathname);
 
-        // 精准匹配文件名或目录名
-        if (currentPath === linkPath || currentPath.startsWith(linkPath.replace(/index\.html$/, ""))) {
+        if (linkDir === currentDir) {
           a.classList.add("active");
         }
       });
+
     })();
   </script>
+
+  <div id="gallery-wrapper">
+    
+
+    <!-- Category 1 -->
+    <div class="category-row">
+      <h2 class="category-title">Multimedia storytelling</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="https://vimeo.com/1006124703?autoplay=1&muted=1&stream_id=Y2xpcHN8MjI2MjUxNjM0fGlkOmRlc2N8W10%3D">
+          <img src="/images_videos/multimedia_storytelling/sky_lake/sky_lake.gif">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Sky Lake</div>
+              <div class="desc">An animation piece reflecting on intimate relationship made in Unity</div>
+              <div class="desc">*Director, Narrative Designer, 2D Artist, 3D Artist, 3D Animator, Technical Artist, Voice Actor, Editor, Colorist, Subtitle Artist*</div>
+              <div class="desc">2024</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="item" href="https://vimeo.com/1006110231?autoplay=1&muted=1&stream_id=Y2xpcHN8MjI2MjUxNjM0fGlkOmRlc2N8W10%3D">
+          <img src="/images_videos/multimedia_storytelling/documentary/cover_square.png">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Beyond Sight</div>
+              <div class="desc">A documentary about the visually impaired community</div>
+              <div class="desc">*Director, Narrative Designer, Producer, Researcher, Main Photographer, Interviewer, Editor, Colorist, Subtitle Artist*</div>
+              <div class="desc">2024</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="item" href="https://vimeo.com/1006114463?autoplay=1&muted=1&stream_id=Y2xpcHN8MjI2MjUxNjM0fGlkOmRlc2N8W10%3D">
+          <img src="/images_videos/multimedia_storytelling/documentary/beyond_sight_the_unseen_her.gif">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Beyond Sight: the unseen her</div>
+              <div class="desc">A spin-off of Beyond Sight, a documentary about visually impaired women</div>
+              <div class="desc">*Director, Narrative Designer, Producer, Researcher, Lead Photographer, Interviewer, Editor, Colorist, Subtitle Artist*</div>
+              <div class="desc">2024</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/multimedia_storytelling/mockumentary/mockumentary.gif">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">A Chinese VHS Tape Found at the Brooklyn Flea Market</div>
+              <div class="desc">A mockumentary that blends Runway AI-generated assets with live-action shots</div>
+              <div class="desc">*Director, Narrative Designer, one of the Producers, Researcher, one of the Generative Artists, Actor, one of the Editors, Colorist, Compositor, Subtitle Artist*</div>
+              <div class="desc"><span style="color: #e30a0a; font-weight: bold;">⚠Warning: containing uncanny-vally-horror and meta-horror⚠</span></div>
+              <div class="desc">2025</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 2 -->
+    <div class="category-row">
+      <h2 class="category-title">Game</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="https://vimeo.com/1008360433?autoplay=1&muted=1&stream_id=Y2xpcHN8MjI2MjUxNjM0fGlkOmRlc2N8W10%3D">
+          <img src="/images_videos/game/oops_lights_out/cover_square.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Oops! Lights Out!</div>
+              <div class="desc">A 3D maze game that emphasizes the use of human senses in playing a game beyond vision and demonstrates how the sighted can draw inspiration from the visually impaired to address Metaverse Exhaustion</div>
+              <div class="desc">*Director, Producer, Designer, 2D Artist, 3D Artist, 3D Animator, Technical Artist, Sound Designer, Tester*</div>
+              <div class="desc">2024</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/game/perilous_light/perilous_light.gif">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Perilous Light</div>
+              <div class="desc">A 2D puzzle-platformer where the player plays the role of a vampire who has survived a deadly mining scam</div>
+              <div class="desc">*Director, Producer, Narrative Designer, 2D Environment Artist, one of the Technical Artists, one of the Sound Designers*</div>
+              <div class="desc">2023</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/game/the_first_menstruation_in_darkness/cover_square.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">The First Menstruation in Darkness</div>
+              <div class="desc">A 2D narrative music game discussing the unseen menstrual issues faced by visually impaired women</div>
+              <div class="desc">*Director, Producer, Designer, 2D Artist, 2D Animator, Technical Artist, Tester*</div>
+              <div class="desc">2024</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 3 -->
+    <div class="category-row">
+      <h2 class="category-title">Functional prototype</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/functional_prototype/natureviwer/natureviewer.gif">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Natureviewer</div>
+              <div class="desc">A wearable real-time object-detection device</div>
+              <div class="desc">*Producer, Researcher, Interaction Designer, Industrial Designer, Engineer, Documentation Artist*</div>
+              <div class="desc">2024</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 4 -->
+    <div class="category-row">
+      <h2 class="category-title">Art installation</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/art_installation/digital_guanyin_shrine/cover.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Digital Guanyin Shrine</div>
+              <div class="desc">A fortune-telling machine using Bagua system and Guanyin figure</div>
+              <div class="desc">*Lead Artist, one of the Producers, Interaction Designer, Creative Technologist, Software Developer, one of the UI Designers, one of the Fabrication Designers, Sculptor, one of the Documentation Artists*</div>
+              <div class="desc">2025</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 5 -->
+    <div class="category-row">
+      <h2 class="category-title">Concept art</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/concept_art/jiul_li_tribe/cover_square.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Jiu Li Tribe</div>
+              <div class="desc">2022</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/concept_art/bloody_guanyin/cover_square.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Bloody Guanyin</div>
+              <div class="desc">2022</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 6 -->
+    <div class="category-row">
+      <h2 class="category-title">Illustration</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/illustration/fanart/cover.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Fan Art</div>
+              <div class="desc">Fan art for 明日方舟, とある魔術の禁書目録, イド：インヴェイデッド, 進撃の巨人, etc.</div>
+              <div class="desc">2018–now</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/illustration/original/cover.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Original</div>
+              <div class="desc">Illustration of my original characters</div>
+              <div class="desc">2018–now</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 7 -->
+    <div class="category-row">
+      <h2 class="category-title">Painting</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/painting/cover.jpg">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Acrylic Painting</div>
+              <div class="desc">2023–now</div>
+              
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 8 -->
+    <div class="category-row">
+      <h2 class="category-title">Graphic design</h2>
+
+      <div class="gallery-grid">
+        <a class="item" href="items/art03.html">
+          <img src="/images_videos/graphic_design/cover.png">
+          <div class="overlay">
+            <div class="overlay-text">
+              <div class="title">Poster</div>
+              <div class="desc">2025–now</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+  </div>
+
 
 </body>
 

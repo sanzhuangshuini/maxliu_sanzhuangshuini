@@ -1,1 +1,145 @@
-....
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>contact</title>
+
+  <link rel="stylesheet" type="text/css" href="../css_styles/style.css">
+
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.164/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.164/examples/js/controls/OrbitControls.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      display: flex;
+      /* 让左栏 + 右侧内容并排 */
+      height: 100vh;
+    }
+
+    /* 左侧 Sidebar（由原 navbar 改造） */
+    #navbar {
+      position: fixed;
+      /* 不再固定顶部 */
+      width: 500px;
+      height: 100vh;
+      /* 占满整条左侧 */
+      background-color: rgba(243, 243, 243, 0);
+      display: flex;
+      flex-direction: column;
+      /* 改成竖排 */
+      align-items: flex-start;
+      /* 左对齐 */
+      justify-content: flex-start;
+      gap: 130px;
+      padding: 20px;
+      padding-left: 20px;
+      box-sizing: border-box;
+      z-index: 9999;
+    }
+
+    /* logo 样式保留 */
+    #navbar #logo {
+      width: 50px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    /* 链接样式保留，但适配竖排 */
+    #navbar a {
+      font-size: 1em;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    /* 当前高亮 */
+    #navbar a.active {
+      color: #bbdc7f !important;
+      /* text-decoration: underline !important; */
+    }
+
+    #navbar a:hover {
+      color: #bbdc7f;
+    }
+
+    /* 右侧主内容区 —— 占满整个右边空间 */
+    #main-area {
+      flex: 1;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      /* 不出现滚动条 */
+      position: relative;
+      /* 允许内部绝对定位 */
+      background: #fff;
+    }
+
+    /* WebGL 占满整个右侧区域 */
+    #webgl-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      /* 横向撑满 */
+      height: 100%;
+      /* 纵向撑满 */
+      border: none;
+      background: #000;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- 左侧 Sidebar -->
+  <nav id="navbar">
+    <a href="index.html">
+      <img id="logo" src="../images_videos/logo.png">
+    </a>
+    <a href="/index.html">HOME</a>
+    <a href="/gallery/index.html">GALLERY</a>
+    <a href="/about/index.html">ABOUT</a>
+    <a href="/blog/index.html">BLOG</a>
+    <a href="/contact/index.html">CONTACT</a>
+  </nav>
+
+
+  <script>
+    (function () {
+      const links = document.querySelectorAll("#navbar a");
+      const currentPath = location.pathname;
+
+      // 获取当前所在目录名
+      function getDir(path) {
+        const parts = path.split("/").filter(Boolean);
+        if (parts.length === 0) return "";  // 根目录 = HOME
+        if (parts.length === 1) return "";  // /index.html 还是 HOME
+        return parts[0];  // gallery, blog, about, contact...
+      }
+
+      const currentDir = getDir(currentPath);
+
+      links.forEach(a => {
+        const url = new URL(a.href, location.origin);
+        const linkDir = getDir(url.pathname);
+
+        if (linkDir === currentDir) {
+          a.classList.add("active");
+        }
+      });
+
+    })();
+  </script>
+
+</body>
+
+</html>

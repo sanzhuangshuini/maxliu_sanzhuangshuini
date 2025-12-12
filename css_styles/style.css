@@ -9,7 +9,7 @@ body {
   /* 基础字号 */
   line-height: 1.6;
   /* 行距 */
-  color: #111;
+  color: #1f1f1f;
   /* 主文字颜色 */
   /* background-color: #fff; */
   /* 页面背景（可选） */
@@ -33,7 +33,7 @@ h5,
 h6 {
   margin: 1em 0 0.5em 0;
   line-height: 1.2;
-  color: #111;
+  color: #1f1f1f;
 }
 
 h1 {
@@ -79,7 +79,7 @@ p {
 
 /* 链接 */
 a {
-  color: #111;
+  color: #1f1f1f;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -181,7 +181,6 @@ pre code {
   /* 居中裁剪防变形 */
   display: block;
   margin: 0;
-  border-radius: 4px;
 }
 
 /* === 视频 === */
@@ -191,7 +190,7 @@ pre code {
   display: block;
   margin: 12px 0 12px 40px;
   /* 与图片左缩进一致 */
-  background: #000;
+  background: #1f1f1f;
   /* 未加载背景色 */
 }
 
@@ -260,6 +259,7 @@ pre code {
   font-weight: bold;
   color: rgb(214, 214, 214);
   text-align: right;
+  transition: color 0.2s ease;  /* ← 新增：渐变动画 */
 }
 
 
@@ -349,4 +349,9 @@ pre code {
 .item:hover .overlay-text {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Hover 效果：整个 category-row 内任意位置被 hover，标题变黑 */
+.category-row:hover .category-title {
+  color: #1f1f1f;
 }

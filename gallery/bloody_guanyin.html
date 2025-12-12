@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bloody_guanyin</title>
+
+  <link rel="stylesheet" type="text/css" href="../css_styles/style.css">
+
+  <style>
+    body {
+      margin: 0;
+      overflow-y: scroll;
+      /* 不再负责 grid，也不再负责宽度 */
+    }
+
+    /* 居中容器 —— 宽度必须等于你的 grid 总宽度 */
+    .page-container {
+      width: 1660px;
+      /* 480 + 1100 + 80 = 1660 */
+      margin: 0 auto;
+      /* 居中 */
+      display: grid;
+      grid-template-columns: 280px 1280px;
+      column-gap: 80px;
+      grid-auto-rows: auto;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    /* 左栏：固定宽 + 右对齐 */
+    .caption {
+      width: 280px;
+      text-align: right;
+      padding-left: 20px;
+      overflow-wrap: break-word;
+    }
+
+    /* 右栏 */
+    .image-wrapper {
+      width: 1280px;
+      padding-right: 20px;
+      padding-bottom: 80px;
+    }
+
+    /* 图片右对齐 */
+    .art-image {
+      display: block;
+      width: 1080px;
+      height: auto;
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    /* 特殊：竖版图片 */
+    .art-image.portrait {
+      height: 850px;
+      /* 你可以改成你要的高度，例如 900 或 1000 */
+      width: auto;
+      object-fit: contain;
+      margin-left: 0;
+      margin-right: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-container">
+    <!-- Row 1 -->
+    <div class="caption">
+      <h5>Background Setting</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image" src="/images_videos/concept_art/bloody_guanyin/1.jpg">
+    </div>
+
+    <!-- Row 2 -->
+    <div class="caption">
+      <h5>Map</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image" src="/images_videos/concept_art/bloody_guanyin/2.jpg">
+    </div>
+
+    <!-- Row 3 -->
+    <div class="caption">
+      <h5>Character Concept</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image" src="/images_videos/concept_art/bloody_guanyin/3.jpg">
+    </div>
+
+    <div class="caption">
+      <h5>Scene Concept-Riverside</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image" src="/images_videos/concept_art/bloody_guanyin/4.jpg">
+    </div>
+
+    <div class="caption">
+      <h5>Scene Concept-Roadside Shrine</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image" src="/images_videos/concept_art/bloody_guanyin/6.jpg">
+    </div>
+
+    <div class="caption">
+      <h5>Scene Concept-Burial Ground</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image" src="/images_videos/concept_art/bloody_guanyin/7.jpg">
+    </div>
+
+    <div class="caption">
+      <h5>Scene Concept-Guanyin Statue</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image portrait" src="/images_videos/concept_art/bloody_guanyin/8.jpg">
+    </div>
+
+    <div class="caption">
+      <h5>Scene Concept-Mountain Staircase</h5>
+    </div>
+
+    <div class="image-wrapper">
+      <img class="art-image portrait" src="/images_videos/concept_art/bloody_guanyin/5.jpg">
+    </div>
+  </div>
+
+
+</body>
+
+</html>

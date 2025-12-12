@@ -28,7 +28,7 @@
     #navbar {
       position: fixed;
       /* 不再固定顶部 */
-      width: 500px;
+      width: 350px;
       height: 100vh;
       /* 占满整条左侧 */
       background-color: rgba(243, 243, 243, 0);
@@ -58,6 +58,7 @@
       font-weight: bold;
       text-decoration: none;
       transition: color 0.2s ease;
+      color: #1f1f1f;
     }
 
     /* 当前高亮 */
@@ -70,29 +71,49 @@
       color: #bbdc7f;
     }
 
-    /* 右侧主内容区 —— 占满整个右边空间 */
+    /* 右侧主内容区 */
     #main-area {
       flex: 1;
-      padding: 0;
-      margin: 0;
+      margin-left: 100px;
+      /* 让内容不被 navbar 覆盖 */
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      /* 水平居中 */
+      align-items: center;
+      /* 垂直居中 */
       overflow: hidden;
       /* 不出现滚动条 */
-      position: relative;
-      /* 允许内部绝对定位 */
-      background: #fff;
     }
 
-    /* WebGL 占满整个右侧区域 */
-    #webgl-frame {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      /* 横向撑满 */
-      height: 100%;
-      /* 纵向撑满 */
-      border: none;
-      background: #000;
+    /* 居中的 contact 容器 */
+    .contact-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 40px;
+    }
+
+    /* 左侧竖图 */
+    .business-card {
+      width: 320px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .business-card {
+      transition: filter 0.3s ease;
+    }
+
+    .business-card:hover {
+      filter: blur(10px) sepia(0.3);
+    }
+
+    /* 右侧文字 */
+    .contact-text p {
+      margin: 25px 0;
+      /* 控制段落之间的距离 */
+      text-align: left;
     }
   </style>
 
@@ -102,15 +123,40 @@
 
   <!-- 左侧 Sidebar -->
   <nav id="navbar">
-    <a href="index.html">
+    <a href="/index.html">
       <img id="logo" src="../images_videos/logo.png">
     </a>
     <a href="/index.html">HOME</a>
     <a href="/gallery/index.html">GALLERY</a>
     <a href="/about/index.html">ABOUT</a>
-    <a href="/blog/index.html">BLOG</a>
+    <a href="/blog/index.html" target="_blank" rel="noopener noreferrer">BLOG</a>
     <a href="/contact/index.html">CONTACT</a>
   </nav>
+
+  <!-- 右侧内容 -->
+  <div id="main-area">
+    <div class="contact-container">
+
+      <!-- 左侧竖图 -->
+      <img class="business-card" src="/images_videos/contact/business_card.png" alt="business card">
+
+      <!-- 右侧文字 -->
+      <div class="contact-text">
+        <p>Personal Email: <a href="mailto:liu749762@gmail.com">liu749762@gmail.com</a></p>
+        <p>Academic Email: <a href="mailto:yl13787@nyu.edu">yl13787@nyu.edu</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/dogzone6_/" target="_blank"
+            rel="noopener noreferrer">@dogzone6_</a></p>
+        <p>Twitter: <a href="https://x.com/Dogzone47" target="_blank" rel="noopener noreferrer">@Dogzone47</a></p>
+        <p>RedNote: <a href="https://www.xiaohongshu.com/user/profile/60e15395000000002002c945" target="_blank"
+            rel="noopener noreferrer">@散装水泥</a></p>
+        <p>Vimeo: <a href="https://vimeo.com/user226251634" target="_blank"
+            rel="noopener noreferrer">@Max Liu</a></p>
+        <p>My Languages: Chinese and English</p>
+        <p>Current Base: Brooklyn, New York</p>
+      </div>
+
+    </div>
+  </div>
 
 
   <script>

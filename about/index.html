@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>about</title>
+  <title>about_résumé</title>
 
   <link rel="stylesheet" type="text/css" href="../css_styles/style.css">
 
@@ -18,17 +18,19 @@
   <style>
     body {
       margin: 0;
-      background: #fff;
+      background: #000;
       display: flex;
-      /* 让左栏 + 右侧内容并排 */
       height: 100vh;
+      overflow: hidden;
+      /* ⬅️ 禁止 body 出现滚动条（非常重要） */
+      position: relative;
     }
 
     /* 左侧 Sidebar（由原 navbar 改造） */
     #navbar {
       position: fixed;
       /* 不再固定顶部 */
-      width: 500px;
+      width: 350px;
       height: 100vh;
       /* 占满整条左侧 */
       background-color: rgba(243, 243, 243, 0);
@@ -58,6 +60,7 @@
       font-weight: bold;
       text-decoration: none;
       transition: color 0.2s ease;
+      color: #ffffff;
     }
 
     /* 当前高亮 */
@@ -70,45 +73,89 @@
       color: #bbdc7f;
     }
 
-    /* 右侧主内容区 —— 占满整个右边空间 */
+    /* ===============================
+   滚动内容区（主区域）
+================================*/
     #main-area {
       flex: 1;
-      padding: 0;
       margin: 0;
-      overflow: hidden;
-      /* 不出现滚动条 */
+      padding: 0;
+      overflow-y: scroll;
+      /* ⬅️ 保留滚动 */
+      scrollbar-width: none;
+      /* Firefox 隐藏滚动条 */
+      background: transparent;
+      color: #ffffff;
       position: relative;
-      /* 允许内部绝对定位 */
-      background: #fff;
+      z-index: 1;
+      /* ⬅️ 高于模糊背景层 */
     }
 
-    /* WebGL 占满整个右侧区域 */
-    #webgl-frame {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      /* 横向撑满 */
-      height: 100%;
-      /* 纵向撑满 */
-      border: none;
-      background: #000;
+    #main-area::-webkit-scrollbar {
+      display: none;
+      /* ⬅️ Chrome / Safari 隐藏滚动条 */
+    }
+
+    /* ===============================
+   About 内容
+================================*/
+    #about-wrapper {
+      max-width: 1000px;
+      margin-left: 400px;
+      padding: 20px;
+      background: transparent;
+      box-sizing: border-box;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: #ffffff !important;
+    }
+
+    p {
+      color: #ffffff;
+    }
+
+    /* ===============================
+   背景模糊层（与 gallery 的 hover-bg 完全一致）
+================================*/
+    #blur-bg {
+      position: fixed;
+      top: -30px;
+      left: -30px;
+      width: calc(100vw + 60px);
+      height: calc(100vh + 60px);
+      
+
+      background: url("/images_videos/about/photo.jpg") center 25% / cover no-repeat fixed;
+
+      filter: blur(var(--blur, 0px));
+      /* ⬅️ 模糊由变量控制 */
+      transition: filter 0.3s linear;
+
+      z-index: 0;
+      /* ⬅️ 在 main-area 下，navbar 下 */
+      pointer-events: none;
     }
   </style>
 
 </head>
 
 <body>
-
+  <div id="blur-bg"></div>
   <!-- 左侧 Sidebar -->
   <nav id="navbar">
-    <a href="index.html">
-      <img id="logo" src="../images_videos/logo.png">
+    <a href="/index.html">
+      <img id="logo" src="../images_videos/logo_white.png">
     </a>
     <a href="/index.html">HOME</a>
     <a href="/gallery/index.html">GALLERY</a>
     <a href="/about/index.html">ABOUT</a>
-    <a href="/blog/index.html">BLOG</a>
+    <a href="/blog/index.html" target="_blank" rel="noopener noreferrer">BLOG</a>
     <a href="/contact/index.html">CONTACT</a>
   </nav>
 
@@ -140,6 +187,161 @@
     })();
   </script>
 
+
+
+
+
+
+  <div id="main-area">
+    <div id="about-wrapper">
+
+      <h1>Yuqing / Max Liu</h1>
+      <h5>New Media Artist / Game Artist / Creative Technologist</h5>
+
+      <section>
+        <h3>About Me</h3>
+        <p>
+          A new media artist, game artist, and creative technologist, currently completing a Master of Professional
+          Studies at Interactive Telecommunications Program of New York University.
+          Seeking job opportunities in multimedia creation and storytelling fields, with persistent passion for
+          exploring interdisciplinary expressions and a strong teamwork spirit.
+          Advanced proficiency with tools like Unity and Arduino, alongside practical experience leading designs from
+          concept to completion.
+        </p>
+      </section>
+
+      <section>
+        <h3>Education</h3>
+        <p>
+          <bold>Communication University of China, Beijing, China</bold>
+        </p>
+        <p>
+          <bold>Bachelor of Arts · Game Art Design</bold>
+        </p>
+        <p>2020 – 2025</p>
+        <br>
+        <p>
+          <bold>New York University, New York, USA</bold>
+        </p>
+        <p>
+          <bold>Master of Professional Studies · Interactive Telecommunications Program</bold>
+        </p>
+        <p>2025 – 2027 (expected graduation)</p>
+      </section>
+
+      <section>
+        <h3>Professional Experiences</h3>
+        <p>
+          <bold>Junior Visual Art Designer</bold>
+        </p>
+        <p>
+          <bold>Shenzhen DrunkDeer Technology Group Co., Ltd., Shenzhen, China</bold>
+        </p>
+        <p>July 2021 – September 2022</p>
+        <p>Collaborated with senior web designers to implement visual art design of the company website and adapt
+          graphics for web platforms;</p>
+        <p>Investigated market needs for keyboard products and developed user stories and user flows;</p>
+        <p>Participated in the preliminary appearance design of the core product, DrunkDeer A75, a wired
+          actuation-distance-adjustable magnetic switch keyboard.</p>
+        <br>
+        <p>
+          <bold>Game Concept Artist</bold>
+        </p>
+        <p>
+          <bold>37 Interactive Entertainment Network Technology Group Co., Ltd., Guangzhou, China</bold>
+        </p>
+        <p>July 2024 – October 2024</p>
+        <p>Developed concept art for characters, environments and objects based on comprehensive research on graphic art
+          of Chinese Taoist culture.</p>
+      </section>
+
+      <section>
+        <h3>Volunteer Experience</h3>
+        <p>
+          <bold>Hong Dandan Visual Impairment Cultural Service Center, Beijing, China</bold>
+        </p>
+        <p>May 2024 – July 2024</p>
+        <p>Reached out to the visually impaired community, including organizing events to share
+          stories of visually impaired people, preparing promotional materials for fundraising, and distributing
+          informational materials;</p>
+        <p>Conducted field investigations to explore the life challenges faced by this special group and accompanied
+          them in various well-being activities.</p>
+
+      </section>
+
+      <section>
+        <h3>Software Skills</h3>
+        <p>2D Pipeline: Adobe Photoshop, Procreate, Adobe Illustrator, Figma</p>
+        <p>3D Pipeline: Blender, Unity, Unreal Engine</p>
+        <p>Audio & Video Production: Adobe Audition, Adobe Premiere, Adobe After Effects</p>
+        <p>Web & Creative Coding: JavaScript, P5.js, HTML, CSS</p>
+        <p>Physical Computing: Arduino, Raspberry Pi</p>
+      </section>
+
+      <br>
+      <p>*The background photo is photographed by <quote><a href="https://www.instagram.com/dunn.deng/" target="_blank"
+            rel="noopener noreferrer">Dunn Deng</a></quote>.</p>
+
+      <br><br><br><br>
+      <p style="color: #c6b0ff;">-------------------Some personal notes — please feel free to skip the following
+        contents if you only want to read the résumé.-------------------</p>
+      <br><br><br><br>
+
+      <h5>Note on December 2023</h5>
+      <p>
+        My Chinese name is 刘雨晴; I use 散装水泥 as my formal online Chinese alias and 昼 as my Chinese nickname for others to
+        call me on the Internet.
+        I go by Max as my everyday English name, so you can call me either Yuqing Liu or Max Liu. In addition, I also
+        use an online English alias: Dogzone, a name inspired by a creepypasta web novel I read in middle school.
+      </p>
+      <p>
+        My artworks are driven by my wonder at the enchanted human relationships. This theme stems from a longstanding
+        personal experience that is highly aligned with my life's trajectory. From my intuitive perspective, humans are
+        the ghosts of each other.
+        Since I was born, I have always had a strong interest in understanding others, but through decades of practice,
+        I have found that this instinctive longing is impossible to realize in its entirety.
+        So this fog that separates me from others has become a lingering shadow in my mind and the source of my strong
+        urge to express myself artistically.
+      </p>
+      <p>
+        As I grew, I gained a deeper and more systematic awareness of the network of relationships with those around me.
+        I have come to realize that the problems that have plagued me for so long have also plagued other individuals,
+        and even all of humanity.
+        On the basis of this perception, I began to read books and participate in hands-on activities, wanting to
+        proactively explore this question.
+        In this process, Husserl's phenomenology inspired me deeply. He argued that this inaccessibility of others that
+        I have experienced originated from the transcendence of the other, a transcendence that guarantees the
+        objectivity of the world.
+        It seems to me that this makes others necessary for us: we need others to defend the authenticity of our world.
+        A paradox arises from this, that is, we are unable to fully understand others while desperately needing them —
+        humans are the guardian ghosts of each other.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const mainArea = document.getElementById("main-area");
+
+    function updateBlur() {
+      const scrollY = mainArea.scrollTop;
+
+      const startBlur = 0;
+      const endBlur = 1000;
+
+      let blurAmount = 0;
+
+      if (scrollY > startBlur) {
+        const progress = Math.min((scrollY - startBlur) / (endBlur - startBlur), 1);
+        blurAmount = progress * 10;
+      }
+
+      document.body.style.setProperty("--blur", blurAmount + "px");
+
+      requestAnimationFrame(updateBlur);  // 每帧检查 scrollTop
+    }
+
+    updateBlur(); // 启动循环
+  </script>
 </body>
 
 </html>

@@ -58,7 +58,7 @@ function BlogBox (title, date, previewText, thumbUrl, url) {
 
     // 标题
     noStroke();
-    fill(0);
+    fill(31, 31, 31);
     textSize(width * 0.015);
     textStyle(BOLD);
     text(this.title, x + 10, y + 30);
@@ -71,7 +71,7 @@ function BlogBox (title, date, previewText, thumbUrl, url) {
 
     // 预览内容
     textSize(width * 0.012);
-    fill(50);
+    fill(31, 31, 31);
     textWrap(WORD);
     const previewMaxW = Math.max(60, textRightLimit - (x + 10));
     text(this.content, x + 10, y + 70, previewMaxW);

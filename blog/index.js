@@ -15,9 +15,9 @@ let dataReady = false; // 标记数据是否加载完毕
 // =========================================================
 const params = new URLSearchParams(window.location.search);
 const paramCategory = params.get("category"); // 当前分类
-const paramSlug     = params.get("slug");     // 当前文章 slug
-const paramUrl      = params.get("url");      // 当前文章 url
-const paramTitle    = params.get("title");    // 当前文章标题
+const paramSlug = params.get("slug");     // 当前文章 slug
+const paramUrl = params.get("url");      // 当前文章 url
+const paramTitle = params.get("title");    // 当前文章标题
 let currentCategory = paramCategory || "all"; // 默认为 all
 
 
@@ -113,7 +113,7 @@ async function renderDetail(post) {
 
   // 如果已存在 p5 画布，则将其高度压缩到最小（仅保留结构）
   if (window._p5cnv) {
-    try { window._p5cnv.resizeCanvas(window._p5cnv.width, 1); } catch {}
+    try { window._p5cnv.resizeCanvas(window._p5cnv.width, 1); } catch { }
   }
 
   // --- 获取文章 HTML 内容 ---
@@ -196,8 +196,8 @@ function setup() {
       // --------------------------------------------
       if (isDetail) {
         let post = null;
-        if (paramSlug)  post = posts.find(p => p && p.slug  === paramSlug);
-        if (!post && paramUrl)   post = posts.find(p => p && p.url   === paramUrl);
+        if (paramSlug) post = posts.find(p => p && p.slug === paramSlug);
+        if (!post && paramUrl) post = posts.find(p => p && p.url === paramUrl);
         if (!post && paramTitle) post = posts.find(p => p && p.title === paramTitle);
 
         // 回退：通过路径文件名匹配
@@ -224,21 +224,34 @@ function setup() {
 
       // 预加载所有 contentFile，用于生成预览与缩略图
       const fileHTMLMap = {};
+      const showHiddenInThisView = (currentCategory !== "all");
+
       await Promise.all(
-        posts.filter(p => p && p.contentFile).map(async p => {
-          try {
-            fileHTMLMap[p.slug] = await fetchText(p.contentFile);
-          } catch (e) {
-            console.warn("加载 contentFile 失败:", p.contentFile, e);
-            fileHTMLMap[p.slug] = "";
-          }
-        })
+        posts
+          .filter(p =>
+            p &&
+            p.contentFile &&
+            (showHiddenInThisView || p.status !== "hidden") // all: 排除 hidden；分类: 包含 hidden
+          )
+          .map(async p => {
+            try {
+              fileHTMLMap[p.slug] = await fetchText(p.contentFile);
+            } catch (e) {
+              console.warn("加载 contentFile 失败:", p.contentFile, e);
+              fileHTMLMap[p.slug] = "";
+            }
+          })
       );
 
       // 生成 BlogBox 实例
       for (let i = posts.length - 1; i >= 0; i--) {
         const post = posts[i];
         if (!post) continue;
+
+        const showHiddenInThisView = (currentCategory !== "all");
+
+        // all 分类隐藏 hidden；分类页显示 hidden
+        if (!showHiddenInThisView && post.status === "hidden") continue;
 
         const matchesCategory = Array.isArray(post.categories)
           && post.categories.includes(currentCategory);
@@ -264,8 +277,8 @@ function setup() {
         const link = post.slug
           ? `${location.pathname}?slug=${encodeURIComponent(post.slug)}`
           : (post.url
-              ? `${location.pathname}?url=${encodeURIComponent(post.url)}`
-              : `${location.pathname}?title=${encodeURIComponent(post.title || "")}`);
+            ? `${location.pathname}?url=${encodeURIComponent(post.url)}`
+            : `${location.pathname}?title=${encodeURIComponent(post.title || "")}`);
 
         // 存入 blogPosts 数组
         blogPosts.push(new BlogBox(post.title, post.date, preview, thumb, link));
@@ -309,13 +322,13 @@ function draw() {
 
   // --- 布局常量 ---
   const BOX_WIDTH_RATIO = 1;
-  const H_MARGIN_RATIO  = 0.01;
-  const V_MARGIN_RATIO  = 0.05;
-  const GAP_RATIO       = 0.03;
+  const H_MARGIN_RATIO = 0.01;
+  const V_MARGIN_RATIO = 0.05;
+  const GAP_RATIO = 0.03;
 
   const marginX = Math.max(0, Math.floor(width * H_MARGIN_RATIO));
   const marginY = Math.max(12, Math.floor(width * V_MARGIN_RATIO));
-  const gap     = Math.max(12, Math.floor(width * GAP_RATIO));
+  const gap = Math.max(12, Math.floor(width * GAP_RATIO));
 
   // --- 计算 BlogBox 尺寸 ---
   let boxW = Math.floor(width * BOX_WIDTH_RATIO);

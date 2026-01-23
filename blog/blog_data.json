@@ -321,5 +321,13 @@
     "contentFile": "blog_contents/blog_036.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"]
+  },
+  {
+    "title": "PDS-001",
+    "slug": "blog-037",
+    "date": "2026-01-22",
+    "contentFile": "blog_contents/blog_037.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "project_development_studio"]
   }
 ]

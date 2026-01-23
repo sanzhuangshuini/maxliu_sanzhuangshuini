@@ -329,5 +329,13 @@
     "contentFile": "blog_contents/blog_037.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "project_development_studio"]
+  },
+  {
+    "title": "DSMMS-001",
+    "slug": "blog-038",
+    "date": "2026-01-23",
+    "contentFile": "blog_contents/blog_038.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   }
 ]

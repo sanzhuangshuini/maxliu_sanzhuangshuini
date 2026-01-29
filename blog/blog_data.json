@@ -337,5 +337,13 @@
     "contentFile": "blog_contents/blog_038.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+  },
+  {
+    "title": "CD&NI-002",
+    "slug": "blog-039",
+    "date": "2026-01-27",
+    "contentFile": "blog_contents/blog_039.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "connected_devices_and_networked_interaction"]
   }
 ]

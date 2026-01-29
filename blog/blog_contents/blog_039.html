@@ -1,0 +1,35 @@
+<!-- CD&NI-002 -->
+<h4>Device Data Dashboard</h4>
+<p>Premise: my computer system is Windows</p>
+<p><emph2>I tried to make WSL listen to 8080 but failed. I am sure that the Arduino is trying to connect 8080 and WSL is trying to listen 8080. But they cannot find each other.</emph2></p>
+<p>And I changed to Windows Powershell and succeeded (which means that I cannot use any Unix command line). However, I got some "sensor" data without any sensors connected to the Arduino.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_039/1.png">
+</div>
+<p>I asked ChatGPT and it told me that they are the voltage on A0 pin. When I put my finger on the area around A0 pin, the data increased. Therefore, I kinda trust ChatGPT's explanation.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_039/2.png">
+</div>
+
+<p><emph2>For the sensor part, I am quite confused on the data stability. Usually the temp/wet sensor gives values that change constantly in short time. How can I stabilize the data to make them valid indicators?</emph2></p>
+<p>I used FSR for temperary and managed to save the data read in a json file in local.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_039/3.png">
+</div>
+<p>But the data didn't have an obvious change when I applied pressure on the FSR.</p>
+<p>I spent 48 minutes on debugging and it turued out that this batch of Arduinos I purchased all had something wrong with them. Because once I swapped them out for the old Arduinos I used during the midterm for Pcomp last semester, the problem was resolved.</p>
+<p>Finally, I managed to connect the sensor with my laptop server.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_039/4.png">
+</div>
+<p>Send data from the device only when my sensor changes:</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_039/5.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_039/6.mp4" type="video/mp4">
+</video>
+<p>And with html and js files, I succeeded in seeing the data in the browser.</p>
+<p><emph2>Remember to cd to the current location.</emph2></p>
+<p><emph1>Do not use the same port number for both listening and web server.</emph1></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_039/7.png">
+</div>

@@ -353,5 +353,13 @@
     "contentFile": "blog_contents/blog_040.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+  },
+  {
+    "title": "PDS-002",
+    "slug": "blog-041",
+    "date": "2026-01-30",
+    "contentFile": "blog_contents/blog_041.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "project_development_studio"]
   }
 ]

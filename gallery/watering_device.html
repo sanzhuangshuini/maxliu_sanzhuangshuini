@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Watering Device Dashboard</title>
+</head>
+<body>
+  <h1>Moisture</h1>
+  <div id="moisture">--</div>
+  <div id="time">--</div>
+
+  <button id="btn">Send Command</button>
+
+  <script>
+    const API_BASE = "http://YOUR_VM_EXTERNAL_IP:3000"; // 先测试用
+
+    async function refresh() {
+      const r = await fetch(`${API_BASE}/state`);
+      const s = await r.json();
+      document.getElementById("moisture").textContent = `moisture: ${s.moisture}`;
+      document.getElementById("time").textContent = `updatedAt: ${s.updatedAt}`;
+    }
+
+    document.getElementById("btn").onclick = async () => {
+      const cmd = prompt("Command to Arduino:", "hello from website");
+      if (!cmd) return;
+      const r = await fetch(`${API_BASE}/command`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cmd })
+      });
+      alert((await r.json()).ok ? "sent" : "failed");
+    };
+
+    refresh();
+    // 可选：每5分钟刷新一次就够了（反正5小时才变）
+    setInterval(refresh, 5 * 60 * 1000);
+  </script>
+</body>
+</html>

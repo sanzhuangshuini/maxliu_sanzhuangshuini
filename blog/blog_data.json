@@ -279,7 +279,7 @@
     "status": "hidden"
   },
   {
-    "title": "Pcomp-010-Final-Fortune-Telling Machine",
+    "title": "Pcomp-010-Final-Digital Guanyin Shrine",
     "slug": "blog-032",
     "date": "2025-11-04",
     "contentFile": "blog_contents/blog_032.html",
@@ -306,7 +306,7 @@
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-010-Final-Fortune-Telling Machine",
+    "title": "Hypercinema-010-Final-Digital Guanyin Shrine",
     "slug": "blog-035",
     "date": "2025-12-02",
     "contentFile": "blog_contents/blog_035.html",
@@ -315,7 +315,7 @@
     "status": "hidden"
   },
   {
-    "title": "CD&NI-001",
+    "title": "CD&NI-001-Networked Interaction Fundamentals",
     "slug": "blog-036",
     "date": "2026-01-20",
     "contentFile": "blog_contents/blog_036.html",
@@ -323,7 +323,7 @@
     "categories": ["all", "connected_devices_and_networked_interaction"]
   },
   {
-    "title": "PDS-001",
+    "title": "PDS-001-Overall Plan",
     "slug": "blog-037",
     "date": "2026-01-22",
     "contentFile": "blog_contents/blog_037.html",
@@ -339,7 +339,7 @@
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   },
   {
-    "title": "CD&NI-002",
+    "title": "CD&NI-002-Watering Device-Device Data Dashboard-1",
     "slug": "blog-039",
     "date": "2026-01-27",
     "contentFile": "blog_contents/blog_039.html",
@@ -355,11 +355,19 @@
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   },
   {
-    "title": "PDS-002",
+    "title": "PDS-002-Setting",
     "slug": "blog-041",
     "date": "2026-01-30",
     "contentFile": "blog_contents/blog_041.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "project_development_studio"]
+  },
+  {
+    "title": "CD&NI-003-Watering Device-Device Data Dashboard-2",
+    "slug": "blog-042",
+    "date": "2026-02-03",
+    "contentFile": "blog_contents/blog_042.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "connected_devices_and_networked_interaction"]
   }
 ]

@@ -1,0 +1,30 @@
+<!-- CD&NI-003 -->
+<p>For the first device project, I decided to do a watering device with a browser interface showing the moisture data of my plant and allowing me to control the watering dynamic with a button.</p>
+<p>Therefore, I need a cloud server. The expected pipeline will be: Arduino (MQTT client)→Cloud Server (MQTT broker + API)←Webpage(HTML/JS served via GitHub Pages).</p>
+
+<h4>1-Google Cloud Server</h4>
+<p>When I logged in to Google Cloud, I found that there is already a folder there:</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/1.png">
+</div>
+<emph2>I was wondering if this is because I used my NYU email address to log in. And Google Cloud automatically connected me to NYU's public server. If so, how?</emph2>
+<p>However, I do not have the access to create any project under my school email address. I have to use my personal account.</p>
+<p>I managed to have a VM instance eqquiped with the MQTT broker running.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/2.jpg">
+</div>
+
+<h4>2-Arduino→Cloud Server</h4>
+<h5>2.1-Sensor & Wiring</h5>
+<p>Last week I had a try on a FSR becuase it needs some time for the moisture sensor to be shipped. Now it arrived and I need to change the FSR to the moisture sensor first.</p>
+
+<h5>2.2-Code & Connection</h5>
+<p>For this week I am not going to work on the ouotput: the water pump. So I will just have the moisture data transmitted from Arduino to the dashboard and also backwards (maybe just a console log when the Arduino receives the watering command).</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/3.png">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/4.png">
+</div>
+
+<h4>3-Cloud Server←Webpage</h4>
+<p>I added a Node.js environment on my VM to translate between MQTT and HTTP, guaranteeing the communication between the cloud server and the webpage.</p>
+<bold><quote><a href="https://maxliu-sanzhuangshuini.com/blog/index.html?slug=blog-032" target="_blank" rel="noopener noreferrer">This is a link to the dashboard webpage.</a></quote></bold>

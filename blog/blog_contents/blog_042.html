@@ -15,10 +15,14 @@
 </div>
 
 <h4>2-Arduino→Cloud Server</h4>
-<h5>2.1-Sensor & Wiring</h5>
+<h5>2.1-Wiring</h5>
 <p>Last week I had a try on a FSR becuase it needs some time for the moisture sensor to be shipped. Now it arrived and I need to change the FSR to the moisture sensor first.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/8.jpg">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/9.jpg">
+</div>
 
-<h5>2.2-Code & Connection</h5>
+<h5>2.2-Network Connection</h5>
 <p>For this week I am not going to work on the ouotput: the water pump. So I will just have the moisture data transmitted from Arduino to the dashboard and also backwards (maybe just a console log when the Arduino receives the watering command).</p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/3.png">
@@ -27,4 +31,17 @@
 
 <h4>3-Cloud Server←Webpage</h4>
 <p>I added a Node.js environment on my VM to translate between MQTT and HTTP, guaranteeing the communication between the cloud server and the webpage.</p>
-<bold><quote><a href="https://maxliu-sanzhuangshuini.com/gallery/watering_device.html" target="_blank" rel="noopener noreferrer">This is a link to the dashboard webpage.</a></quote></bold>
+<p>And then I deployed a HTTPS api. Now, the pipeline is built:</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/5.png">
+</div>
+<p>I can see the real time data in different devices with only one url link, even if the devices are not connected to my home wifi.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/6.png">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/7.jpg">
+</div>
+<h1><bold><quote><a href="https://maxliu-sanzhuangshuini.com/gallery/watering_device.html" target="_blank" rel="noopener noreferrer">Link to the dashboard webpage.</a></quote></bold></h1>
+<p>What's else, I recorded the data as a jsonl file in VM, and managed to download it. Thus, maybe 3 weeks later I can grab this file again and see the trend of the moisture of my plant's soil.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_042/10.png">
+</div>

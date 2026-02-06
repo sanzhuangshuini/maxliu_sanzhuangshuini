@@ -339,7 +339,7 @@
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   },
   {
-    "title": "CD&NI-002-Watering Device-Device Data Dashboard-1",
+    "title": "CD&NI-002-Watering Device-Device-Data Dashboard-1",
     "slug": "blog-039",
     "date": "2026-01-27",
     "contentFile": "blog_contents/blog_039.html",
@@ -363,7 +363,7 @@
     "categories": ["all", "project_development_studio"]
   },
   {
-    "title": "CD&NI-003-Watering Device-Device Data Dashboard-2",
+    "title": "CD&NI-003-Watering Device-Device-Data Dashboard-2",
     "slug": "blog-042",
     "date": "2026-02-03",
     "contentFile": "blog_contents/blog_042.html",
@@ -385,5 +385,13 @@
     "contentFile": "blog_contents/blog_044.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+  },
+  {
+    "title": "CD&NI-004-Watering Device-",
+    "slug": "blog-045",
+    "date": "2026-02-10",
+    "contentFile": "blog_contents/blog_045.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "connected_devices_and_networked_interaction"]
   }
 ]

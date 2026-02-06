@@ -1,15 +1,111 @@
 <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8"/>
-  <title>Watering Device Dashboard</title>
-</head>
-<body>
-  <h1>Moisture</h1>
-  <div id="moisture">--</div>
-  <div id="time">--</div>
+<html lang="en">
 
-  <button id="btn">Send Command</button>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>watering_device</title>
+
+  <link rel="stylesheet" type="text/css" href="../css_styles/style.css">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* fixed canvas area so layout never reflows */
+    .dashboard {
+      width: fit-content;
+      height: 100vh;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 500px 520px;
+      column-gap: 20px;
+      align-items: center;
+
+      transform: translateX(120px);
+    }
+
+    .plant-img {
+      width: 400px;
+      height: auto;
+      display: block;
+    }
+
+    .right {
+      width: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    .info {
+      width: 200px;
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .btn {
+      width: 200px;
+      height: 45px;
+      border: 0;
+      background: #f4f4f4;
+      color: #1f1f1f;
+      cursor: pointer;
+      box-sizing: border-box;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: background-color .15s ease, color .15s ease, transform .05s ease, box-shadow .15s ease;
+    }
+
+    .btn:hover {
+      background: #e5f56c;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, .16);
+    }
+
+    .btn:active {
+      background: #4ed2d2;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, .16);
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard">
+    <div>
+      <img class="plant-img" src="../images_videos/functional_prototype/watering_device/1.jpg" alt="plant">
+    </div>
+
+    <div class="right">
+      <div class="info">
+        <div class="row">
+          <h5>Moisture</h5>
+          <h5 id="moisture">--</h5>
+        </div>
+        <div class="row">
+          <h5>Updated at</h5>
+          <h5 id="time">--</h5>
+        </div>
+      </div>
+
+      <button class="btn" id="btn">
+        <h3>Water</h3>
+      </button>
+    </div>
+  </div>
 
   <script>
     const API_BASE = "https://api.maxliu-sanzhuangshuini.com";
@@ -17,25 +113,27 @@
     async function refresh() {
       const r = await fetch(`${API_BASE}/state`);
       const s = await r.json();
-      document.getElementById("moisture").textContent = `moisture: ${s.moisture}`;
-      document.getElementById("time").textContent = `updatedAt: ${s.updatedAt}`;
+      document.getElementById("moisture").textContent = (s.moisture ?? "--");
+      document.getElementById("time").textContent = (s.updatedAt ?? "--");
     }
 
     document.getElementById("btn").onclick = async () => {
       const cmd = prompt("Command to Arduino:", "hello from website");
       if (!cmd) return;
+
       const r = await fetch(`${API_BASE}/command`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cmd })
       });
-      alert((await r.json()).ok ? "sent" : "failed");
+
+      const j = await r.json();
+      alert(j.ok ? "sent" : "failed");
     };
 
     refresh();
-    // 可选：每5分钟刷新一次就够了（反正5小时才变）5 * 60 * 1000
-    //5秒刷新一次：5000
     setInterval(refresh, 5 * 60 * 1000);
   </script>
 </body>
+
 </html>

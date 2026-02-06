@@ -369,5 +369,21 @@
     "contentFile": "blog_contents/blog_042.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"]
+  },
+  {
+    "title": "DSMMS-003",
+    "slug": "blog-043",
+    "date": "2026-02-05",
+    "contentFile": "blog_contents/blog_043.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+  },
+  {
+    "title": "DSMMS-004",
+    "slug": "blog-044",
+    "date": "2026-02-12",
+    "contentFile": "blog_contents/blog_044.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   }
 ]

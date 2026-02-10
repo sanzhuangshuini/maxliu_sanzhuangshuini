@@ -387,11 +387,19 @@
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   },
   {
-    "title": "CD&NI-004-Watering Device-",
+    "title": "CD&NI-004-Watering Device-Output",
     "slug": "blog-045",
     "date": "2026-02-10",
     "contentFile": "blog_contents/blog_045.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"]
+  },
+  {
+    "title": "PDS-003-Project Red Vein-Map and Scene Design",
+    "slug": "blog-046",
+    "date": "2026-02-10",
+    "contentFile": "blog_contents/blog_046.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "project_development_studio"]
   }
 ]

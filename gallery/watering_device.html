@@ -53,6 +53,17 @@
       gap: 16px;
     }
 
+    .label {
+      width: 90px;
+    }
+
+    .value {
+      flex: 1;
+      text-align: right;
+    }
+
+    
+
     .btn {
       width: 200px;
       height: 45px;
@@ -79,6 +90,8 @@
       box-shadow: 0 8px 15px rgba(0, 0, 0, .16);
       transform: translateY(2px);
     }
+
+    
   </style>
 </head>
 
@@ -91,13 +104,14 @@
     <div class="right">
       <div class="info">
         <div class="row">
-          <h5>Moisture</h5>
-          <h5 id="moisture">--</h5>
+          <h5 class="label">Moisture</h5>
+          <h5 class="value" id="moisture">--</h5>
         </div>
         <div class="row">
-          <h5>Updated at</h5>
-          <h5 id="time">--</h5>
+          <h5 class="label">Time</h5>
+          <h5 class="value" id="time">--</h5>
         </div>
+
       </div>
 
       <button class="btn" id="btn">

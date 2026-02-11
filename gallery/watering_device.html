@@ -16,7 +16,6 @@
       overflow: hidden;
     }
 
-    /* fixed canvas area so layout never reflows */
     .dashboard {
       width: fit-content;
       height: 100vh;
@@ -26,7 +25,7 @@
       column-gap: 20px;
       align-items: center;
 
-      transform: translateX(120px);
+      transform: translateX(60px);
     }
 
     .plant-img {
@@ -114,11 +113,13 @@
       const r = await fetch(`${API_BASE}/state`);
       const s = await r.json();
       document.getElementById("moisture").textContent = (s.moisture ?? "--");
-      document.getElementById("time").textContent = (s.updatedAt ?? "--");
+      document.getElementById("time").textContent =
+        s.updatedAt ? s.updatedAt.slice(0, 16) : "--";
+
     }
 
     document.getElementById("btn").onclick = async () => {
-      const cmd = prompt("Command to Arduino:", "hello from website");
+      const cmd = prompt("Command to Arduino:", "on");
       if (!cmd) return;
 
       const r = await fetch(`${API_BASE}/command`, {

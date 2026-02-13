@@ -12,6 +12,245 @@
     I assumed this may be caused by the pump motor exerting a reverse effect on the circuit.
     I added a pull-down resistor and a capacitor in the circuit but failed in resolving that problem.
 </p>
+<p>After the office hour with Tom, I made the following changes:</p>
+<p>1. Change the NPN TIP 102 to MOSFET.</p>
+<p>2. Move all the components to the right side of the breadboard to make them closer to the 3.3V pin.</p>
+<p>3. Change to a bigger capacitor.</p>
+<p>4. Replace with a bigger diode.</p>
+<p>5. Get a new pump.</p>
+<p>Done all these above, the problem is somehow solved. I guess this is the physical world. What will run well logically will not act the same physically. Sometimes I just need to change some components. And specification of the components matter very much.</p>
+<p><emph1>***When next time working with high-current motors, remember: motors will cost a suddent high currency comsumption when starting, which can easily eat the currency that Arduino needs to function. (Because they are in the same GND.) Therefore, sufficient power supply, diode, capacitor, pull-down resisitor are demanded.</emph1></p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_045/3.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_045/4.mp4" type="video/mp4">
+</video>
+<p><emph2>However, I got another problem. When the pump is working, the moisture sensor data is in its maximum.</emph2> OMG why is this so endless. I am exhausted.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_045/2.png">
+</div>
+<p>Anyways I just gonna leave it as it is. I am kinda tired. I just need to exclude all the 1023 when I normalize the data.</p>
+
+<pre><code>#include <WiFiNINA.h>
+#include <PubSubClient.h>
+#include <Wire.h>
+#include <SparkFun_Soil_Moisture_Sensor.h>
+
+// WiFi
+// char ssid[] = "SpectrumSetup-51C9";
+// char pass[] = "calmextent983";
+
+char ssid[] = "sandbox370";
+char pass[] = "+s0a+s03!2gether?";
+
+const char* mqttServer = "34.69.76.141";
+const int   mqttPort   = 1883;
+
+const char* TOPIC_MOISTURE = "plant/moisture";
+const char* TOPIC_WATER    = "plant/water";
+
+//const unsigned long PUBLISH_INTERVAL_MS = 5 * 60 * 60 * 1000UL; //5 hours
+const unsigned long PUBLISH_INTERVAL_MS = 5000UL; //5 seconds
+
+const int PUMP_PIN = 9;
+const unsigned long DEFAULT_PUMP_MS = 1500;
+const unsigned long PUMP_MAX_MS = 2000;
+
+const unsigned long SENSOR_SETTLE_MS = 2000;
+
+bool pumpOn = false;
+unsigned long pumpOffAtMs = 0;
+unsigned long pumpStartedAtMs = 0;
+unsigned long pumpStoppedAtMs = 0;
+
+WiFiClient wifiClient;
+PubSubClient client(wifiClient);
+SparkFunSoilMoistureSensor soil;
+
+unsigned long lastPublishMs = 0;
+
+void pumpStartFor(unsigned long durationMs) {
+  if (durationMs < 50) durationMs = 50;
+  if (durationMs > PUMP_MAX_MS) durationMs = PUMP_MAX_MS;
+
+  digitalWrite(PUMP_PIN, HIGH);
+  pumpOn = true;
+  pumpStartedAtMs = millis();
+  pumpOffAtMs = pumpStartedAtMs + durationMs;
+
+  Serial.print("[PUMP] ON for ");
+  Serial.print(durationMs);
+  Serial.println(" ms");
+}
+
+void pumpStopNow() {
+  digitalWrite(PUMP_PIN, LOW);
+  pumpOn = false;
+  pumpOffAtMs = 0;
+  pumpStartedAtMs = 0;
+  pumpStoppedAtMs = millis();
+  Serial.println("[PUMP] OFF");
+}
+
+int readMoistureStable() {
+  long sum = 0;
+  for (int i = 0; i < 5; i++) {
+    sum += soil.readMoistureValue();
+    delay(20);
+  }
+  int raw = (int)(sum / 5);
+  if (raw < 0) raw = 0;
+  if (raw > 1023) raw = 1023;
+  return 1023 - raw;
+}
+
+void onMqttMessage(char* topic, byte* payload, unsigned int length) {
+  Serial.print("[MQTT] ");
+  Serial.print(topic);
+  Serial.print(" -> ");
+
+  String msg;
+  msg.reserve(length);
+  for (unsigned int i = 0; i < length; i++) msg += (char)payload[i];
+  msg.trim();
+  Serial.println(msg);
+
+  if (String(topic) != TOPIC_WATER) return;
+
+  if (msg.equalsIgnoreCase("off") || msg.equalsIgnoreCase("0")) {
+    pumpStopNow();
+    return;
+  }
+
+  if (msg.equalsIgnoreCase("on")) {
+    pumpStartFor(DEFAULT_PUMP_MS);
+    return;
+  }
+
+  if (msg.startsWith("on ")) {
+    String t = msg.substring(3);
+    t.trim();
+    unsigned long ms = (unsigned long)t.toInt();
+    if (ms > 0) pumpStartFor(ms);
+    else pumpStartFor(DEFAULT_PUMP_MS);
+    return;
+  }
+
+  long ms = msg.toInt();
+  if (ms > 0) {
+    pumpStartFor((unsigned long)ms);
+    return;
+  }
+
+  Serial.println("[PUMP] Unknown command");
+}
+
+void connectWifiOnce() {
+  if (WiFi.status() == WL_CONNECTED) return;
+
+  Serial.print("[WiFi] Connecting ");
+  Serial.println(ssid);
+
+  WiFi.begin(ssid, pass);
+
+  unsigned long t0 = millis();
+  while (WiFi.status() != WL_CONNECTED && (millis() - t0) < 15000UL) {
+    delay(250);
+    Serial.print(".");
+  }
+  Serial.println();
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.print("[WiFi] OK, IP=");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("[WiFi] Timeout, will retry");
+  }
+}
+
+void connectMqttOnce() {
+  if (client.connected()) return;
+  if (WiFi.status() != WL_CONNECTED) return;
+
+  client.setServer(mqttServer, mqttPort);
+  client.setCallback(onMqttMessage);
+
+  String clientId = "nano33iot-" + String((uint32_t)random(0xFFFFFF), HEX);
+
+  Serial.print("[MQTT] Connecting... ");
+  if (client.connect(clientId.c_str())) {
+    Serial.println("OK");
+    client.subscribe(TOPIC_WATER);
+    Serial.println("[MQTT] Subscribed plant/water");
+  } else {
+    Serial.print("FAIL state=");
+    Serial.println(client.state());
+  }
+}
+
+void publishMoistureNow() {
+  unsigned long now = millis();
+  if (pumpOn) return;
+  if (pumpStoppedAtMs && (now - pumpStoppedAtMs) < SENSOR_SETTLE_MS) return;
+
+  int moisture = readMoistureStable();
+
+  char msg[16];
+  itoa(moisture, msg, 10);
+
+  client.publish(TOPIC_MOISTURE, msg, true);
+
+  Serial.print("[SOIL] moisture=");
+  Serial.println(moisture);
+}
+
+void setup() {
+  pinMode(PUMP_PIN, OUTPUT);
+  digitalWrite(PUMP_PIN, LOW);
+
+  Serial.begin(9600);
+
+  randomSeed(analogRead(A0));
+
+  Wire.begin();
+  if (soil.begin()) Serial.println("[SOIL] Sensor detected");
+  else Serial.println("[SOIL] Not detected (check Qwiic cable / I2C)");
+
+  connectWifiOnce();
+  connectMqttOnce();
+
+  publishMoistureNow();
+  lastPublishMs = millis();
+}
+
+void loop() {
+  connectWifiOnce();
+  connectMqttOnce();
+
+  client.loop();
+
+  unsigned long now = millis();
+
+  if (digitalRead(PUMP_PIN) == HIGH) {
+    if (!pumpOn) pumpOn = true;
+    if (pumpStartedAtMs == 0) pumpStartedAtMs = now;
+  }
+
+  if (pumpOn) {
+    if ((long)(now - pumpOffAtMs) >= 0 || (long)(now - pumpStartedAtMs) >= (long)PUMP_MAX_MS) {
+      pumpStopNow();
+    }
+  } else {
+    digitalWrite(PUMP_PIN, LOW);
+  }
+
+  if (now - lastPublishMs >= PUBLISH_INTERVAL_MS) {
+    publishMoistureNow();
+    lastPublishMs = now;
+  }
+
+  delay(20);
+}
+</code></pre>
 
 <h4>3-Enclosure</h4>
-<p>The initial idea about the enclosure is a peeing dog or something similar.</p>
+<p>The initial idea about the enclosure is a peeing dog or something similar. If I have the time to make it. If I don't, I will just go with a Fedex box.</p>

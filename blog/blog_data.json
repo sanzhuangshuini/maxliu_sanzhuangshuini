@@ -331,7 +331,7 @@
     "categories": ["all", "project_development_studio"]
   },
   {
-    "title": "DSMMS-001",
+    "title": "DSMMS-001-Two Vizzies",
     "slug": "blog-038",
     "date": "2026-01-23",
     "contentFile": "blog_contents/blog_038.html",
@@ -347,7 +347,7 @@
     "categories": ["all", "connected_devices_and_networked_interaction"]
   },
   {
-    "title": "DSMMS-002",
+    "title": "DSMMS-002-P5.js for Data Visualization",
     "slug": "blog-040",
     "date": "2026-01-29",
     "contentFile": "blog_contents/blog_040.html",
@@ -371,7 +371,7 @@
     "categories": ["all", "connected_devices_and_networked_interaction"]
   },
   {
-    "title": "DSMMS-003",
+    "title": "DSMMS-003-Missing Data",
     "slug": "blog-043",
     "date": "2026-02-05",
     "contentFile": "blog_contents/blog_043.html",
@@ -379,9 +379,9 @@
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   },
   {
-    "title": "DSMMS-004",
+    "title": "DSMMS-004-Final Project Ideation",
     "slug": "blog-044",
-    "date": "2026-02-12",
+    "date": "2026-02-19",
     "contentFile": "blog_contents/blog_044.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]

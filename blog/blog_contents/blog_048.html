@@ -1,0 +1,82 @@
+<!-- DSMMS-005 -->
+ <h4>1-Iteration</h4>
+<p>
+    Inspired by what we discussed in class, we changed our research direction.
+    At first, we wanted to look at transit equity across neighborhoods.
+    The idea was to find which stations have the highest delay rates, then see which boroughs have the most “high-delay stations,” then use that to talk about fairness in service quality (for example, whether Manhattan seems better served than Brooklyn).
+    But we ran into a big problem: we couldn’t find reliable public data that tracks delays at the individual station level. There just isn’t a dataset that clearly tells you “this stop is most likely to be delayed.”
+    So we changed our approach. Instead, we’re looking at **monthly ridership and delay rates by subway line**. This lets us compare how stable different lines are over time and identify **high-risk lines**—the ones that are both **heavily used and frequently delayed**.
+    The goal is to turn that into something practical: helping riders make better route choices based on reliability.
+</p>
+
+<h4>2-Title</h4>
+<h6>Does Crowding Cause Chaos? Visualizing the Relationship Between Ridership and Delay Rates Across NYC Subway Lines</h6>
+
+<h4>3-Brief Description</h4>
+<p>
+    Using monthly ridership and delay rate data from 24 subway lines over a full calendar year, this project explores whether higher ridership is associated with higher delay rates. 
+</p>
+
+<h4>4-Why This Topic</h4>
+<p>
+    Public transit reliability is one of the most tangible ways city infrastructure affects daily life. Delays are frustrating, and it's natural to assume that crowded trains are delayed trains — but is that actually true? We were drawn to this question because it sits at the intersection of urban data and public perception. If the busiest lines aren't the worst performers, that reframes how we think about transit investment and accountability.
+</p>
+
+
+
+<h4>5-Data Resources & Methodology</h4>
+<h5>5.1-Ridership</h5>
+<p>We use this data as a reference: <quote><a href="https://data.ny.gov/Transportation/MTA-Subway-Customer-Journey-Focused-Metrics-Beginn/s4u6-t435/data_preview" target="_blank" rel="noopener noreferrer">MTA Subway Customer Journey-Focused Metrics: Beginning 2025</a></quote></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/1.png">
+</div>
+<p>
+    To support our research, we only needed three fields for this chart: time, subway line, and total ridership for each line. Using the Query Data tool, we re-aggregated the dataset into the format we needed and organized it in Excel. Since the raw numbers were very large, we rounded them and reported ridership in millions (M) for readability. This will be our basic data for x-axis.
+</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/2.png">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/3.png">
+</div>
+
+<h5>5.2-Delay Rate</h5>
+<p>We use this data as a reference: <quote><a href="https://data.ny.gov/Transportation/MTA-Subway-Terminal-On-Time-Performance-Beginning-/ks33-g5ze/data_preview" target="_blank" rel="noopener noreferrer">MTA Subway Terminal On-Time Performance: Beginning 2025</a></quote></p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/4.png">
+</div>
+<p>
+    In this dataset, terminal on-time performance is split into weekdays (day_type=1) and non-weekdays/weekends (day_type=2). That means you get two rows for every line and month, which makes the chart harder to read and harder to compare across lines.
+</p>
+<p>
+    To keep things clean, we combine them into one overall monthly on-time rate. We do this by adding up num_on_time_trips and num_sched_trips across both day types.
+</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/5.png">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/6.png">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/7.png">
+</div>
+<p>Then calculating it in Excel to get our overall on time rate:</p>
+<pre><code>OTP_overall = (Σ num_on_time_trips) / (Σ num_sched_trips)</code></pre>
+<p>In order to get clear data, we use 1-OPT_overall to get the delay rate for each. Then organize it for our y-axis</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/8.png">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/9.png">
+</div>
+
+<h4>6-What We Leared</h4>
+<p>Finding data is easy; the real challenge is organizing it effectively to meet individual needs and visualizing it in a clear, easy-to-understand way. That’s an ongoing learning process.</p>
+
+<h4>7-Questions Remaining & Next Steps</h4>
+<p>
+    We spent a lot of time collecting the data, and we’re now moving on to the visualization stage. We experimented with Flourish, and this is our draft for this week. How can we clearly incorporate the monthly data? How can we refine the visualizations to improve readability? Should we include additional information? We’re still working through these questions.
+</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/data_storytelling_for_memory_making_and_social/blog_048/10.png">
+</div>
+
+<h4>8-Impression on <quote><a href="https://mkorostoff.github.io/incarceration-in-real-numbers/" target="_blank" rel="noopener noreferrer">Incarceration in Real Numbers</a></quote></h4>
+<p>
+    The presentation of this piece is profoundly impactful. Each icon on the screen represents a real person.
+    As I watch them pile up endlessly, the sheer scale of this impact far surpasses any statistic that could be conveyed in a few lines of text.
+    “Two million people behind bars” is a fact you can read and turn the page on, but this scene before my eyes demands attention—it pulls me in, compelling me to keep scrolling down until I've seen the entire length of the page.
+    This is the power of transforming data into imagery. When design allows you to truly feel the weight of information rather than merely process it, it possesses a quiet strength.
+</p>

@@ -10,5 +10,168 @@
 <p>The pump worked well at the night after the office hour. However, after I finished the enclosure and started to film the documentation video, it went back all the way to the very beginning of the issue. OMG it was si frustrating. I assume that it's because the solder of the pump. The pump doesn't have the pin to be plucked into my breadboard. Therefore I soldered two dupont wires on it. This is the only altered factor that I can think of.</p>
 <p>Water pump died. I need another physical output. I decided to make it simple by adding a screen. (In a sense, this statement is incorrect because I will integrate the screen regardless.)</p>
 <p>When I tried to initialize the I2C OLED screen, I used the U8g2 library because I've used it in Pcomp. However, the sensor data kept being abnormal. After a few debugs I changed the screen library to Adafruit and the problem is solved.</p>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_049/1.jpg">
+</div>
+<pre><code>#include &lt;WiFiNINA.h>
+#include &lt;PubSubClient.h>
+#include &lt;Wire.h>
+#include &lt;SparkFun_Soil_Moisture_Sensor.h>
+#include &lt;Adafruit_GFX.h>
+#include &lt;Adafruit_SSD1306.h>
+
+// WiFis
+char ssid[] = "my_WIFI_name";
+char pass[] = "my_WIFI_password";
+
+const char* mqttServer = "my_VM_ip_address";
+const int mqttPort = 1883;
+
+const char* TOPIC_MOISTURE = "plant/moisture";
+
+const unsigned long PUBLISH_INTERVAL_MS = 1 * 60 * 60 * 1000UL;
+// const unsigned long PUBLISH_INTERVAL_MS = 5000UL;
+
+WiFiClient wifiClient;
+PubSubClient client(wifiClient);
+SparkFunSoilMoistureSensor soil;
+
+Adafruit_SSD1306 display(128, 64, &Wire, -1);
+
+unsigned long lastPublishMs = 0;
+
+void updateDisplay(bool wifiConnected, int moisture = -1) {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+
+  display.setCursor(0, 0);
+  if (wifiConnected) {
+    display.println("WIFI: Connected");
+  } else {
+    display.println("WIFI: Connecting...");
+  }
+
+  if (moisture >= 0) {
+    display.setCursor(0, 16);
+    display.print("Moisture: ");
+    display.println(moisture);
+  }
+
+  display.display();
+}
+
+int readMoistureStable() {
+  long sum = 0;
+  for (int i = 0; i < 5; i++) {
+    sum += soil.readMoistureValue();
+    delay(20);
+  }
+  int raw = (int)(sum / 5);
+  if (raw < 0) raw = 0;
+  if (raw > 1023) raw = 1023;
+  return 1023 - raw;
+}
+
+void connectWifiOnce() {
+  if (WiFi.status() == WL_CONNECTED) return;
+
+  Serial.print("[WiFi] Connecting ");
+  Serial.println(ssid);
+
+  updateDisplay(false);
+
+  WiFi.begin(ssid, pass);
+
+  unsigned long t0 = millis();
+  while (WiFi.status() != WL_CONNECTED && (millis() - t0) < 15000UL) {
+    delay(250);
+    Serial.print(".");
+  }
+  Serial.println();
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.print("[WiFi] OK, IP=");
+    Serial.println(WiFi.localIP());
+    updateDisplay(true);
+  } else {
+    Serial.println("[WiFi] Timeout, will retry");
+  }
+}
+
+void connectMqttOnce() {
+  if (client.connected()) return;
+  if (WiFi.status() != WL_CONNECTED) return;
+
+  client.setServer(mqttServer, mqttPort);
+
+  String clientId = "nano33iot-" + String((uint32_t)random(0xFFFFFF), HEX);
+
+  Serial.print("[MQTT] Connecting... ");
+  if (client.connect(clientId.c_str())) {
+    Serial.println("OK");
+  } else {
+    Serial.print("FAIL state=");
+    Serial.println(client.state());
+  }
+}
+
+void publishMoistureNow() {
+  int moisture = readMoistureStable();
+
+  char msg[16];
+  itoa(moisture, msg, 10);
+
+  client.publish(TOPIC_MOISTURE, msg, true);
+
+  Serial.print("[SOIL] moisture=");
+  Serial.println(moisture);
+
+  updateDisplay(WiFi.status() == WL_CONNECTED, moisture);
+}
+
+void setup() {
+  Serial.begin(9600);
+  randomSeed(analogRead(A0));
+
+  Wire.begin();
+  delay(500);
+
+  if (soil.begin()) Serial.println("[SOIL] Sensor detected");
+  else Serial.println("[SOIL] Not detected (check Qwiic cable / I2C)");
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("[OLED] Not detected");
+  } else {
+    Serial.println("[OLED] Detected");
+  }
+
+  connectWifiOnce();
+  connectMqttOnce();
+
+  publishMoistureNow();
+  lastPublishMs = millis();
+}
+
+void loop() {
+  connectWifiOnce();
+  connectMqttOnce();
+
+  client.loop();
+
+  unsigned long now = millis();
+
+  if (now - lastPublishMs >= PUBLISH_INTERVAL_MS) {
+    publishMoistureNow();
+    lastPublishMs = now;
+  }
+
+  delay(20);
+}
+
+</code></pre>
 
 <h4>3-Final Outcome Again</h4>
+<div class="image-row">
+    <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_049/2.jpg">
+</div>

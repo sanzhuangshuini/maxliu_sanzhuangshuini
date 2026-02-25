@@ -62,8 +62,6 @@
       text-align: right;
     }
 
-    
-
     .btn {
       width: 200px;
       height: 45px;
@@ -91,7 +89,13 @@
       transform: translateY(2px);
     }
 
-    
+    .btn-note {
+      color: rgb(214, 214, 214);
+      margin: 0;
+      margin-top: 10px;
+      width: 200px;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -111,25 +115,38 @@
           <h5 class="label">Time</h5>
           <h5 class="value" id="time">--</h5>
         </div>
-
       </div>
 
-      <button class="btn" id="btn">
-        <h3>Water</h3>
-      </button>
+      <div>
+        <button class="btn" id="btn">
+          <h3>Water</h3>
+        </button>
+        <p class="btn-note">This feature is broken, promise me you won't press it ^-^</p>
+      </div>
     </div>
   </div>
 
   <script>
     const API_BASE = "https://api.maxliu-sanzhuangshuini.com";
 
+    let lastMoisture = null;
+    let lastUpdatedAt = null;
+
     async function refresh() {
       const r = await fetch(`${API_BASE}/state`);
       const s = await r.json();
-      document.getElementById("moisture").textContent = (s.moisture ?? "--");
-      document.getElementById("time").textContent =
-        s.updatedAt ? s.updatedAt.slice(0, 16) : "--";
 
+      const newMoisture = s.moisture ?? "--";
+      const newUpdatedAt = s.updatedAt ?? null;
+
+      if (newMoisture !== lastMoisture || newUpdatedAt !== lastUpdatedAt) {
+        document.getElementById("moisture").textContent = newMoisture;
+        document.getElementById("time").textContent =
+          newUpdatedAt ? newUpdatedAt.slice(0, 16) : "--";
+
+        lastMoisture = newMoisture;
+        lastUpdatedAt = newUpdatedAt;
+      }
     }
 
     document.getElementById("btn").onclick = async () => {
@@ -147,8 +164,7 @@
     };
 
     refresh();
-    setInterval(refresh, 1 * 60 * 1000); //1 hour
-    //setInterval(refresh, 5000); //5 seconds
+    setInterval(refresh, 5000); // 每5秒检查一次，有变化才更新UI
   </script>
 </body>
 

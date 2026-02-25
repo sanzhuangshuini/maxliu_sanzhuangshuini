@@ -9,5 +9,6 @@
 <h4>2-Output: Screen</h4>
 <p>The pump worked well at the night after the office hour. However, after I finished the enclosure and started to film the documentation video, it went back all the way to the very beginning of the issue. OMG it was si frustrating. I assume that it's because the solder of the pump. The pump doesn't have the pin to be plucked into my breadboard. Therefore I soldered two dupont wires on it. This is the only altered factor that I can think of.</p>
 <p>Water pump died. I need another physical output. I decided to make it simple by adding a screen. (In a sense, this statement is incorrect because I will integrate the screen regardless.)</p>
+<p>When I tried to initialize the I2C OLED screen, I used the U8g2 library because I've used it in Pcomp. However, the sensor data kept being abnormal. After a few debugs I changed the screen library to Adafruit and the problem is solved.</p>
 
 <h4>3-Final Outcome Again</h4>

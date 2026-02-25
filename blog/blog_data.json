@@ -379,7 +379,7 @@
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   },
   {
-    "title": "DSMMS-004-Final Project Ideation",
+    "title": "DSMMS-004-Final-Ideation",
     "slug": "blog-044",
     "date": "2026-02-19",
     "contentFile": "blog_contents/blog_044.html",
@@ -387,7 +387,7 @@
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   },
   {
-    "title": "CD&NI-004-Watering Device-Output-Water Pump",
+    "title": "CD&NI-004-Watering Device-Water Pump Output & Enclosure",
     "slug": "blog-045",
     "date": "2026-02-10",
     "contentFile": "blog_contents/blog_045.html",
@@ -411,11 +411,19 @@
     "categories": ["all", "telling_stories_with_real-time_engines"]
   },
   {
-    "title": "DSMMS-004-Final Project Iteration",
+    "title": "DSMMS-005-Final-Iteration",
     "slug": "blog-048",
     "date": "2026-02-22",
     "contentFile": "blog_contents/blog_048.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+  },
+  {
+    "title": "CD&NI-005-Watering Device-Screen Output",
+    "slug": "blog-049",
+    "date": "2026-02-24",
+    "contentFile": "blog_contents/blog_049.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "connected_devices_and_networked_interaction"]
   }
 ]

@@ -425,5 +425,13 @@
     "contentFile": "blog_contents/blog_049.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"]
+  },
+  {
+    "title": "DSMMS-005-Final",
+    "slug": "blog-050",
+    "date": "2026-03-01",
+    "contentFile": "blog_contents/blog_050.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
   }
 ]

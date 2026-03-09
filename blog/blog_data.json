@@ -395,7 +395,7 @@
     "categories": ["all", "connected_devices_and_networked_interaction"]
   },
   {
-    "title": "PDS-003-Project Red Vein-Map and Scene Design",
+    "title": "PDS-003-Project Red Vein-Concept Art",
     "slug": "blog-046",
     "date": "2026-02-10",
     "contentFile": "blog_contents/blog_046.html",
@@ -433,5 +433,13 @@
     "contentFile": "blog_contents/blog_050.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+  },
+  {
+    "title": "CD&NI-006-Watering Device-Data",
+    "slug": "blog-051",
+    "date": "2026-03-03",
+    "contentFile": "blog_contents/blog_051.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "connected_devices_and_networked_interaction"]
   }
 ]

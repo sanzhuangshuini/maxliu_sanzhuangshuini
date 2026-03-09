@@ -21,137 +21,15 @@
   <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_051/1.png">
 </div>
 <p>I visualized the data to make it approachable.</p>
-
-<!-- moisture data visualization -->
-<style>
-  .moisture-chart-wrap {
-    margin: 12px 0 12px 40px;
-    font-family: "Helvetica", "Microsoft YaHei";
-  }
-
-  .moisture-stats {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-  }
-
-  .moisture-stat-label {
-    font-size: 0.75em;
-    color: rgb(214, 214, 214);
-    margin-bottom: 2px;
-  }
-
-  .moisture-stat-value {
-    font-size: 1em;
-    font-weight: bold;
-    color: #1f1f1f;
-  }
-
-  .moisture-svg-wrap {
-    background: #f4f4f4;
-    padding: 20px 0 12px 0;
-    overflow: visible;
-  }
-
-  .moisture-legend {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    margin-top: 12px;
-  }
-
-  .moisture-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8em;
-    color: #1f1f1f;
-  }
-
-  .moisture-legend-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .moisture-legend-line {
-    width: 18px;
-    height: 2px;
-    flex-shrink: 0;
-  }
-
-  .moisture-tooltip {
-    position: fixed;
-    background: #fff;
-    border: none;
-    padding: 8px 12px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.1s;
-    z-index: 9999;
-    font-family: "Helvetica", "Microsoft YaHei";
-    font-size: 0.8em;
-  }
-
-  .moisture-tooltip-time {
-    color: rgb(214, 214, 214);
-    margin-bottom: 2px;
-  }
-
-  .moisture-tooltip-val {
-    font-weight: bold;
-    color: #1f1f1f;
-    font-size: 1.2em;
-  }
-
-  .moisture-tooltip-label {
-    color: #96b351;
-    margin-top: 2px;
-  }
-</style>
-
-<div class="moisture-chart-wrap">
-  <div class="moisture-stats">
-    <div>
-      <div class="moisture-stat-label">PERIOD</div>
-      <div class="moisture-stat-value">Mar 02 – Mar 09, 2026</div>
-    </div>
-    <div>
-      <div class="moisture-stat-label">RECORDS</div>
-      <div class="moisture-stat-value">163</div>
-    </div>
-    <div>
-      <div class="moisture-stat-label">PEAK</div>
-      <div class="moisture-stat-value">857</div>
-    </div>
-    <div>
-      <div class="moisture-stat-label">WATERING EVENTS</div>
-      <div class="moisture-stat-value">2</div>
-    </div>
-  </div>
-
-  <div class="moisture-svg-wrap">
-    <svg id="moisture-chart" width="100%" style="display:block"></svg>
-  </div>
-
-  <div class="moisture-legend">
-    <div class="moisture-legend-item">
-      <div class="moisture-legend-line" style="background:#96b351"></div>
-      Moisture level
-    </div>
-    <div class="moisture-legend-item">
-      <div class="moisture-legend-dot" style="background:#1f1f1f"></div>
-      Watering event recorded
-    </div>
-  </div>
+<div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_051/2.png" style="max-width: 100%;">
 </div>
 
-<div id="moisture-tooltip" class="moisture-tooltip">
-  <div class="moisture-tooltip-time" id="mtt-time"></div>
-  <div class="moisture-tooltip-val" id="mtt-val"></div>
-  <div class="moisture-tooltip-label" id="mtt-label"></div>
-</div>
 
-<script src="../js_files/moisture_data_visualization.js"></script>
+<p>
+  Through this chart, we can observe the humidity evaporation curve.
+  What's interesting is that after watering on March 7th,
+  I haven't watered the money tree again,
+  yet the humidity has shown a gradual upward trend.
+  I speculate this might be due to the rainfall over those two days, which increased the air humidity.
+</p>

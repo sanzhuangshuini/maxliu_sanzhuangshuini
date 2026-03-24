@@ -403,7 +403,7 @@
     "categories": ["all", "project_development_studio"]
   },
   {
-    "title": "TSRTE-001-Final",
+    "title": "TSRTE-Final",
     "slug": "blog-047",
     "date": "2026-02-21",
     "contentFile": "blog_contents/blog_047.html",
@@ -441,5 +441,13 @@
     "contentFile": "blog_contents/blog_051.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"]
+  },
+  {
+    "title": "100DM-The 100 Posts!",
+    "slug": "blog-052",
+    "date": "2026-03-24",
+    "contentFile": "blog_contents/blog_052.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "100_days_of_making"]
   }
 ]

@@ -449,5 +449,13 @@
     "contentFile": "blog_contents/blog_052.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "100_days_of_making"]
+  },
+  {
+    "title": "DEMHMMRG-001-Ideation",
+    "slug": "blog-053",
+    "date": "2026-03-25",
+    "contentFile": "blog_contents/blog_053.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"]
   }
 ]

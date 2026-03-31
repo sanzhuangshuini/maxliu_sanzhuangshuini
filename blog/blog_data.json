@@ -457,5 +457,13 @@
     "contentFile": "blog_contents/blog_053.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"]
+  },
+  {
+    "title": "DEMHMMRG-002-Fieldwork",
+    "slug": "blog-054",
+    "date": "2026-03-31",
+    "contentFile": "blog_contents/blog_054.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"]
   }
 ]

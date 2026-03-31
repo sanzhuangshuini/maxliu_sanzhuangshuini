@@ -106,10 +106,10 @@
             // 每栏宽度（包含正常正向 horizontal 间距）
             const columnWidth = (containerWidth - imageGap * (columnCount - 1)) / columnCount;
 
-            // ❗计算负间距后的“实际总宽度”
+            // 计算负间距后的“实际总宽度”
             const actualWidth = columnCount * columnWidth + (columnCount - 1) * columnGap;
 
-            // ❗计算居中偏移量
+            // 计算居中偏移量
             const offsetX = (containerWidth - actualWidth) / 2;
 
             // 初始化每列高度
@@ -126,7 +126,7 @@
                     }
                 }
 
-                // ❗x = 居中偏移 + 原本位置
+                // x = 居中偏移 + 原本位置
                 const x = offsetX + minCol * (columnWidth + columnGap);
                 const y = colHeights[minCol];
 

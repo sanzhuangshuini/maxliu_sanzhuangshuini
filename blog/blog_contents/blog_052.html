@@ -1,10 +1,76 @@
 <!-- 100DM -->
-<p>I will just put one image of my drawings each day.</p>
-<div class="image-row">
-  <img src="../images_videos/learning_blogs/100_days_of_making/blog_052/1.jpg">
-  <img src="../images_videos/learning_blogs/100_days_of_making/blog_052/2.jpg">
-  <img src="../images_videos/learning_blogs/100_days_of_making/blog_052/4.jpg">
-  <img src="../images_videos/learning_blogs/100_days_of_making/blog_052/3.jpg">
-  <img src="../images_videos/learning_blogs/100_days_of_making/blog_052/5.jpg">
-  <img src="../images_videos/learning_blogs/100_days_of_making/blog_052/6.jpg">
+
+
+<style>
+  body {
+    margin: 0;
+    overflow-y: scroll;
+  }
+
+  /* 居中容器 */
+  .page-container {
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+  }
+
+  /* Masonry 采用绝对定位布局 */
+  .masonry {
+    position: relative;
+    width: 100%;
+  }
+
+  .item {
+    position: absolute;
+  }
+
+  .item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>
+
+
+
+<div class="page-container">
+
+  <main class="masonry" id="masonry">
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/1.jpg"></div>
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/2.jpg"></div>
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/4.jpg"></div>
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/3.jpg"></div>
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/5.jpg"></div>
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/6.jpg"></div>
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/7.jpg"></div>
+    <div class="item"><img src="../images_videos/learning_blogs/100_days_of_making/blog_052/8.jpg"onload="
+        (function(){
+            var container = document.getElementById('masonry');
+            var items = Array.from(container.children);
+            var columnCount = 4, imageGap = 20, columnGap = -40;
+            var columnOffset = [20, 0, 80, 40];
+            var containerWidth = container.offsetWidth;
+            var columnWidth = (containerWidth - imageGap * (columnCount - 1)) / columnCount;
+            var actualWidth = columnCount * columnWidth + (columnCount - 1) * columnGap;
+            var offsetX = (containerWidth - actualWidth) / 2;
+            var colHeights = columnOffset.slice();
+            items.forEach(function(item){
+                item.style.width = columnWidth + 'px';
+                var minCol = 0;
+                for(var i = 1; i < columnCount; i++){
+                    if(colHeights[i] < colHeights[minCol]) minCol = i;
+                }
+                item.style.left = (offsetX + minCol * (columnWidth + columnGap)) + 'px';
+                item.style.top = colHeights[minCol] + 'px';
+                colHeights[minCol] += item.getBoundingClientRect().height + imageGap;
+            });
+            container.style.height = Math.max.apply(null, colHeights) + 'px';
+        })();
+    "></div>
+  </main>
+
 </div>
+

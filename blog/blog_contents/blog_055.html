@@ -1,0 +1,157 @@
+<!-- CD&NI-007 -->
+<h4>1-Blinking Test</h4>
+<p>
+  Firstly, I tried the blinking code on the No.3 Light through Column 12 Bridge. But nothing happened.
+  So I resorted to the hue debug tool to GET the status of all the lights on Column 12 Bridge and found that the No.3 Light is unreachable.
+  So I changed to the No.4 Light that is shown reachable. It is the light strip on Column 12. And it worked.
+</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/1.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/2.mp4" type="video/mp4">
+</video>
+
+<h4>2-Brightness Control</h4>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/3.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/4.mp4" type="video/mp4">
+</video>
+
+
+<h4>2-Hue Control</h4>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/5.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/6.mp4" type="video/mp4">
+</video>
+
+<h4>2-On/Off Control</h4>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/7.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/8.mp4" type="video/mp4">
+</video>
+
+<div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_055/9.jpg">
+</div>
+<pre><code>#include <SPI.h>
+#include <WiFiNINA.h>
+#include <ArduinoHttpClient.h>
+#include "arduino_secrets.h"
+
+char ssid[] = SECRET_SSID;
+char pass[] = SECRET_PASS;
+int status = WL_IDLE_STATUS;
+
+char hueHubIP[] = "172.22.151.226"; // colunm 12
+String hueUserName = "...";
+
+WiFiClient wifi;
+HttpClient httpClient = HttpClient(wifi, hueHubIP);
+
+int lastSentBrightness = -1;
+int lastSentHue = -1;
+bool lightOn = true;
+
+int lastButtonState = LOW;
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial);
+
+  pinMode(2, INPUT);
+
+  while (status != WL_CONNECTED) {
+    Serial.print("Connecting to: ");
+    Serial.println(ssid);
+    status = WiFi.begin(ssid, pass);
+  }
+  Serial.println("Connected.");
+}
+
+void loop() {
+  // 按钮检测
+  int buttonState = digitalRead(2);
+  if (buttonState == HIGH && lastButtonState == LOW) {
+    lightOn = !lightOn;
+    Serial.print("Button pressed | light -> ");
+    Serial.println(lightOn ? "ON" : "OFF");
+    sendOnOff(4, lightOn);
+  }
+  lastButtonState = buttonState;
+
+  // 亮度和色相（只在灯开着时才读取发送）
+  if (lightOn) {
+    int rawBri = analogRead(A0);
+    int brightness = map(rawBri, 0, 1023, 0, 254);
+
+    int rawHue = analogRead(A1);
+    long hueVal = map(rawHue, 0, 1023, 0, 65535);
+
+    Serial.print("Bri raw: "); Serial.print(rawBri);
+    Serial.print(" | bri: "); Serial.print(brightness);
+    Serial.print(" | Hue raw: "); Serial.print(rawHue);
+    Serial.print(" | hue: "); Serial.print(hueVal);
+
+    bool shouldPut = false;
+
+    if (lastSentBrightness == -1 || abs(brightness - lastSentBrightness) > 10) {
+      Serial.print(" | bri changed");
+      shouldPut = true;
+    }
+    if (lastSentHue == -1 || abs(hueVal - lastSentHue) > 2500) {
+      Serial.print(" | hue changed");
+      shouldPut = true;
+    }
+
+    if (shouldPut) {
+      Serial.print(" | PUTTING");
+      sendState(4, brightness, hueVal);
+      lastSentBrightness = brightness;
+      lastSentHue = hueVal;
+    }
+
+    Serial.println();
+  }
+
+  delay(200);
+}
+
+void sendOnOff(int light, bool on) {
+  String request = "/api/" + hueUserName;
+  request += "/lights/";
+  request += light;
+  request += "/state/";
+
+  String contentType = "application/json";
+  String hueCmd = "{\"on\":" + String(on ? "true" : "false") + "}";
+
+  httpClient.put(request, contentType, hueCmd);
+
+  int statusCode = httpClient.responseStatusCode();
+  String response = httpClient.responseBody();
+
+  Serial.print("Status: "); Serial.print(statusCode);
+  Serial.print(" | Response: "); Serial.println(response);
+}
+
+void sendState(int light, int brightness, long hueVal) {
+  String request = "/api/" + hueUserName;
+  request += "/lights/";
+  request += light;
+  request += "/state/";
+
+  String contentType = "application/json";
+  String hueCmd = "{\"bri\":" + String(brightness) + ",\"hue\":" + String(hueVal) + "}";
+
+  httpClient.put(request, contentType, hueCmd);
+
+  int statusCode = httpClient.responseStatusCode();
+  String response = httpClient.responseBody();
+
+  Serial.print(" | Status: "); Serial.print(statusCode);
+  Serial.print(" | Response: "); Serial.println(response);
+}
+</code></pre>
+
+
+
+<p>Reference: <quote><a href="https://claude.ai/share/7e892732-d8dd-47d0-9568-0823595f25ee" target="_blank" rel="noopener noreferrer">chat with Claude</a></quote></p>

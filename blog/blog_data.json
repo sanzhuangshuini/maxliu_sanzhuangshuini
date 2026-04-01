@@ -465,5 +465,13 @@
     "contentFile": "blog_contents/blog_054.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"]
+  },
+  {
+    "title": "CD&NI-007-Hue Controller",
+    "slug": "blog-055",
+    "date": "2026-04-01",
+    "contentFile": "blog_contents/blog_055.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "connected_devices_and_networked_interaction"]
   }
 ]

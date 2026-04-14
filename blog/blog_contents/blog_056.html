@@ -1,0 +1,68 @@
+<!-- CD&NI-008 -->
+<h4>1-Ideation</h4>
+<p>
+  I find NASA's APIs fascinating; they reveal cosmic phenomena that we might otherwise overlook in our daily lives, yet are actually closely intertwined with our existence.
+  Among them, I find <quote><a href="https://data.nasa.gov/dataset/asteroids-neows-api" target="_blank" rel="noopener noreferrer">Asteroids - NeoWs</a></quote> particularly intriguing, as it tracks data on near-Earth asteroids, data that, in a way, hints at <emph1>just how close we come to human extinction every single day</emph1>.
+  I plan to use numbers from this database on the daily closest approach of asteroids to Earth. For the visual representation, I intend to use the image of a sauropod dinosaur, since the widely accepted hypothesis holds that dinosaurs went extinct due to an asteroid impact.
+  The closer the asteroid comes, the more cartoon sweat droplets appear on the dinosaur's body.
+</p>
+<p><emph1>Every day, Earth experiences close flybys from asteroids. This isn't science fiction; it's data recorded in real time by NASA. Just because we're unaware of it doesn't mean it doesn't exist.</emph1></p>
+<div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/1.jpg">
+</div>
+
+<h4>2-API-Arduino Connection</h4>
+<p>
+  I managed to GET the data from NASA Asteroids - NeoWs Database server and filtered the list of asteroids by name and distance from Earth,
+  and compared the distances to identify the closest asteroid of the day.
+  I chose to do this because I wanted to simplify the data as much as possible into a single variable,
+  and it only takes a single asteroid impact to destroy Earth.
+</p>
+<div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/2.png">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/3.jpg">
+</div>
+<p>Now, the Arduino is able to update the UTC date and fetch the data when it is pluged in. It's time that add the logic of date counting and refetch.</p>
+<pre><code>// ── Setup ──────────────────────────────────────────────
+void setup() {
+  Serial.begin(9600);
+  delay(3000);
+
+  Wire.begin();
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("[OLED] Not detected");
+  } else {
+    Serial.println("[OLED] Detected");
+  }
+
+  updateDisplay();
+  fetchSuccess = fetchNeoWs();
+  if (fetchSuccess) {
+    lastFetchedDate = getTodayUTC();
+  }
+}
+
+// ── Loop ───────────────────────────────────────────────
+
+void loop() {
+  // retry if the first fetch failed
+  if (!fetchSuccess) {
+    Serial.println("[RETRY] Retrying in 10 seconds...");
+    delay(10000);
+    fetchSuccess = fetchNeoWs();
+    return;
+  }
+
+  // check whether the UTC date has changed every 10 min
+  String today = getTodayUTC();
+  if (today != "" && today != lastFetchedDate) {
+    Serial.println("[INFO] New day detected: " + today);
+    fetchSuccess = fetchNeoWs();
+    if (fetchSuccess) {
+      lastFetchedDate = today;
+    }
+  }
+  delay(600000);
+}
+</code></pre>
+<p>By this far, the little OLED screen is able to show the name and its distance from Earth of the closest asteroid every day.</p>

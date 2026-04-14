@@ -473,5 +473,13 @@
     "contentFile": "blog_contents/blog_055.html",
     "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"]
+  },
+  {
+    "title": "CD&NI-008-Final-A Panicked Dinosaur",
+    "slug": "blog-056",
+    "date": "2026-04-03",
+    "contentFile": "blog_contents/blog_056.html",
+    "imgPath": "images_videos/sample2.jpg",
+    "categories": ["all", "connected_devices_and_networked_interaction"]
   }
 ]

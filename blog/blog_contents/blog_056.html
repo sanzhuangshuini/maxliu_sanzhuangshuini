@@ -66,10 +66,107 @@ void loop() {
 }
 </code></pre>
 <p>By this far, the OLED screen is able to show the name and its distance from Earth of the closest asteroid every day.</p>
+
+<h4>3-Arduino-VM-Webpage Connection</h4>
 <p>
-  In the next step, I am now trying to implant a Node.js file as a server to receive the POST and GET from the protential clients and store the data in a josnl file.
+  In the next step, I implanted a Node.js file as a server to receive the POST and GET from the protential clients and store the data in a josnl file.
+  After that, I created a HTML file, which is also stored in the VM because my previous approach—GitHub Pages—can only support static website, and the HTML file is linked to my domain name asteroid.maxliu-sanzhuangshuini.com.
+  Whenever the test data is passing through the structure, then we can be replace it by the real data from Arduino.
 </p>
+<pre><code>// ── POST to VM ──────────────────────────────────────────────
+bool postToVM(String date, float lunar, String name) {
+  WiFiSSLClient client;
+  client.setTimeout(10000);
+
+  if (!client.connect(VM_SERVER, VM_PORT)) {
+    Serial.println("[VM] Connection failed");
+    return false;
+  }
+
+  String body = "{\"date\":\"" + date + "\",\"lunar\":" + String(lunar, 4) + ",\"name\":\"" + name + "\"}";  // manual joint of JSON body
+
+  // HTTP/1.0 reqeust
+  client.println("POST /log HTTP/1.0");
+  client.print("Host: ");
+  client.println(VM_SERVER);
+  client.println("Content-Type: application/json");
+  client.print("Content-Length: ");
+  client.println(body.length());
+  client.println("Connection: close");
+  client.println();
+  client.print(body);
+
+  // waiting for response
+  unsigned long timeout = millis();
+  while (client.connected() || client.available()) {
+    if (millis() - timeout > 10000) break;
+    if (client.available()) {
+      String line = client.readStringUntil('\n');
+      Serial.println("[VM] " + line);
+      break;
+    }
+  }
+
+  client.stop();
+  Serial.println("[VM] Posted: " + body);
+  return true;
+}
+</code></pre>
+<h1><bold><quote><a href="https://asteroid.maxliu-sanzhuangshuini.com/" target="_blank" rel="noopener noreferrer">Link to the dashboard webpage</a></quote></bold></h1>
+ <div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/4.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/6_1.png">
+</div>
+
+<h4>4-Physical Output: Atomizer / Projector</h4>
+<h5>4.1-Atomizer</h5>
+ <div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/9.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/10.jpg">
+</div>
+
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/7.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/8.mp4" type="video/mp4">
+</video>
+<p>The effect of the atomizer is not ideal to me. I am considering switching to a projector.</p>
+
+<h5>4.2-Projector</h5>
+<p>I uploaded a P5.js HTML file to the VM, which can GET the latest data from domain_name.com/data and draw the corresponding sweat drops according to the distance:</p>
+<p>< 1 LD → 40 drops;</p>
+<p>1 - 5 LD → 30 drops;</p>
+<p>5 - 15 LD → 15 drops;</p>
+<p>15 - 40 LD → 5 drops;</p>
+<p>> 40 LD → 1 drop</p>
+<h1><bold><quote><a href="https://asteroid.maxliu-sanzhuangshuini.com/sweat.html" target="_blank" rel="noopener noreferrer">Link to the sweat webpage</a></quote></bold></h1>
+ <div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/13.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/12.png">
+</div>
+<p>
+  With this page, I can enable fullscreen projection in Edge by only pressing F11.
+  Unfortunately, however, since the projector was borrowed from the ER and was too bulky to fit into the dinosaur's base,
+  this feature could not operate continuously in sync with data collection.
+</p>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/14.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/15.mp4" type="video/mp4">
+</video>
+
+<h4>5-Enclosure</h4>
 <p>I laser cut the dinosaur figure:</p>
 <div class="image-row">
   <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/11.jpg">
 </div>
+
+<h4>6-Project Summary</h4>
+<h5>Demostration</h5>
+<h5>System Diagram</h5>
+<h5>Code</h5>
+<h6>Arduino Code</h6>
+<h4></h4>
+<pre><code></code></pre>
+<h6>HTML Code</h6>
+<pre><code></code></pre>
+
+<p>Reference: <quote><a href="https://claude.ai/share/ec9132d8-4fc7-49f7-b9c8-cfd79017fe32" target="_blank" rel="noopener noreferrer">chat with Claude</a></quote></p>

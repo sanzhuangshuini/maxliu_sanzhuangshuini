@@ -1,4 +1,334 @@
 <!-- CD&NI-008 -->
+ <h4>6-Project Summary</h4>
+<h5>6.1-Overview</h5>
+<h6>The project "A Panicked Dinosaur" is an asteroid proximity monitor in a form of a dinosaur who sweats more the closer an asteroid gets to Earth on the day.</h6>
+<p>
+  The device is a real-time asteroid proximity monitor housed inside a chipboard shell featuring a miniature landscape and a transparent acrylic dinosaur figurine on top.
+  Every day, it fetches live data from NASA's Near Earth Object Web Service (NeoWs) and translates the closest asteroid's miss distance into a physical and visual response — the closer the asteroid, the more the dinosaur "sweats," which is demostrated as droplet animation cast to the dinosaur by a projector.
+  In addition, it includes <bold><quote><a href="https://asteroid.maxliu-sanzhuangshuini.com/" target="_blank" rel="noopener noreferrer">a website</a></quote></bold> designed to store and display history data, thereby providing users with a more intuitive overview.
+  The project is both a functional data display and a quiet joke: the one creature most qualified to monitor asteroid proximity is, of course, the one that didn't survive the last one.
+</p>
+
+<h5>6.2-Interaction</h5>
+<p>
+  The device requires no interaction from the user.
+  Once powered on, it automatically connects to WiFi, retrieves the day's asteroid data, and updates its display
+   The OLED screen on the device shows the date, the name of the closest asteroid, and its distance from Earth measured in lunar distances (LD) — where 1 LD equals approximately 384,000 km.
+   During demonstrations, a projected animation responds to the current distance value by displaying a corresponding number of sweat droplets.
+</p>
+
+<h5>6.3-System Diagram</h5>
+<div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/24.jpg" style="max-width: 82.5%;">
+</div>
+
+<h5>6.4-Web API</h5>
+<p>
+  The device uses <bold><quote><a href="https://data.nasa.gov/dataset/asteroids-neows-api" target="_blank" rel="noopener noreferrer">NASA's Near Earth Object Web Service (NeoWs)</a></quote></bold>. It queries the daily close-approach feed, extracts each asteroid's name and miss distance in lunar distances (LD), and identifies the single closest approach of the day.
+</p>
+
+<h5>6.5-Arduino Code</h5>
+<pre><code>#include &lt;WiFiNINA.h>
+#include &lt;ArduinoHttpClient.h>
+#include &lt;ArduinoJson.h>
+#include &lt;Wire.h>
+#include &lt;Adafruit_GFX.h>
+#include &lt;Adafruit_SSD1306.h>
+#include "arduino_secrets.h"
+
+const char* NASA_SERVER = "api.nasa.gov";
+const char* API_KEY = "xicvObcUfJx2vtqRnBTCURYFfYa5wbS1W02PZXe2";  // NASA API
+
+const char* VM_SERVER = "asteroid.maxliu-sanzhuangshuini.com";  // domain name
+const int VM_PORT = 443;
+bool postToVM(String date, float lunar, String name);  //forward statement
+
+float closestDistance = -1.0;
+String closestName = "";
+bool dataValid = false;
+bool fetchSuccess = false;
+String lastFetchedDate = "";
+
+Adafruit_SSD1306 display(128, 64, &Wire, -1);
+
+// ── OLED ───────────────────────────────────────────────
+void updateDisplay() {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+
+  const int SCREEN_H = 70;
+  const int LINES = 5;
+  const int STEP = SCREEN_H / LINES;  // gap between every line
+
+  display.setCursor(0, STEP * 0);
+  display.println(WiFi.status() == WL_CONNECTED ? "WiFi: Connected" : "WiFi: Connecting...");
+
+  display.setCursor(0, STEP * 1);
+  display.println("Date: " + getTodayUTC());  // UTC date
+
+  display.setCursor(0, STEP * 2);
+  display.println("Closest today:");
+
+  if (dataValid) {
+    display.setCursor(0, STEP * 3);
+    display.println(closestName);
+
+    display.setCursor(0, STEP * 4);
+    display.print(closestDistance, 4);
+    display.print(" Lunar Distance");
+  } else {
+    display.setCursor(0, STEP * 3);
+    display.println(fetchSuccess ? "No data" : "Fetching...");
+  }
+
+  display.display();
+}
+
+// ── WiFi ───────────────────────────────────────────────
+bool ensureWiFi() {
+  if (WiFi.status() == WL_CONNECTED) return true;
+  Serial.print("Connecting to WiFi");
+  updateDisplay();
+  int attempts = 0;
+  while (WiFi.begin(SECRET_SSID, SECRET_PASS) != WL_CONNECTED) {
+    if (++attempts > 20) {
+      Serial.println(" failed");
+      return false;
+    }
+    delay(1000);
+    Serial.print(".");
+  }
+  Serial.println(" OK");
+  updateDisplay();
+  return true;
+}
+
+// ── Date ───────────────────────────────────────────────
+String getTodayUTC() {
+  unsigned long epoch = WiFi.getTime();
+  if (epoch == 0) return "";
+  unsigned long days = epoch / 86400UL;
+  int z = (int)days + 719468;
+  int era = z / 146097;
+  int doe = z - era * 146097;
+  int yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+  int y = yoe + era * 400;
+  int doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+  int mp = (5 * doy + 2) / 153;
+  int d = doy - (153 * mp + 2) / 5 + 1;
+  int m = mp < 10 ? mp + 3 : mp - 9;
+  if (m <= 2) y++;
+  char buf[11];
+  snprintf(buf, sizeof(buf), "%04d-%02d-%02d", y, m, d);
+  return String(buf);
+}  // YYYY-MM-DD
+
+// ── POST to VM ──────────────────────────────────────────────
+bool postToVM(String date, float lunar, String name) {
+  WiFiSSLClient client;
+  client.setTimeout(10000);
+
+  if (!client.connect(VM_SERVER, VM_PORT)) {
+    Serial.println("[VM] Connection failed");
+    return false;
+  }
+
+  String body = "{\"date\":\"" + date + "\",\"lunar\":" + String(lunar, 4) + ",\"name\":\"" + name + "\"}";  // manual joint of JSON body
+
+  // HTTP/1.0 reqeust
+  client.println("POST /log HTTP/1.0");
+  client.print("Host: ");
+  client.println(VM_SERVER);
+  client.println("Content-Type: application/json");
+  client.print("Content-Length: ");
+  client.println(body.length());
+  client.println("Connection: close");
+  client.println();
+  client.print(body);
+
+  // waiting for response
+  unsigned long timeout = millis();
+  while (client.connected() || client.available()) {
+    if (millis() - timeout > 10000) break;
+    if (client.available()) {
+      String line = client.readStringUntil('\n');
+      Serial.println("[VM] " + line);
+      break;
+    }
+  }
+
+  client.stop();
+  Serial.println("[VM] Posted: " + body);
+  return true;
+}
+
+// ── Fetch from NASA API──────────────────────────────────────────────
+bool fetchNeoWs() {
+  if (!ensureWiFi()) return false;
+
+  String today = getTodayUTC();
+  if (today == "") {
+    Serial.println("[ERROR] Could not get current time");
+    return false;
+  }
+  Serial.println("[INFO] Fetching date: " + today);
+
+  String path = "/neo/rest/v1/feed?start_date=" + today
+                + "&end_date=" + today
+                + "&api_key=" + String(API_KEY);
+
+  WiFiSSLClient ssl;
+  ssl.setTimeout(15000);
+  if (!ssl.connect(NASA_SERVER, 443)) {
+    Serial.println("[ERROR] SSL connection failed");
+    return false;
+  }
+  Serial.println("[INFO] SSL connected, sending request...");
+
+  ssl.print("GET ");
+  ssl.print(path);
+  ssl.println(" HTTP/1.0");
+  ssl.print("Host: ");
+  ssl.println(NASA_SERVER);
+  ssl.println("Connection: close");
+  ssl.println();
+
+  // Skip response headers
+  unsigned long timeout = millis();
+  String headerBuf = "";
+  while (true) {
+    if (millis() - timeout > 15000) {
+      Serial.println("[ERROR] Header timeout");
+      ssl.stop();
+      return false;
+    }
+    if (ssl.available()) {
+      headerBuf += (char)ssl.read();
+      if (headerBuf.endsWith("\r\n\r\n")) {
+        Serial.println("[INFO] Headers done, parsing JSON...");
+        break;
+      }
+      if (headerBuf.length() > 2048) headerBuf = headerBuf.substring(headerBuf.length() - 4);  // only maintain 4 bytes in buffer to save memory
+    }
+  }
+
+  StaticJsonDocument<128> filter;
+  filter["near_earth_objects"][today][0]["name"] = true;
+  filter["near_earth_objects"][today][0]["close_approach_data"][0]["miss_distance"]["lunar"] = true;
+
+  StaticJsonDocument<8192> doc;
+  DeserializationError err = deserializeJson(doc, ssl, DeserializationOption::Filter(filter));
+  ssl.stop();
+
+  if (err) {
+    Serial.println("[ERROR] JSON parse failed: " + String(err.c_str()));
+    return false;
+  }
+
+  JsonArray asteroids = doc["near_earth_objects"][today];
+  if (asteroids.isNull() || asteroids.size() == 0) {
+    Serial.println("[ERROR] No asteroid data");
+    return false;
+  }
+
+  // go through every asteroid and find out the closest one
+  float minDist = 1e9;
+  String minName = "";
+
+  Serial.println("----------------------------------------");
+  Serial.println("Name                           | Dist (LD)");
+  Serial.println("----------------------------------------");
+
+  for (JsonObject ast : asteroids) {
+    const char* name = ast["name"] | "unknown";
+    float dist = atof(ast["close_approach_data"][0]["miss_distance"]["lunar"] | "0");
+    Serial.print(name);
+    Serial.print(" | ");
+    Serial.print(dist, 4);
+    Serial.println(" LD");
+    if (dist > 0 && dist < minDist) {
+      minDist = dist;
+      minName = String(name);
+    }
+  }
+
+  Serial.println("----------------------------------------");
+  Serial.println("[RESULT] Closest: " + minName + " @ " + String(minDist, 4) + " LD");
+  Serial.println("----------------------------------------");
+
+  closestDistance = minDist;
+  closestName = minName;
+  dataValid = true;
+
+  updateDisplay();
+  postToVM(today, minDist, minName);
+  return true;
+}
+
+
+
+// ── Setup ──────────────────────────────────────────────
+void setup() {
+  Serial.begin(9600);
+  delay(3000);
+
+  Wire.begin();
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("[OLED] Not detected");
+  } else {
+    Serial.println("[OLED] Detected");
+  }
+
+  updateDisplay();
+  fetchSuccess = fetchNeoWs();
+  if (fetchSuccess) {
+    lastFetchedDate = getTodayUTC();
+  }
+}
+
+// ── Loop ───────────────────────────────────────────────
+
+void loop() {
+  // retry if the first fetch failed
+  if (!fetchSuccess) {
+    Serial.println("[RETRY] Retrying in 10 seconds...");
+    delay(10000);
+    fetchSuccess = fetchNeoWs();
+    return;
+  }
+
+  // check whether the UTC date has changed every 10 min
+  String today = getTodayUTC();
+  if (today != "" && today != lastFetchedDate) {
+    Serial.println("[INFO] New day detected: " + today);
+    fetchSuccess = fetchNeoWs();
+    if (fetchSuccess) {
+      lastFetchedDate = today;
+    }
+  }
+  delay(600000);
+}
+</code></pre>
+
+<h5>6.6-Insight</h5>
+<p>
+  Working with this API revealed something surprising: the closest asteroids can range from over 30 LD away to as near as 0.2 LD.
+  This gap between public perception and reality became the conceptual core of the project — our daily awareness of the universe around us is, for all practical purposes, nearly zero.
+</p>
+<p>
+  And the main challenge of the project was finding a way to represent "sweating" in real physical space.
+  Atomizer and projection were both explored and each presented its own constraints — water management and unsustainbility.
+  The tension between conceptual clarity and physical feasibility was the defining challenge of the build.
+</p>
+
+<h5>Reference</h5>
+<bold><p><quote><a href="https://claude.ai/share/ec9132d8-4fc7-49f7-b9c8-cfd79017fe32" target="_blank" rel="noopener noreferrer">Programmer: Claude</a></quote></p></bold>
+<bold><p><quote><a href="https://www.instagram.com/muzeeeeeeee.j?igsh=ZmV5NHNwYWg5dzBy" target="_blank" rel="noopener noreferrer">One of the Fabrication Designers and Documentation Artists: Muze Jiang</a></quote></p></bold>
+
+<h5>Demostration</h5>
+<bold><p><quote><a href="https://maxliu-sanzhuangshuini.com/gallery/a_panicked_dinosaur.html" target="_blank" rel="noopener noreferrer">Demostration Webpage</a></quote></p></bold>
+
 <h4>1-Ideation</h4>
 <p>
   I find NASA's APIs fascinating; they reveal cosmic phenomena that we might otherwise overlook in our daily lives, yet are actually closely intertwined with our existence.
@@ -139,7 +469,7 @@ bool postToVM(String date, float lunar, String name) {
 <p>15 - 40 LD → 5 drops;</p>
 <p>> 40 LD → 1 drop</p>
 <h1><bold><quote><a href="https://asteroid.maxliu-sanzhuangshuini.com/sweat.html" target="_blank" rel="noopener noreferrer">Link to the sweat webpage</a></quote></bold></h1>
- <div class="image-row">
+<div class="image-row">
   <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/13.jpg">
   <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/12.png">
 </div>
@@ -152,21 +482,22 @@ bool postToVM(String date, float lunar, String name) {
        poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/14.jpg">
   <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/15.mp4" type="video/mp4">
 </video>
+<p>Ok I purchased a projector and modified the margin of the sweat webpage according to the projection effect. The area where sweat droplets form is limited to the outer contour of the device.</p>
+<div class="image-row">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/16.png">
+</div>
+<video controls preload="metadata" playsinline
+       poster="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/17.jpg">
+  <source src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/18.mp4" type="video/mp4">
+</video>
 
 <h4>5-Enclosure</h4>
-<p>I laser cut the dinosaur figure:</p>
+<p>I laser cut the dinosaur figure and made the enclosure with chipboard and foam core.</p>
 <div class="image-row">
   <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/11.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/19.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/20.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/21.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/22.jpg">
+  <img src="../images_videos/learning_blogs/connected_devices_and_networked_interaction/blog_056/23.jpg">
 </div>
-
-<h4>6-Project Summary</h4>
-<h5>Demostration</h5>
-<h5>System Diagram</h5>
-<h5>Code</h5>
-<h6>Arduino Code</h6>
-<h4></h4>
-<pre><code></code></pre>
-<h6>HTML Code</h6>
-<pre><code></code></pre>
-
-<p>Reference: <quote><a href="https://claude.ai/share/ec9132d8-4fc7-49f7-b9c8-cfd79017fe32" target="_blank" rel="noopener noreferrer">chat with Claude</a></quote></p>

@@ -403,14 +403,6 @@
     "categories": ["all", "project_development_studio"]
   },
   {
-    "title": "TSRTE-Final",
-    "slug": "blog-047",
-    "date": "2026-02-21",
-    "contentFile": "blog_contents/blog_047.html",
-    "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "telling_stories_with_real-time_engines"]
-  },
-  {
     "title": "DSMMS-005-Final-Iteration",
     "slug": "blog-048",
     "date": "2026-02-22",

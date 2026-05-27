@@ -117,10 +117,10 @@
             <div class="gallery-track">
 
                 <!-- 01 · 38.2 × 26.3 cm → 367 × 252 px -->
-                <a class="book" href="sketchbook_01.html" alt="sketchbook 01" target="_blank" rel="noopener noreferrer">
+                <a class="book" href="sketchbook_01.html" target="_blank" rel="noopener noreferrer">
                     <div class="book-year">2025 – now</div>
                     <div class="book-img" style="width: 477px; height: 328px;">
-                        <img src="/images_videos/traditional_art/sketchbook/cover/1_1.jpg">
+                        <img src="/images_videos/traditional_art/sketchbook/cover/1_1.jpg" alt="sketchbook 01">
                         <div class="book-placeholder">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1">
@@ -133,10 +133,10 @@
                 </a>
 
                 <!-- 02 · 14.0 × 21.6 cm → 134 × 207 px -->
-                <a class="book" href="sketchbook_02.html" alt="sketchbook 02" target="_blank" rel="noopener noreferrer">
+                <a class="book" href="sketchbook_02.html" target="_blank" rel="noopener noreferrer">
                     <div class="book-year">2024</div>
                     <div class="book-img" style="width: 174px; height: 269px;">
-                        <img src="/images_videos/traditional_art/sketchbook/cover/2.jpg">
+                        <img src="/images_videos/traditional_art/sketchbook/cover/2.jpg" alt="sketchbook 02">
                         <div class="book-placeholder">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1">
@@ -220,6 +220,7 @@
         const gallery = document.getElementById('gallery');
 
         document.addEventListener('wheel', e => {
+            if (e.ctrlKey) return; // 允许Ctrl+滚轮缩放
             e.preventDefault();
             gallery.scrollLeft += e.deltaY;
         }, { passive: false });

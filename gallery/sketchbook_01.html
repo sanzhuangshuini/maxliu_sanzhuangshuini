@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sketchbook_01</title>
+  <link rel="stylesheet" type="text/css" href="../css_styles/style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    /* 整页横向滚动容器 */
+    .page {
+      width: 100%;
+      height: 100vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+
+    .page::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* 列轨道 */
+    .columns-track {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--col-gap);
+      height: 100vh;
+      padding: 48px 80px;
+      width: max-content;
+    }
+
+    /* 单列 */
+    .col {
+      width: var(--col-width);
+      height: calc(100vh - 96px); /* 48px * 2 */
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--img-gap);
+    }
+
+    .col::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* 图片 wrapper */
+    .img-wrap {
+      position: relative;
+      width: 100%;
+      flex-shrink: 0;
+      background: #e8e6e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* 横版：宽铺满列宽，高 = 宽 * 2/3 */
+    .img-wrap.landscape {
+      width: var(--col-width);
+      height: calc(var(--col-width) * 2 / 3);
+    }
+
+    /* 竖版：宽 = 列宽 * 2/3，高 = 宽 * 3/2 = 列宽，在列中居中 */
+    .img-wrap.portrait {
+      width: calc(var(--col-width) * 2 / 3);
+      height: var(--col-width);
+      align-self: center;
+    }
+
+    .img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 占位符 */
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page" id="page">
+  <div class="columns-track" id="track"></div>
+</div>
+
+<script>
+  // =============================================
+  // 配置区 —— 只需修改这里
+  // =============================================
+
+  const CONFIG = {
+    colWidth: 360,    // 列宽（px），以横版图为基准
+    colGap: 120,      // 列间距（px）
+    imgGap: 40,       // 列内图片间距（px）
+    imgsPerCol: 6,    // 每列放几张图片
+  };
+
+  // 图片列表
+  // orientation: 'landscape'=横版(3:2), 'portrait'=竖版(2:3)
+  const IMAGES = [
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15346.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15347.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15349.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15351.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15352.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15353.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15356.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15357.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15358.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15359.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15360.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15362.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄15364.jpg', orientation: 'portrait' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄153455.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/速写拍摄153456.jpg', orientation: 'landscape' },
+
+    { src: '../images_videos/traditional_art/sketchbook/book01/002.jpg', orientation: 'portrait' },
+    { src: '../images_videos/traditional_art/sketchbook/book01/003.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/book01/004.jpg', orientation: 'portrait' },
+    { src: '../images_videos/traditional_art/sketchbook/book01/005.jpg', orientation: 'landscape' },
+    { src: '../images_videos/traditional_art/sketchbook/book01/006.jpg', orientation: 'portrait' },
+    // 继续添加...
+  ];
+
+  // =============================================
+  // 以下不需要修改
+  // =============================================
+
+  document.documentElement.style.setProperty('--col-width', CONFIG.colWidth + 'px');
+  document.documentElement.style.setProperty('--col-gap', CONFIG.colGap + 'px');
+  document.documentElement.style.setProperty('--img-gap', CONFIG.imgGap + 'px');
+
+  const track = document.getElementById('track');
+  const cols = [];
+
+  for (let i = 0; i < IMAGES.length; i += CONFIG.imgsPerCol) {
+    const colImgs = IMAGES.slice(i, i + CONFIG.imgsPerCol);
+    const col = document.createElement('div');
+    col.className = 'col';
+
+    colImgs.forEach(imgData => {
+      const wrap = document.createElement('div');
+      wrap.className = `img-wrap ${imgData.orientation}`;
+
+      const img = document.createElement('img');
+      img.src = imgData.src;
+      img.alt = '';
+      wrap.appendChild(img);
+
+      // 占位符（图片加载失败时显示）
+      const ph = document.createElement('div');
+      ph.className = 'img-placeholder';
+      ph.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="3" y="3" width="18" height="18" rx="0"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <path d="M21 15l-5-5L5 21"/>
+      </svg>`;
+      wrap.appendChild(ph);
+
+      // 图片加载成功后隐藏占位符
+      img.addEventListener('load', () => { ph.style.display = 'none'; });
+
+      col.appendChild(wrap);
+    });
+
+    track.appendChild(col);
+    cols.push(col);
+  }
+
+  // =============================================
+  // 滚动逻辑
+  // 鼠标在列内 → 列向下滚动
+  // 鼠标在gap处 → 页面向右滚动
+  // =============================================
+
+  const page = document.getElementById('page');
+
+  document.addEventListener('wheel', e => {
+    if (e.ctrlKey) return; // 允许Ctrl+滚轮缩放
+    e.preventDefault();
+    let inCol = false;
+    for (const col of cols) {
+      const rect = col.getBoundingClientRect();
+      if (
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      ) {
+        col.scrollTop += e.deltaY;
+        inCol = true;
+        break;
+      }
+    }
+    if (!inCol) {
+      page.scrollLeft += e.deltaY;
+    }
+  }, { passive: false });
+
+  // gap处拖拽横向滚动
+  let isDragging = false, dragStartX, dragScrollLeft;
+
+  page.addEventListener('mousedown', e => {
+    let inCol = false;
+    for (const col of cols) {
+      const rect = col.getBoundingClientRect();
+      if (e.clientX >= rect.left && e.clientX <= rect.right) {
+        inCol = true;
+        break;
+      }
+    }
+    if (!inCol) {
+      isDragging = true;
+      dragStartX = e.pageX - page.offsetLeft;
+      dragScrollLeft = page.scrollLeft;
+    }
+  });
+
+  document.addEventListener('mouseup', () => { isDragging = false; });
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    e.preventDefault();
+    page.scrollLeft = dragScrollLeft - (e.pageX - page.offsetLeft - dragStartX);
+  });
+</script>
+
+</body>
+</html>

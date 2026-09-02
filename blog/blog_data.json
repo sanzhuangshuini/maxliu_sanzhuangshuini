@@ -320,7 +320,8 @@
     "date": "2026-01-20",
     "contentFile": "blog_contents/blog_036.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   },
   {
     "title": "PDS-001-Project Red Vein-Overall Plan",
@@ -328,7 +329,8 @@
     "date": "2026-01-22",
     "contentFile": "blog_contents/blog_037.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "project_development_studio"]
+    "categories": ["all", "project_development_studio"],
+    "status": "hidden"
   },
   {
     "title": "DSMMS-001-Two Vizzies",
@@ -336,7 +338,8 @@
     "date": "2026-01-23",
     "contentFile": "blog_contents/blog_038.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"],
+    "status": "hidden"
   },
   {
     "title": "CD&NI-002-Watering Device-Device-Data Dashboard-1",
@@ -344,7 +347,8 @@
     "date": "2026-01-27",
     "contentFile": "blog_contents/blog_039.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   },
   {
     "title": "DSMMS-002-P5.js for Data Visualization",
@@ -352,7 +356,8 @@
     "date": "2026-01-29",
     "contentFile": "blog_contents/blog_040.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"],
+    "status": "hidden"
   },
   {
     "title": "PDS-002-Project Red Vein-Setting",
@@ -360,7 +365,8 @@
     "date": "2026-01-30",
     "contentFile": "blog_contents/blog_041.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "project_development_studio"]
+    "categories": ["all", "project_development_studio"],
+    "status": "hidden"
   },
   {
     "title": "CD&NI-003-Watering Device-Device-Data Dashboard-2",
@@ -368,7 +374,8 @@
     "date": "2026-02-03",
     "contentFile": "blog_contents/blog_042.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   },
   {
     "title": "DSMMS-003-Missing Data",
@@ -376,7 +383,8 @@
     "date": "2026-02-05",
     "contentFile": "blog_contents/blog_043.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"],
+    "status": "hidden"
   },
   {
     "title": "DSMMS-004-Final-Ideation",
@@ -384,7 +392,8 @@
     "date": "2026-02-19",
     "contentFile": "blog_contents/blog_044.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"],
+    "status": "hidden"
   },
   {
     "title": "CD&NI-004-Watering Device-Water Pump Output & Enclosure",
@@ -392,7 +401,8 @@
     "date": "2026-02-10",
     "contentFile": "blog_contents/blog_045.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   },
   {
     "title": "PDS-003-Project Red Vein-Concept Art",
@@ -400,7 +410,8 @@
     "date": "2026-02-10",
     "contentFile": "blog_contents/blog_046.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "project_development_studio"]
+    "categories": ["all", "project_development_studio"],
+    "status": "hidden"
   },
   {
     "title": "DSMMS-005-Final-Iteration",
@@ -408,7 +419,8 @@
     "date": "2026-02-22",
     "contentFile": "blog_contents/blog_048.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"],
+    "status": "hidden"
   },
   {
     "title": "CD&NI-005-Watering Device-Screen Output",
@@ -416,7 +428,8 @@
     "date": "2026-02-24",
     "contentFile": "blog_contents/blog_049.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   },
   {
     "title": "DSMMS-006-Final-Webpage Dashboard",
@@ -424,7 +437,8 @@
     "date": "2026-03-01",
     "contentFile": "blog_contents/blog_050.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "data_storytelling_for_memory_making_and_social"]
+    "categories": ["all", "data_storytelling_for_memory_making_and_social"],
+    "status": "hidden"
   },
   {
     "title": "CD&NI-006-Watering Device-Data",
@@ -432,7 +446,8 @@
     "date": "2026-03-03",
     "contentFile": "blog_contents/blog_051.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   },
   {
     "title": "100DM-The 100 Posts!",
@@ -440,7 +455,8 @@
     "date": "2026-03-24",
     "contentFile": "blog_contents/blog_052.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "100_days_of_making"]
+    "categories": ["all", "100_days_of_making"],
+    "status": "hidden"
   },
   {
     "title": "DEMHMMRG-001-Ideation",
@@ -448,7 +464,8 @@
     "date": "2026-03-25",
     "contentFile": "blog_contents/blog_053.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"]
+    "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"],
+    "status": "hidden"
   },
   {
     "title": "DEMHMMRG-002-Fieldwork",
@@ -456,7 +473,8 @@
     "date": "2026-03-31",
     "contentFile": "blog_contents/blog_054.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"]
+    "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"],
+    "status": "hidden"
   },
   {
     "title": "CD&NI-007-Hue Controller",
@@ -464,7 +482,8 @@
     "date": "2026-04-01",
     "contentFile": "blog_contents/blog_055.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   },
   {
     "title": "CD&NI-008-Final-A Panicked Dinosaur",
@@ -472,6 +491,7 @@
     "date": "2026-04-03",
     "contentFile": "blog_contents/blog_056.html",
     "imgPath": "images_videos/sample2.jpg",
-    "categories": ["all", "connected_devices_and_networked_interaction"]
+    "categories": ["all", "connected_devices_and_networked_interaction"],
+    "status": "hidden"
   }
 ]

@@ -1,185 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- =========================
+
+<head>
+  <!-- =========================
          页面基本设置
     ========================== -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>blog_index</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>blog_index</title>
 
-    <!-- =========================
+  <!-- =========================
          外部样式表
     ========================== -->
-    <link rel="stylesheet" type="text/css" href="../css_styles/style.css" />
+  <link rel="stylesheet" type="text/css" href="../css_styles/style.css" />
 
-    <!-- =========================
+  <!-- =========================
          依赖库
     ========================== -->
-    <script src="../libraries/p5.min.js"></script>
-    <script src="../libraries/p5.sound.min.js"></script>
+  <script src="../libraries/p5.min.js"></script>
+  <script src="../libraries/p5.sound.min.js"></script>
 
-    <!-- =========================
+  <!-- =========================
          页面结构样式（内联样式）
     ========================== -->
-    <style>
-      /* === 页面整体布局 === */
-      body {
-        margin: 0;
-        display: flex;
-        background: #fff;
-      }
+  <style>
+    /* === 页面整体布局 === */
+    body {
+      margin: 0;
+      display: flex;
+      background: #fff;
+    }
 
-      /* === 左侧导航栏 === */
-      #sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 200px;
-        height: 100%;
-        background-color: rgba(243, 243, 243, 0); /* Changed from #f3f3f3 to rgba with alpha */
-        display: flex;
-        flex-direction: column;
-        gap: 22px;
-        padding: 20px;
-        box-sizing: border-box;
-        border-right: 0px solid #ccc;
-        z-index: 1000;
-      }
+    /* === 左侧导航栏 === */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: rgba(243, 243, 243, 0);
+      /* Changed from #f3f3f3 to rgba with alpha */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+      border-right: 0px solid #ccc;
+      z-index: 1000;
 
-      /* 导航栏中的链接样式 */
-      #sidebar a {
-        font-family: "Helvetica";
-        display: block;
-        margin: 8px 0;
-        color: #1f1f1f;
-        font-size: 1em;      /* 等价于 h5 的字号 */
-        font-weight: bold;   /* h5 的粗体 */
-        text-decoration: none;
-        transition: color 0.2s ease;
-      }
+      /* 新增：可以滚动，但隐藏滚动条 */
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
 
-      /* 鼠标悬浮效果 */
-      #sidebar a:hover {
-        color: #bbdc7f;
-        /* text-decoration: underline; */
-      }
+    #sidebar::-webkit-scrollbar {
+      display: none;
+    }
 
-      /* 当前高亮（绿色 + 下划线） */
-      #sidebar a.active {
-        color: #bbdc7f !important;
-        /* text-decoration: underline !important; */
-      }
+    /* 导航栏中的链接样式 */
+    #sidebar a {
+      font-family: "Helvetica";
+      display: block;
+      margin: 8px 0;
+      color: #1f1f1f;
+      font-size: 1em;
+      /* 等价于 h5 的字号 */
+      font-weight: bold;
+      /* h5 的粗体 */
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
 
-      /* === 主内容区（右侧） === */
-      #canvas {
-        display: block;
-        margin-left: 240px;   /* 为侧边栏留出空间（200 + 40 padding） */
-        padding: 20px;
-        box-sizing: border-box;
-      }
+    /* 鼠标悬浮效果 */
+    #sidebar a:hover {
+      color: #bbdc7f;
+      /* text-decoration: underline; */
+    }
 
-      #canvas_cnv {
-        display: block;
-      }
-    </style>
-  </head>
+    /* 当前高亮（绿色 + 下划线） */
+    #sidebar a.active {
+      color: #bbdc7f !important;
+      /* text-decoration: underline !important; */
+    }
 
-  <body>
-    <!-- =========================================================
+    /* === 主内容区（右侧） === */
+    #canvas {
+      display: block;
+      margin-left: 240px;
+      /* 为侧边栏留出空间（200 + 40 padding） */
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #canvas_cnv {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =========================================================
          左侧导航栏
     ========================================================== -->
-    <aside id="sidebar">
-      <a href="index.html?category=all" class="active">All Posts</a>
-      <a href="index.html?category=connected_devices_and_networked_interaction">Connected Devices and Networked Interaction</a>
-      <a href="index.html?category=deus_ex_machina_how_machines_may_replace_gods">Deus ex Machina: How Machines May Replace Gods</a>
-      <a href="index.html?category=data_storytelling_for_memory_making_and_social">Data Storytelling for Memory Making and Social</a>
-      <a href="index.html?category=project_development_studio">Project Development Studio</a>
-      <a href="index.html?category=100_days_of_making">100 Days of Making</a>
-      <a href="index.html?category=introduction_to_physical_computing">Introduction to Physical Computing</a>
-      <a href="index.html?category=introduction_to_computational_media">Introduction to Computational Media</a>
-      <a href="index.html?category=hypercinema">Hyercinema</a>
-      <a href="index.html?category=visual_language">Visual Language</a>
-    </aside>
+  <aside id="sidebar">
+    <a href="index.html?category=all" class="active">All Posts</a>
+    <a href="index.html?category=thesis">Thesis</a>
+    <a href="index.html?category=alter_egos">Alter Egos</a>
+    <a href="index.html?category=multisensory_storytelling_in_virtual_reality_and_original_flavor_reality">Multisensory
+      Storytelling in Virtual Reality and Original Flavor Reality</a>
+    <a href="index.html?category=mocap_for_the_archive">MoCap for the Archive</a>
+    <a href="index.html?category=connected_devices_and_networked_interaction">Connected Devices and Networked
+      Interaction</a>
+    <a href="index.html?category=deus_ex_machina_how_machines_may_replace_gods">Deus ex Machina: How Machines May
+      Replace Gods</a>
+    <a href="index.html?category=data_storytelling_for_memory_making_and_social">Data Storytelling for Memory Making and
+      Social</a>
+    <a href="index.html?category=project_development_studio">Project Development Studio</a>
+    <a href="index.html?category=100_days_of_making">100 Days of Making</a>
+    <a href="index.html?category=introduction_to_physical_computing">Introduction to Physical Computing</a>
+    <a href="index.html?category=introduction_to_computational_media">Introduction to Computational Media</a>
+    <a href="index.html?category=hypercinema">Hyercinema</a>
+    <a href="index.html?category=visual_language">Visual Language</a>
+  </aside>
 
-    <!-- =========================================================
+  <!-- =========================================================
          右侧主内容区（p5 画布）
     ========================================================== -->
-    <div id="canvas"></div>
+  <div id="canvas"></div>
 
-    <!-- =========================================================
+  <!-- =========================================================
          引入脚本文件
     ========================================================== -->
-    <script src="../constructor_functions/BlogBox.js"></script>
-    <script src="index.js"></script>
+  <script src="../constructor_functions/BlogBox.js"></script>
+  <script src="index.js"></script>
 
-    <!-- =========================================================
+  <!-- =========================================================
          自动高亮侧边栏（根据 URL 参数）
     ========================================================== -->
-    <script>
-      (async function () {
-        const params = new URLSearchParams(location.search);
-        const curCategory = params.get("category");  // 列表模式
-        const curSlug     = params.get("slug");      // 详情模式优先
-        const curUrl      = params.get("url");
-        const curTitle    = params.get("title");
+  <script>
+    (async function () {
+      const params = new URLSearchParams(location.search);
+      const curCategory = params.get("category");  // 列表模式
+      const curSlug = params.get("slug");      // 详情模式优先
+      const curUrl = params.get("url");
+      const curTitle = params.get("title");
 
-        // 获取所有导航链接及其对应的分类参数
-        const links = Array.from(document.querySelectorAll("#sidebar a")).map(a => {
-          const url = new URL(a.href, location.origin);
-          const cat = new URLSearchParams(url.search).get("category") || "all";
-          return { a, cat };
+      // 获取所有导航链接及其对应的分类参数
+      const links = Array.from(document.querySelectorAll("#sidebar a")).map(a => {
+        const url = new URL(a.href, location.origin);
+        const cat = new URLSearchParams(url.search).get("category") || "all";
+        return { a, cat };
+      });
+
+      // 工具函数：根据分类集合高亮对应链接（支持多选高亮）
+      function highlightCategories(catSet) {
+        links.forEach(({ a, cat }) => {
+          if (catSet.has(cat)) a.classList.add("active");
+          else a.classList.remove("active");
         });
+      }
 
-        // 工具函数：根据分类集合高亮对应链接（支持多选高亮）
-        function highlightCategories(catSet) {
-          links.forEach(({ a, cat }) => {
-            if (catSet.has(cat)) a.classList.add("active");
-            else a.classList.remove("active");
-          });
-        }
+      // ---- 情况 1：列表模式，只高亮当前分类 ----
+      if (curCategory) {
+        highlightCategories(new Set([curCategory]));
+        return;
+      }
 
-        // ---- 情况 1：列表模式，只高亮当前分类 ----
-        if (curCategory) {
-          highlightCategories(new Set([curCategory]));
-          return;
-        }
+      // ---- 情况 2：详情模式，根据 slug/url/title 在 blog_data.json 中查找分类 ----
+      if (curSlug || curUrl || curTitle) {
+        try {
+          const resp = await fetch("blog_data.json");
+          const raw = await resp.json();
+          const list = Array.isArray(raw) ? raw : Object.values(raw);
 
-        // ---- 情况 2：详情模式，根据 slug/url/title 在 blog_data.json 中查找分类 ----
-        if (curSlug || curUrl || curTitle) {
-          try {
-            const resp = await fetch("blog_data.json");
-            const raw = await resp.json();
-            const list = Array.isArray(raw) ? raw : Object.values(raw);
+          let post = null;
+          if (curSlug) post = list.find(p => p && p.slug === curSlug);
+          if (!post && curUrl) post = list.find(p => p && p.url === curUrl);
+          if (!post && curTitle) post = list.find(p => p && p.title === curTitle);
 
-            let post = null;
-            if (curSlug)  post = list.find(p => p && p.slug  === curSlug);
-            if (!post && curUrl)   post = list.find(p => p && p.url   === curUrl);
-            if (!post && curTitle) post = list.find(p => p && p.title === curTitle);
+          // 兜底方案：通过 URL 文件名匹配
+          if (!post) {
+            const path = location.pathname.replace(/^.*\//, "");
+            post = list.find(p => p && p.url && p.url.endsWith(path));
+          }
 
-            // 兜底方案：通过 URL 文件名匹配
-            if (!post) {
-              const path = location.pathname.replace(/^.*\//, "");
-              post = list.find(p => p && p.url && p.url.endsWith(path));
-            }
-
-            // 找到文章则高亮对应分类（排除 "all"）
-            if (post && Array.isArray(post.categories) && post.categories.length) {
-              const catSet = new Set(post.categories.filter(c => c !== "all"));
-              highlightCategories(catSet);
-            } else {
-              highlightCategories(new Set(["all"]));
-            }
-          } catch (e) {
-            console.error("高亮失败（详情模式）:", e);
+          // 找到文章则高亮对应分类（排除 "all"）
+          if (post && Array.isArray(post.categories) && post.categories.length) {
+            const catSet = new Set(post.categories.filter(c => c !== "all"));
+            highlightCategories(catSet);
+          } else {
             highlightCategories(new Set(["all"]));
           }
-          return;
+        } catch (e) {
+          console.error("高亮失败（详情模式）:", e);
+          highlightCategories(new Set(["all"]));
         }
+        return;
+      }
 
-        // ---- 情况 3：没有参数时默认高亮 “all” ----
-        highlightCategories(new Set(["all"]));
-      })();
-    </script>
-  </body>
+      // ---- 情况 3：没有参数时默认高亮 “all” ----
+      highlightCategories(new Set(["all"]));
+    })();
+  </script>
+</body>
+
 </html>

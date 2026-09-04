@@ -1,6 +1,6 @@
 [
   {
-    "title": "Pcomp-001-Electrical Engineering Foundamentals",
+    "title": "Pcomp-01-Electrical Engineering Foundamentals",
     "slug": "blog-001",
     "date": "2025-09-07",
     "contentFile": "blog_contents/blog_001.html",
@@ -9,443 +9,395 @@
     "status": "hidden"
   },
   {
-    "title": "Pcomp-002-Digital/Analog I/O",
+    "title": "Pcomp-02-Digital/Analog I/O",
     "slug": "blog-002",
     "date": "2025-09-9",
     "contentFile": "blog_contents/blog_002.html",
-    "imgPath": null,
+    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "ICM-001-Self-Portrait",
+    "title": "ICM-01-Self-Portrait",
     "slug": "blog-003",
     "date": "2025-09-11",
     "contentFile": "blog_contents/blog_003.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-001",
+    "title": "Hypercinema-01",
     "slug": "blog-004",
     "date": "2025-09-11",
     "contentFile": "blog_contents/blog_004.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "ICM-002-Opposites",
+    "title": "ICM-02-Opposites",
     "slug": "blog-005",
     "date": "2025-09-15",
     "contentFile": "blog_contents/blog_005.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Pcomp-003-Servo and Speaker",
+    "title": "Pcomp-03-Servo and Speaker",
     "slug": "blog-006",
     "date": "2025-09-16",
     "contentFile": "blog_contents/blog_006.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-002-Sound Vacation",
+    "title": "Hypercinema-02-Sound Vacation",
     "slug": "blog-007",
     "date": "2025-09-18",
     "contentFile": "blog_contents/blog_007.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "Visual Language-001-Boarding Pass Design",
+    "title": "Visual Language-01-Boarding Pass Design",
     "slug": "blog-008",
     "date": "2025-09-18",
     "contentFile": "blog_contents/blog_008.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "visual_language"],
     "status": "hidden"
   },
   {
-    "title": "Visual Language-002-Mark, Logo, and Bussiness Card Design",
+    "title": "Visual Language-02-Mark, Logo, and Bussiness Card Design",
     "slug": "blog-009",
     "date": "2025-09-22",
     "contentFile": "blog_contents/blog_009.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "visual_language"],
     "status": "hidden"
   },
     {
-    "title": "ICM-003-Choices",
+    "title": "ICM-03-Choices",
     "slug": "blog-010",
     "date": "2025-09-22",
     "contentFile": "blog_contents/blog_010.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
     {
-    "title": "Pcomp-004-Sensor Detection",
+    "title": "Pcomp-04-Sensor Detection",
     "slug": "blog-011",
     "date": "2025-09-23",
     "contentFile": "blog_contents/blog_011.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
    {
-    "title": "Hypercinema-003-Stop Motion",
+    "title": "Hypercinema-03-Stop Motion",
     "slug": "blog-012",
     "date": "2025-09-29",
     "contentFile": "blog_contents/blog_012.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
     {
-    "title": "Hypercinema-004",
+    "title": "Hypercinema-04",
     "slug": "blog-013",
     "date": "2025-09-29",
     "contentFile": "blog_contents/blog_013.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
    {
-    "title": "Pcomp-005-High-Current Loads",
+    "title": "Pcomp-05-High-Current Loads",
     "slug": "blog-014",
     "date": "2025-09-30",
     "contentFile": "blog_contents/blog_014.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "ICM-004-Patterns",
+    "title": "ICM-04-Patterns",
     "slug": "blog-015",
     "date": "2025-09-30",
     "contentFile": "blog_contents/blog_015.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Visual Language-003-Palatte and Composition",
+    "title": "Visual Language-03-Palatte and Composition",
     "slug": "blog-016",
     "date": "2025-10-01",
     "contentFile": "blog_contents/blog_016.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "visual_language"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-005",
+    "title": "Hypercinema-05",
     "slug": "blog-017",
     "date": "2025-10-05",
     "contentFile": "blog_contents/blog_017.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "Pcomp-006-Midterm-Rock, Paper, Scissors Machine",
+    "title": "Pcomp-06-Midterm-Rock, Paper, Scissors Machine",
     "slug": "blog-018",
     "date": "2025-10-06",
     "contentFile": "blog_contents/blog_018.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "Pcomp-007-Asynchronous Serial Communications",
+    "title": "Pcomp-07-Asynchronous Serial Communications",
     "slug": "blog-019",
     "date": "2025-10-07",
     "contentFile": "blog_contents/blog_019.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "ICM-005-Time",
+    "title": "ICM-05-Time",
     "slug": "blog-020",
     "date": "2025-10-08",
     "contentFile": "blog_contents/blog_020.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Visual Language-004-Final-Poster Design",
+    "title": "Visual Language-04-Final-Poster Design",
     "slug": "blog-021",
     "date": "2025-10-09",
     "contentFile": "blog_contents/blog_021.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "visual_language"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-006",
+    "title": "Hypercinema-06",
     "slug": "blog-022",
     "date": "2025-10-14",
     "contentFile": "blog_contents/blog_022.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "ICM-006-Simulation",
+    "title": "ICM-06-Simulation",
     "slug": "blog-023",
     "date": "2025-10-16",
     "contentFile": "blog_contents/blog_023.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-007-Experimental Synthetic Short",
+    "title": "Hypercinema-07-Experimental Synthetic Short",
     "slug": "blog-024",
     "date": "2025-10-20",
     "contentFile": "blog_contents/blog_024.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "ICM-007-Iteration with AI",
+    "title": "ICM-07-Iteration with AI",
     "slug": "blog-025",
     "date": "2025-10-21",
     "contentFile": "blog_contents/blog_025.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Pcomp-008-Duplex Asynchronous Serial Communications",
+    "title": "Pcomp-08-Duplex Asynchronous Serial Communications",
     "slug": "blog-026",
     "date": "2025-10-23",
     "contentFile": "blog_contents/blog_026.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "Pcomp-009-Synchronous Serial Communications",
+    "title": "Pcomp-09-Synchronous Serial Communications",
     "slug": "blog-027",
     "date": "2025-10-30",
     "contentFile": "blog_contents/blog_027.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "ICM-008-Parts of a Whole",
+    "title": "ICM-08-Parts of a Whole",
     "slug": "blog-028",
     "date": "2025-10-27",
     "contentFile": "blog_contents/blog_028.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-008",
+    "title": "Hypercinema-08",
     "slug": "blog-029",
     "date": "2025-10-28",
     "contentFile": "blog_contents/blog_029.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "ICM-009-Body",
+    "title": "ICM-09-Body",
     "slug": "blog-030",
     "date": "2025-11-03",
     "contentFile": "blog_contents/blog_030.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-009",
+    "title": "Hypercinema-09",
     "slug": "blog-031",
     "date": "2025-11-03",
     "contentFile": "blog_contents/blog_031.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "Pcomp-010-Final-Digital Guanyin Shrine",
+    "title": "Pcomp-10-Final-Digital Guanyin Shrine",
     "slug": "blog-032",
     "date": "2025-11-04",
     "contentFile": "blog_contents/blog_032.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_physical_computing"],
     "status": "hidden"
   },
   {
-    "title": "ICM-010-Compose",
+    "title": "ICM-10-Compose",
     "slug": "blog-033",
     "date": "2025-11-10",
     "contentFile": "blog_contents/blog_033.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "ICM-011-Final-My Sketchbook",
+    "title": "ICM-11-Final-My Sketchbook",
     "slug": "blog-034",
     "date": "2025-11-17",
     "contentFile": "blog_contents/blog_034.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "introduction_to_computational_media"],
     "status": "hidden"
   },
   {
-    "title": "Hypercinema-010-Final-Digital Guanyin Shrine",
+    "title": "Hypercinema-10-Final-Digital Guanyin Shrine",
     "slug": "blog-035",
     "date": "2025-12-02",
     "contentFile": "blog_contents/blog_035.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "hypercinema"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-001-Networked Interaction Fundamentals",
+    "title": "CD&NI-01-Networked Interaction Fundamentals",
     "slug": "blog-036",
     "date": "2026-01-20",
     "contentFile": "blog_contents/blog_036.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
   },
   {
-    "title": "PDS-001-Project Red Vein-Overall Plan",
+    "title": "PDS-01-Project Red Vein-Overall Plan",
     "slug": "blog-037",
     "date": "2026-01-22",
     "contentFile": "blog_contents/blog_037.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "project_development_studio"],
     "status": "hidden"
   },
   {
-    "title": "DSMMS-001-Two Vizzies",
+    "title": "DSMMS-01-Two Vizzies",
     "slug": "blog-038",
     "date": "2026-01-23",
     "contentFile": "blog_contents/blog_038.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-002-Watering Device-Device-Data Dashboard-1",
+    "title": "CD&NI-02-Watering Device-Device-Data Dashboard-1",
     "slug": "blog-039",
     "date": "2026-01-27",
     "contentFile": "blog_contents/blog_039.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
   },
   {
-    "title": "DSMMS-002-P5.js for Data Visualization",
+    "title": "DSMMS-02-P5.js for Data Visualization",
     "slug": "blog-040",
     "date": "2026-01-29",
     "contentFile": "blog_contents/blog_040.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"],
     "status": "hidden"
   },
   {
-    "title": "PDS-002-Project Red Vein-Setting",
+    "title": "PDS-02-Project Red Vein-Setting",
     "slug": "blog-041",
     "date": "2026-01-30",
     "contentFile": "blog_contents/blog_041.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "project_development_studio"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-003-Watering Device-Device-Data Dashboard-2",
+    "title": "CD&NI-03-Watering Device-Device-Data Dashboard-2",
     "slug": "blog-042",
     "date": "2026-02-03",
     "contentFile": "blog_contents/blog_042.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
   },
   {
-    "title": "DSMMS-003-Missing Data",
+    "title": "DSMMS-03-Missing Data",
     "slug": "blog-043",
     "date": "2026-02-05",
     "contentFile": "blog_contents/blog_043.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"],
     "status": "hidden"
   },
   {
-    "title": "DSMMS-004-Final-Ideation",
+    "title": "DSMMS-04-Final-Ideation",
     "slug": "blog-044",
     "date": "2026-02-19",
     "contentFile": "blog_contents/blog_044.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-004-Watering Device-Water Pump Output & Enclosure",
+    "title": "CD&NI-04-Watering Device-Water Pump Output & Enclosure",
     "slug": "blog-045",
     "date": "2026-02-10",
     "contentFile": "blog_contents/blog_045.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
   },
   {
-    "title": "PDS-003-Project Red Vein-Concept Art",
+    "title": "PDS-03-Project Red Vein-Concept Art",
     "slug": "blog-046",
     "date": "2026-02-10",
     "contentFile": "blog_contents/blog_046.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "project_development_studio"],
     "status": "hidden"
   },
   {
-    "title": "DSMMS-005-Final-Iteration",
+    "title": "DSMMS-05-Final-Iteration",
     "slug": "blog-048",
     "date": "2026-02-22",
     "contentFile": "blog_contents/blog_048.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-005-Watering Device-Screen Output",
+    "title": "CD&NI-05-Watering Device-Screen Output",
     "slug": "blog-049",
     "date": "2026-02-24",
     "contentFile": "blog_contents/blog_049.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
   },
   {
-    "title": "DSMMS-006-Final-Webpage Dashboard",
+    "title": "DSMMS-06-Final-Webpage Dashboard",
     "slug": "blog-050",
     "date": "2026-03-01",
     "contentFile": "blog_contents/blog_050.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "data_storytelling_for_memory_making_and_social"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-006-Watering Device-Data",
+    "title": "CD&NI-06-Watering Device-Data",
     "slug": "blog-051",
     "date": "2026-03-03",
     "contentFile": "blog_contents/blog_051.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
   },
@@ -454,44 +406,46 @@
     "slug": "blog-052",
     "date": "2026-03-24",
     "contentFile": "blog_contents/blog_052.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "100_days_of_making"],
     "status": "hidden"
   },
   {
-    "title": "DEMHMMRG-001-Ideation",
+    "title": "DEMHMMRG-01-Ideation",
     "slug": "blog-053",
     "date": "2026-03-25",
     "contentFile": "blog_contents/blog_053.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"],
     "status": "hidden"
   },
   {
-    "title": "DEMHMMRG-002-Fieldwork",
+    "title": "DEMHMMRG-02-Fieldwork",
     "slug": "blog-054",
     "date": "2026-03-31",
     "contentFile": "blog_contents/blog_054.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "deus_ex_machina_how_machines_may_replace_gods"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-007-Hue Controller",
+    "title": "CD&NI-07-Hue Controller",
     "slug": "blog-055",
     "date": "2026-04-01",
     "contentFile": "blog_contents/blog_055.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
   },
   {
-    "title": "CD&NI-008-Final-A Panicked Dinosaur",
+    "title": "CD&NI-08-Final-A Panicked Dinosaur",
     "slug": "blog-056",
     "date": "2026-04-03",
     "contentFile": "blog_contents/blog_056.html",
-    "imgPath": "images_videos/sample2.jpg",
     "categories": ["all", "connected_devices_and_networked_interaction"],
     "status": "hidden"
+  },
+  {
+    "title": "MSVOFR-01-UE Tutorial",
+    "slug": "blog-057",
+    "date": "2026-09-02",
+    "contentFile": "blog_contents/blog_057.html",
+    "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
   }
 ]

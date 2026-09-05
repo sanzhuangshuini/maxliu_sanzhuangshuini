@@ -447,5 +447,12 @@
     "date": "2026-09-02",
     "contentFile": "blog_contents/blog_057.html",
     "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
+  },
+  {
+    "title": "MftA-01-Research",
+    "slug": "blog-058",
+    "date": "2026-09-04",
+    "contentFile": "blog_contents/blog_058.html",
+    "categories": ["all", "mocap_for_the_archive"]
   }
 ]

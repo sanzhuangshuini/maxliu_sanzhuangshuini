@@ -85,13 +85,13 @@ a {
 }
 
 a:hover {
-  color: #96b351;
+  color: #9eba4a;
   text-decoration: underline;
 }
 
 /* 引用与文本修饰 */
 quote {
-  color: #96b351;
+  color: #9eba4a;
   font-style: italic;
   background: #f4f4f4;
 }

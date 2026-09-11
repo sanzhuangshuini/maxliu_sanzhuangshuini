@@ -461,5 +461,12 @@
     "date": "2026-09-08",
     "contentFile": "blog_contents/blog_059.html",
     "categories": ["all", "thesis"]
+  },
+  {
+    "title": "MSVOFR-02-Special Place",
+    "slug": "blog-060",
+    "date": "2026-09-11",
+    "contentFile": "blog_contents/blog_060.html",
+    "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
   }
 ]

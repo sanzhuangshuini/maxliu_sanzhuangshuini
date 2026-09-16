@@ -475,5 +475,12 @@
     "date": "2026-09-15",
     "contentFile": "blog_contents/blog_061.html",
     "categories": ["all", "thesis"]
+  },
+  {
+    "title": "MftA-02-Character",
+    "slug": "blog-062",
+    "date": "2026-09-16",
+    "contentFile": "blog_contents/blog_062.html",
+    "categories": ["all", "mocap_for_the_archive"]
   }
 ]

@@ -482,5 +482,26 @@
     "date": "2026-09-16",
     "contentFile": "blog_contents/blog_062.html",
     "categories": ["all", "mocap_for_the_archive"]
+  },
+  {
+    "title": "AE-01-Word Cloud",
+    "slug": "blog-063",
+    "date": "2026-09-18",
+    "contentFile": "blog_contents/blog_063.html",
+    "categories": ["all", "alter_egos"]
+  },
+  {
+    "title": "AE-02-Photomontage",
+    "slug": "blog-064",
+    "date": "2026-09-18",
+    "contentFile": "blog_contents/blog_064.html",
+    "categories": ["all", "alter_egos"]
+  },
+  {
+    "title": "MSVOFR-03-Short Video",
+    "slug": "blog-065",
+    "date": "2026-09-20",
+    "contentFile": "blog_contents/blog_065.html",
+    "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
   }
 ]

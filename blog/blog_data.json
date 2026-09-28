@@ -517,5 +517,12 @@
     "date": "2026-09-24",
     "contentFile": "blog_contents/blog_067.html",
     "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
+  },
+  {
+    "title": "AE-03-Assemblage",
+    "slug": "blog-068",
+    "date": "2026-09-27",
+    "contentFile": "blog_contents/blog_068.html",
+    "categories": ["all", "alter_egos"]
   }
 ]

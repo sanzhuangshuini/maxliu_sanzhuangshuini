@@ -524,5 +524,26 @@
     "date": "2026-09-27",
     "contentFile": "blog_contents/blog_068.html",
     "categories": ["all", "alter_egos"]
+  },
+  {
+    "title": "PDev-04-Never Been Easier-Extremes",
+    "slug": "blog-069",
+    "date": "2026-09-29",
+    "contentFile": "blog_contents/blog_069.html",
+    "categories": ["all", "thesis"]
+  },
+  {
+    "title": "PDev-05-Never Been Easier-Timeline",
+    "slug": "blog-070",
+    "date": "2026-09-29",
+    "contentFile": "blog_contents/blog_070.html",
+    "categories": ["all", "thesis"]
+  },
+  {
+    "title": "AE-04-Video Collage",
+    "slug": "blog-071",
+    "date": "2026-09-27",
+    "contentFile": "blog_contents/blog_071.html",
+    "categories": ["all", "alter_egos"]
   }
 ]

@@ -545,5 +545,12 @@
     "date": "2026-09-27",
     "contentFile": "blog_contents/blog_071.html",
     "categories": ["all", "alter_egos"]
+  },
+  {
+    "title": "MftA-03-Project Development",
+    "slug": "blog-072",
+    "date": "2026-10-01",
+    "contentFile": "blog_contents/blog_072.html",
+    "categories": ["all", "mocap_for_the_archive"]
   }
 ]

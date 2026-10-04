@@ -442,7 +442,7 @@
     "status": "hidden"
   },
   {
-    "title": "MSVOFR-01-UE Tutorial",
+    "title": "MSVROFR-01-UE Tutorial",
     "slug": "blog-057",
     "date": "2026-09-02",
     "contentFile": "blog_contents/blog_057.html",
@@ -463,7 +463,7 @@
     "categories": ["all", "thesis"]
   },
   {
-    "title": "MSVOFR-02-Special Place",
+    "title": "MSVROFR-02-Special Place",
     "slug": "blog-060",
     "date": "2026-09-11",
     "contentFile": "blog_contents/blog_060.html",
@@ -498,7 +498,7 @@
     "categories": ["all", "alter_egos"]
   },
   {
-    "title": "MSVOFR-03-Short Video",
+    "title": "MSVROFR-03-Short Video",
     "slug": "blog-065",
     "date": "2026-09-20",
     "contentFile": "blog_contents/blog_065.html",
@@ -512,7 +512,7 @@
     "categories": ["all", "thesis"]
   },
   {
-    "title": "MSVOFR-04-Still Life",
+    "title": "MSVROFR-04-Still Life",
     "slug": "blog-067",
     "date": "2026-09-24",
     "contentFile": "blog_contents/blog_067.html",
@@ -552,5 +552,12 @@
     "date": "2026-10-01",
     "contentFile": "blog_contents/blog_072.html",
     "categories": ["all", "mocap_for_the_archive"]
+  },
+  {
+    "title": "MSVROFR-05-Aduio",
+    "slug": "blog-073",
+    "date": "2026-10-03",
+    "contentFile": "blog_contents/blog_073.html",
+    "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
   }
 ]

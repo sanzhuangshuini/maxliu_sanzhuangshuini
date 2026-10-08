@@ -554,7 +554,7 @@
     "categories": ["all", "mocap_for_the_archive"]
   },
   {
-    "title": "MSVROFR-05-Aduio",
+    "title": "MSVROFR-05-Audio",
     "slug": "blog-073",
     "date": "2026-10-03",
     "contentFile": "blog_contents/blog_073.html",
@@ -566,5 +566,19 @@
     "date": "2026-10-05",
     "contentFile": "blog_contents/blog_074.html",
     "categories": ["all", "mocap_for_the_archive"]
+  },
+  {
+    "title": "PDev-06-Never Been Easier-Prototype",
+    "slug": "blog-075",
+    "date": "2026-10-06",
+    "contentFile": "blog_contents/blog_075.html",
+    "categories": ["all", "thesis"]
+  },
+  {
+    "title": "MSVROFR-06-VR for the First Time",
+    "slug": "blog-076",
+    "date": "2026-10-08",
+    "contentFile": "blog_contents/blog_076.html",
+    "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
   }
 ]

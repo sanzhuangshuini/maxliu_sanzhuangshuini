@@ -368,6 +368,8 @@ pre code {
   --cinema-fade: 320px;
   position: relative;
   width: 100%;
+  /* 氛围层左右多延伸了 30px，裁掉水平溢出，避免出现横向滚动条 */
+  overflow-x: clip;
   background: transparent;
   display: flex;
   justify-content: center;
@@ -381,11 +383,14 @@ pre code {
    z-index 为负，垫在下面的标题和文字下方 */
 .cinema-section .cinema-ambient {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100% + var(--cinema-fade));
+  /* 上、左、右各多延伸 30px，避免高斯模糊后边缘变淡（同画廊页 #hover-bg） */
+  top: -30px;
+  left: -30px;
+  width: calc(100% + 60px);
+  height: calc(100% + var(--cinema-fade) + 30px);
   object-fit: cover;
+  /* 与画廊页悬浮背景一致的高斯模糊 */
+  filter: blur(18px);
   pointer-events: none;
   z-index: -1;
   -webkit-mask-image: linear-gradient(to bottom,

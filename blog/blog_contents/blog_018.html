@@ -1,4 +1,4 @@
-<!-- Pcomp-006 -->
+<!-- Pcomp-06 -->
 
 <h4>Rock, paper, scissors machine</h4>
 <h5>2025-09-26</h5>
@@ -6,11 +6,11 @@
 
 <h5>2025-09-30</h5>
 <p>We started building our prototype. At first, we made the most basic model on a breadboard.
-Step one: we connected only the HC-SR04 ultrasonic sensor to test whether it worked properly. At first, we failed. Maybe it was because we used a resistor that was too large—once I swapped in a smaller one, the sensor suddenly started working. Honestly, I’m still not sure if the resistor was the real issue, but after switching it, the Nano board began to heat up a little, which made me nervous.</p>
+Step one: we connected only the HC-SR04 ultrasonic sensor to test whether it worked properly. At first, we failed. Maybe it was because we used a resistor that was too large—once I swapped in a smaller one, the sensor suddenly started working. Honestly, I'm still not sure if the resistor was the real issue, but after switching it, the Nano board began to heat up a little, which made me nervous.</p>
 
 <h5>2025-10-01</h5>
 <p>Step two: we added a servo motor. To our relief, it worked right away.
-Step three: we connected three servos, which meant all the main functions were now in place. For a short while, the prototype ran smoothly. But after just three or four test runs, problems appeared. Some of the servos stopped working—specifically servos 1 and 3, while servo 2 kept running without issues. The broken ones wouldn’t reset, and once they failed to reset, they simply stopped moving altogether. I could still hear some sound from inside, but there was no mechanical motion.
+Step three: we connected three servos, which meant all the main functions were now in place. For a short while, the prototype ran smoothly. But after just three or four test runs, problems appeared. Some of the servos stopped working—specifically servos 1 and 3, while servo 2 kept running without issues. The broken ones wouldn't reset, and once they failed to reset, they simply stopped moving altogether. I could still hear some sound from inside, but there was no mechanical motion.
 </p>
 <p>This is our schematic:</p>
 <div class="image-row">
@@ -116,7 +116,7 @@ float getUltrasonicDist() {
 <h5>2025-10-08</h5>
 <p>We booked the office hour with Mr. Igeo and we got the answers to our questions.</p>
 <p><emph2>1. Current battery is 3V not enough for everything. We need a battery 6_9V. </emph2></p>
-<p><emph1>2. Because we need to solder the bridge on the back of the 5V pin of Nano 33 Iot otherwise it wouldn’t work.</emph1></p>
+<p><emph1>2. Because we need to solder the bridge on the back of the 5V pin of Nano 33 Iot otherwise it wouldn't work.</emph1></p>
 <p><emph1>3. The Nano 33 Iot can only output 3.3V even we soldered the 5V pin and used it as an current output pin (by the built-in regulator inside the Nano 33 Iot). Therefore, when we put a large voltage into Vin pin, the regulator on the board is overloaded. That's why we had a super hot board.</emph1></p>
 <p>4. And Mr. Igeo suggested us supply all the things with just battery.</p>
 <div class="image-row">

@@ -1,9 +1,9 @@
-<!-- Pcomp-005 -->
+<!-- Pcomp-05 -->
 <h4>Reading-Igoe, Just Like Riding a Bike</h4>
 <quote><a href="https://www.tigoe.com/blog/category/physicalcomputing/287/">Source</a></quote>
 <p>Igoe: "you have a responsibility to teach people to use the things you build."</p>
 <p>Igoe: "Intuitive interfaces draw heavily on earlier learned behavior, while unintuitive ones require distinct new skills or <bold>metaphorical</bold> connections."</p>
-<p>Igoe: "An interface’s ‘intuitiveness’ or ‘naturalness’ is a measure of the extent to which draws on existing learned behavior."</p>
+<p>Igoe: "An interface‘s 'intuitiveness' or 'naturalness' is a measure of the extent to which draws on existing learned behavior."</p>
 
 
 <h4>Notes</h4>
@@ -15,7 +15,7 @@
 
 <h4>Lab 01-Transistor</h4>
 <h5>A DC Motor</h5>
-<p>At the very beginning, the motor just kept spinning nonstop — there was no “blinking” effect at all. After poking around for a while, I realized the issue: I had flipped the diode the wrong way. Out of habit, I connected the diode’s anode to the collector and the cathode to the emitter, just like I usually did with other components. Later it hit me — <emph1>the diode’s actual job here is to block the current from passing through. Which means, of course, it should have been reversed.</emph1></p>
+<p>At the very beginning, the motor just kept spinning nonstop — there was no “blinking” effect at all. After poking around for a while, I realized the issue: I had flipped the diode the wrong way. Out of habit, I connected the diode's anode to the collector and the cathode to the emitter, just like I usually did with other components. Later it hit me — <emph1>the diode's actual job here is to block the current from passing through. Which means, of course, it should have been reversed.</emph1></p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/3.jpg">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/13.jpg">
@@ -55,8 +55,8 @@ void loop() {
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/14.jpg">
 </div>
-<p><emph2>1. Is this light bulb DC or AC? If it’s DC, how do I check the polarity? I wired it randomly without paying attention to polarity, and it still lit up. Does that mean the bulb is actually AC? But then my classmate told me that this machine can only supply DC.</emph2></p>
-<p><emph2>2. I wired up the circuit, but when I turned on the power, the bulb didn’t light up. To double-check, I used serial.println to monitor the code—Arduino’s inputs and outputs were fine. Then I tested the bulb and the power supply: when I bypassed the transistor and connected the bulb directly to the power source, it lit up. That confirmed the problem had to be with the transistor. So I went to the shop and got another MOSFET transistor. With the new one, the circuit worked perfectly. Now I’m curious—what’s the difference between these two models? (The first one, above, didn’t work; the second one, below, did.)</emph2></p>
+<p><emph2>1. Is this light bulb DC or AC? If it's DC, how do I check the polarity? I wired it randomly without paying attention to polarity, and it still lit up. Does that mean the bulb is actually AC? But then my classmate told me that this machine can only supply DC.</emph2></p>
+<p><emph2>2. I wired up the circuit, but when I turned on the power, the bulb didn't light up. To double-check, I used serial.println to monitor the code—Arduino's inputs and outputs were fine. Then I tested the bulb and the power supply: when I bypassed the transistor and connected the bulb directly to the power source, it lit up. That confirmed the problem had to be with the transistor. So I went to the shop and got another MOSFET transistor. With the new one, the circuit worked perfectly. Now I'm curious—what's the difference between these two models? (The first one, above, didn't work; the second one, below, did.)</emph2></p>
 <div class="image-row">
     <img src="../images_videos/learning_blogs/introduction_to_physical_computing/blog_014/19.jpg">
 </div>

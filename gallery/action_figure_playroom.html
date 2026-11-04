@@ -1664,9 +1664,7 @@
               <div class="tl-legend label">
                 <span style="--c:var(--red)">Luke</span>
                 <span style="--c:var(--yellow)">Yuqin</span>
-                <span style="--c:var(--blue)">Max</span>
-                <span style="--c:var(--purple)">Luke &amp; Max</span>
-              </div>
+                <span style="--c:var(--blue)">Max</span>              </div>
             </div>
           </div>
         </div>
@@ -1949,8 +1947,7 @@
 
       /* ----- 时间线 ----- */
       const days = ["10/24", "10/25", "10/26", "10/27", "10/28", "10/29", "10/30", "10/31", "11/01", "11/02", "11/03", "11/04"];
-      // 「Luke & Max」平分：红 + 蓝 = 紫，用游戏里描边的紫色
-      const people = { Luke: "var(--red)", Yuqin: "var(--yellow)", Max: "var(--blue)", "Luke & Max": "var(--purple)" };
+      const people = { Luke: "var(--red)", Yuqin: "var(--yellow)", Max: "var(--blue)" };
       const milestones = [
         ["10/24", "Luke", "First version of mechanics & level prototype"],
         ["10/25", "Max", "First version of environment & framework of the deck"],
@@ -1960,7 +1957,7 @@
         ["11/02", "Max", "Second version of level design & environment art & the website"],
         ["11/03", "Yuqin", "Second version of audio & haptics integration"],
         ["11/03", "Luke", "Testing & final polish", ["Yuqin", "Max"]],   // 第 4 项：协助者
-        ["11/04", "Luke & Max", "Setup"]
+        ["11/04", "Luke", "Setup", ["Max"]]
       ];
       const swatch = name => `<i style="--c:${people[name]}"></i>`;
       const board = document.getElementById("tl-board");

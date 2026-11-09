@@ -594,5 +594,19 @@
     "date": "2026-11-02",
     "contentFile": "blog_contents/blog_078.html",
     "categories": ["all", "multisensory_storytelling_in_virtual_reality_and_original_flavor_reality"]
+  },
+  {
+    "title": "PDev-08-Never Been Easier-Playable Iteration",
+    "slug": "blog-079",
+    "date": "2026-11-08",
+    "contentFile": "blog_contents/blog_079.html",
+    "categories": ["all", "thesis"]
+  },
+  {
+    "title": "PDev-09-Never Been Easier-Spring Semester Timeline",
+    "slug": "blog-080",
+    "date": "2026-11-08",
+    "contentFile": "blog_contents/blog_080.html",
+    "categories": ["all", "thesis"]
   }
 ]

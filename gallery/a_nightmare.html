@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Nightmare</title>
+    <meta name="description"
+        content="A Nightmare: a multisensory VR experience about a nightmare. A spin-off of the game Never Been Easier." />
+
+    <style>
+        :root {
+            --paper: #e8eee9;
+            --ink: #0b0e11;
+            --fog: #8da2a5;
+            --mint: #c3e7d4;
+            --night: #05070a;
+            --red: #d72920;
+            --sans: "Helvetica", "Microsoft YaHei";
+            --mono: "Consolas", "Microsoft YaHei", monospace;
+            --ease: cubic-bezier(.2, .7, .2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background: var(--night);
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--sans);
+            color: var(--ink);
+            background: var(--fog);
+            overflow-x: hidden;
+        }
+
+        body.night {
+            background: var(--night);
+            color: var(--mint);
+        }
+
+        /* ---------- 胶片颗粒：整页盖一层不停抖动的噪点，像坏掉的拷贝 ---------- */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: -60px;
+            z-index: 40;
+            pointer-events: none;
+            opacity: .2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 3 0 0 0 -1.15'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+            animation: grain .8s steps(1) infinite;
+        }
+
+        @keyframes grain {
+            0% { transform: translate(0, 0); }
+            17% { transform: translate(-31px, 19px); }
+            34% { transform: translate(24px, -42px); }
+            51% { transform: translate(-48px, -17px); }
+            68% { transform: translate(37px, 33px); }
+            85% { transform: translate(-12px, 46px); }
+        }
+
+        /* ---------- 抖动画面层（游戏画面实时转成网点） ---------- */
+        #world {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            image-rendering: pixelated;
+            z-index: 0;
+            background: var(--fog);
+        }
+
+        body.night #world {
+            display: none;
+        }
+
+        #rideVideo {
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 320px;
+            height: 180px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ---------- 声音：只是一行字。第一屏是一个问句，滚走之后缩成左下角一小行 ---------- */
+        #soundBtn {
+            position: fixed;
+            z-index: 50;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: none;
+            color: var(--mint);
+            font-family: var(--sans);
+            text-decoration: underline;
+            text-underline-offset: .22em;
+            text-decoration-thickness: 1px;
+            text-shadow: 0 0 4px rgba(11, 14, 17, .9), 0 0 16px rgba(11, 14, 17, .8);
+            cursor: pointer;
+        }
+
+        #soundBtn:hover,
+        #soundBtn:focus-visible {
+            color: var(--red);
+            outline: none;
+        }
+
+        #soundBtn {
+            transition: color .25s ease;
+        }
+
+        #soundBtn.invite {
+            left: 50%;
+            top: 71vh;
+            transform: translateX(-50%);
+            font-size: 1.35vw;
+            animation: fadeIn 1.2s ease 1s backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+        }
+
+        #soundBtn.mini {
+            left: 2vw;
+            top: 95.5vh;
+            font-size: 13px;
+        }
+
+        /* ---------- 滚动舞台：每章一个粘住的整屏 ---------- */
+        section.pin {
+            position: relative;
+            z-index: 1;
+            height: calc(var(--h) * 1vh);
+        }
+
+        .stage {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .big {
+            font-weight: 700;
+            letter-spacing: -.045em;
+            line-height: .92;
+        }
+
+        /* ---------- 00 入口 ---------- */
+        /* 开场是一段 8 秒左右的自动编排：
+           纯黑 → 第一行 → 停顿 → 第二行 → 停顿 → 第三行（突然变大）→ 黑幕褪去，雾和铁轨浮现。
+           点击、滚动或按键会直接跳到完整状态（.skip） */
+        .hero-veil {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: var(--night);
+            pointer-events: none;
+            animation: veilOut 3.4s ease-in-out 5.8s both;
+        }
+
+        @keyframes veilOut {
+            to {
+                opacity: 0;
+            }
+        }
+
+        .hero-tag {
+            position: absolute;
+            z-index: 2;
+            left: 50%;
+            top: 46%;
+            transform: translate(-50%, -50%);
+            width: max-content;
+            margin: 0;
+            text-align: center;
+            white-space: nowrap;
+            font-weight: 700;
+            color: var(--mint);
+            will-change: opacity;
+            text-shadow: 0 0 4px rgba(11, 14, 17, .6), 0 0 30px rgba(11, 14, 17, .5),
+                0 0 80px rgba(11, 14, 17, .45), 0 0 150px rgba(11, 14, 17, .4);
+        }
+
+        .hero-tag .l {
+            display: block;
+            opacity: 0;
+            animation: lineIn 2s var(--ease) both;
+        }
+
+        /* 前两行小而松 */
+        .hero-tag .l1,
+        .hero-tag .l2 {
+            font-size: 1.7vw;
+            letter-spacing: .22em;
+            line-height: 2.2;
+        }
+
+        .hero-tag .l1 {
+            animation-delay: .9s;
+        }
+
+        .hero-tag .l2 {
+            animation-delay: 2.9s;
+        }
+
+        /* 第三行突然变大、字距收紧：字号悬殊就是冲击力 */
+        .hero-tag .l3 {
+            margin-top: .5vw;
+            font-size: 3.8vw;
+            letter-spacing: .06em;
+            line-height: 1.4;
+            animation-name: hitIn;
+            animation-duration: 2.4s;
+            animation-delay: 5s;
+        }
+
+        @keyframes lineIn {
+            from {
+                opacity: 0;
+                filter: blur(6px);
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: none;
+            }
+        }
+
+        @keyframes hitIn {
+            from {
+                opacity: 0;
+                filter: blur(16px);
+                transform: scale(1.14);
+            }
+
+            55% {
+                filter: blur(0);
+            }
+
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: none;
+            }
+        }
+
+        .hero-stage.skip .hero-veil,
+        .hero-stage.skip .hero-tag .l {
+            animation: none;
+        }
+
+        .hero-stage.skip .hero-veil {
+            opacity: 0;
+        }
+
+        .hero-stage.skip .hero-tag .l {
+            opacity: 1;
+        }
+
+        /* ---------- 01 登车 ---------- */
+        /* 舞台透明：画面是滚动时逐渐变暗的网点；文字用黑色牌子，和其他章节一致 */
+        .board-title {
+            position: absolute;
+            left: 4vw;
+            top: 11vh;
+            margin: 0;
+            font-size: 8.6vw;
+            width: fit-content;
+            padding: .1em .2em .14em;
+            background: var(--night);
+            color: var(--mint);
+        }
+
+        .rules {
+            position: absolute;
+            left: 4vw;
+            top: 50vh;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .rules li {
+            width: fit-content;
+            margin-bottom: 1vh;
+            padding: 1.3vh 1.6vw;
+            background: var(--night);
+            color: var(--mint);
+            font-size: 1.9vw;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateX(-2.5vw);
+            transition: opacity .5s var(--ease), transform .5s var(--ease);
+        }
+
+        .rules li.on {
+            opacity: 1;
+            transform: none;
+        }
+
+        .lapbar {
+            position: absolute;
+            left: -2vw;
+            right: -2vw;
+            top: -20vh;
+            height: 12vh;
+            border-radius: 6vh;
+            background: var(--mint);
+            color: var(--night);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6vw;
+        }
+
+        .lapbar span {
+            opacity: 0;
+            transition: opacity .35s ease;
+        }
+
+        .lapbar.locked span {
+            opacity: 1;
+        }
+
+        /* ---------- 02 爬升：沿铁轨横向滚动 ---------- */
+        .climb-row {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 400vw;
+            display: flex;
+            will-change: transform;
+        }
+
+        .st {
+            width: 100vw;
+            height: 100%;
+            padding: 0 4vw 12vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--mint);
+        }
+
+        .st .big {
+            font-size: 8vw;
+            max-width: 80vw;
+            width: fit-content;
+            padding: .1em .2em .14em;
+            background: var(--night);
+        }
+
+        .rail {
+            position: absolute;
+            left: 0;
+            bottom: 13vh;
+            width: 400vw;
+            height: 1.1vh;
+            background: var(--red);
+        }
+
+        .rail::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 3.6vh;
+            background: repeating-linear-gradient(90deg, var(--red) 0 .55vw, transparent .55vw 3vw);
+        }
+
+        /* ---------- 03 最高点 / 俯冲 ---------- */
+        .drop-stage .center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--mint);
+            opacity: 0;
+            transition: opacity .35s ease;
+        }
+
+        .drop-stage .center.on {
+            opacity: 1;
+        }
+
+        .drop-stage .center .big {
+            font-size: 9vw;
+            padding: .1em .2em .14em;
+            background: var(--night);
+        }
+
+        .drop-stage .center.fall .big {
+            font-size: 22vw;
+            color: var(--red);
+            letter-spacing: -.06em;
+            transform: scale(1.1);
+            transition: transform .45s var(--ease);
+        }
+
+        .drop-stage .center.fall.on .big {
+            transform: none;
+        }
+
+        .drop-stage.shake {
+            animation: shake .09s linear infinite;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(-.5vw, .6vh);
+            }
+
+            50% {
+                transform: translate(.6vw, -.5vh);
+            }
+
+            75% {
+                transform: translate(-.4vw, -.7vh);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        body.night .drop-stage {
+            visibility: hidden;
+        }
+
+        /* ---------- 夜 ---------- */
+        .night-stage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 4vw;
+            color: var(--mint);
+        }
+
+        .log {
+            margin: 0 0 6vh;
+            font-size: 2.2vw;
+            line-height: 1.6;
+        }
+
+        .log div {
+            opacity: 0;
+            transform: translateY(1vh);
+            transition: opacity .6s var(--ease), transform .6s var(--ease);
+        }
+
+        .log div.on {
+            opacity: 1;
+            transform: none;
+        }
+
+        .night-stage .big {
+            font-size: 7.4vw;
+            color: var(--red);
+            opacity: 0;
+            transition: opacity .9s ease;
+        }
+
+        .night-stage .big.on {
+            opacity: 1;
+        }
+
+        /* ---------- 04 多感官：像一张做了笔记的照片 ---------- */
+        .sys-stage {
+            color: var(--mint);
+            padding: 0 4vw;
+        }
+
+        .sys-title {
+            position: absolute;
+            left: 4vw;
+            top: 9vh;
+            margin: 0;
+            font-size: 5.2vw;
+            max-width: 60vw;
+        }
+
+        .sys-grid {
+            position: absolute;
+            left: 4vw;
+            right: 4vw;
+            top: 29vh;
+            display: grid;
+            grid-template-columns: 58fr 36fr;
+            gap: 4vw;
+            align-items: center;
+        }
+
+        .photo {
+            position: relative;
+        }
+
+        .photo canvas {
+            display: block;
+            width: 100%;
+            image-rendering: pixelated;
+        }
+
+        /* 照片上的红点：悬浮时旁边出现一行字 */
+        .pt {
+            position: absolute;
+            z-index: 6;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: -13px 0 0 -13px;
+            padding: 6px;
+            background: none;
+            border: 0;
+            color: var(--mint);
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .pt .dot {
+            flex: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--red);
+            transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .pt .lbl {
+            position: relative;
+            display: none;
+            margin-top: -5px;
+            padding: 5px 8px;
+            background: var(--night);
+            white-space: nowrap;
+            font: 11px/1 var(--mono);
+            letter-spacing: .14em;
+        }
+
+        .pt .lbl small {
+            display: none;
+            position: absolute;
+            left: -1px;
+            top: 100%;
+            margin-top: 6px;
+            padding: 5px 8px;
+            background: var(--night);
+            font: 11px/1.4 var(--mono);
+            letter-spacing: .04em;
+        }
+
+        .pt:hover .dot,
+        .pt:focus-visible .dot {
+            transform: scale(1.4);
+        }
+
+        .pt:hover .lbl,
+        .pt:focus-visible .lbl,
+        .pt:hover .lbl small,
+        .pt:focus-visible .lbl small {
+            display: block;
+            animation: pop .22s var(--ease);
+        }
+
+        @keyframes pop {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+        }
+
+        .pt:focus {
+            outline: none;
+        }
+
+        /* 右侧文字块：垂直居中，高度略矮于照片（92%），四句话在这个高度里均匀分布 */
+        .notes-col {
+            align-self: center;
+            height: 92%;
+        }
+
+        .notes {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 1.85vw;
+            line-height: 1.32;
+        }
+
+        .notes li {
+            margin: 0;
+            opacity: .28;
+            transition: opacity .5s ease, color .3s ease;
+        }
+
+        .notes li.on {
+            opacity: 1;
+        }
+
+        /* 悬浮红点时亮起的那句用和红点一样的红色，和滚动高亮的薄荷色区分开 */
+        .notes li.hl {
+            opacity: 1;
+            color: var(--red);
+        }
+
+        /* 进度条：一条细线 + 红色方块，下面是四个阶段的名字 */
+        .timeline {
+            position: absolute;
+            left: 4vw;
+            right: 4vw;
+            bottom: 7vh;
+            font: 12px/1 var(--mono);
+            letter-spacing: .14em;
+        }
+
+        .timeline .line {
+            position: relative;
+            height: 1px;
+            background: rgba(195, 231, 212, .45);
+            margin-bottom: 14px;
+        }
+
+        .timeline .mark {
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 11px;
+            height: 11px;
+            background: var(--red);
+            transform: translateX(-50%);
+        }
+
+        .timeline .names {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .timeline .names span {
+            opacity: .45;
+            transition: opacity .4s ease, color .3s ease;
+        }
+
+        .timeline .names span.on {
+            opacity: 1;
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* ---------- 片尾：剧照 + 署名 ---------- */
+        .end {
+            position: relative;
+            z-index: 1;
+            padding: 14vh 4vw 8vh;
+            color: var(--mint);
+        }
+
+        .stills {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2vw;
+            margin-bottom: 14vh;
+        }
+
+        .still {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .still img,
+        .still canvas {
+            display: block;
+            width: 100%;
+        }
+
+        .still canvas {
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            image-rendering: pixelated;
+            transition: opacity .7s ease;
+        }
+
+        .still:hover canvas {
+            opacity: 0;
+        }
+
+        /* 片尾内容滚进视野时轻轻升起（由脚本给元素加上 reveal / in） */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .9s var(--ease), transform .9s var(--ease);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        .specs.reveal.in {
+            opacity: .7;
+        }
+
+        .credits .tag.reveal.in {
+            opacity: .6;
+        }
+
+        .credits .tag {
+            margin: 0 0 3vh;
+            font-size: 14px;
+            opacity: .6;
+        }
+
+        .credits .about {
+            max-width: 56vw;
+            margin: 0 0 8vh;
+            font-size: 1.7vw;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+
+        .roll {
+            border-top: 1px solid rgba(195, 231, 212, .35);
+        }
+
+        .roll .row {
+            display: grid;
+            grid-template-columns: 14vw 1fr;
+            gap: 1.5vw;
+            padding: 2.2vh 0;
+            border-bottom: 1px solid rgba(195, 231, 212, .35);
+        }
+
+        .roll .row b {
+            font-size: 1.5vw;
+        }
+
+        .roll .row span {
+            font-size: 1.1vw;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+
+        .specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            margin: 8vh 0 6vh;
+            font-size: 1.15vw;
+            line-height: 1.6;
+            opacity: .7;
+        }
+
+        .specs span:nth-child(1) {
+            text-align: left;
+        }
+
+        .specs span:nth-child(2) {
+            text-align: center;
+        }
+
+        .specs span:nth-child(3) {
+            text-align: right;
+        }
+
+        /* ---------- 片名定版 ---------- */
+        .title-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--mint);
+        }
+
+        /* 系统设置了"减少动态效果"的访客：关掉过渡和动画 */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .hero-tag .l {
+                opacity: 1;
+            }
+
+            .hero-veil {
+                display: none;
+            }
+        }
+
+        .final-title {
+            margin: 0;
+            font-size: 7vw;
+            letter-spacing: .18em;
+            white-space: nowrap;
+            color: var(--mint);
+            opacity: 0;
+            will-change: transform, opacity, filter;
+        }
+
+        /* 片名自己动：从模糊、松散的字距里慢慢聚拢成形，然后一直轻轻地"呼吸"。
+           不依赖滚动，滚到这一屏就开始播放 */
+        .final-title.play {
+            opacity: 1;
+            animation:
+                titleIn 4s cubic-bezier(.22, .61, .2, 1) both,
+                titleBreathe 8s ease-in-out 4s infinite alternate;
+        }
+
+        @keyframes titleIn {
+            from {
+                opacity: 0;
+                letter-spacing: .62em;
+                transform: scale(.93);
+                filter: blur(14px);
+            }
+
+            55% {
+                filter: blur(0);
+            }
+
+            to {
+                opacity: 1;
+                letter-spacing: .18em;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes titleBreathe {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.025);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <canvas id="world"></canvas>
+    <video id="rideVideo" muted playsinline preload="none"
+        src="../images_videos/multimedia_storytelling/a_nightmare/ride.mp4"></video>
+
+    <button id="soundBtn" class="invite" type="button" aria-label="Toggle sound">turn the sound on?</button>
+
+    <!-- 入口 -->
+    <section id="s-hero" class="pin" style="--h:170">
+        <div class="stage hero-stage">
+            <div class="hero-veil"></div>
+            <p class="hero-tag"><span class="l l1">Have you ever sat alone on a roller coaster,</span><span class="l l2">waiting for it to start,</span><span class="l l3">wishing you could still get off?</span></p>
+        </div>
+    </section>
+
+    <!-- 登车 -->
+    <section id="s-board" class="pin" style="--h:260">
+        <div class="stage board-stage">
+            <h2 class="board-title big">Please remain<br>seated.</h2>
+            <ul class="rules">
+                <li>keep your hands and arms inside the ride.</li>
+                <li>stay seated.</li>
+                <li>once it starts, it can't be stopped.</li>
+            </ul>
+            <div class="lapbar"><span>it clicks shut.</span></div>
+        </div>
+    </section>
+
+    <!-- 爬升 -->
+    <section id="s-climb" class="pin" style="--h:450">
+        <div class="stage">
+            <div class="climb-row">
+                <div class="st">
+                    <div class="big">It starts<br>moving.</div>
+                </div>
+                <div class="st">
+                    <div class="big">Click.<br>Click. Click.</div>
+                </div>
+                <div class="st">
+                    <div class="big">The ground<br>disappears.</div>
+                </div>
+                <div class="st">
+                    <div class="big">Still wishing you could get off?</div>
+                </div>
+                <div class="rail"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最高点 / 俯冲 -->
+    <section id="s-drop" class="pin" style="--h:380">
+        <div class="stage drop-stage" id="dropStage">
+            <div class="center" id="peakText">
+                <div class="big">Hold your breath.</div>
+            </div>
+            <div class="center fall" id="fallText">
+                <div class="big">DROP.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 夜 -->
+    <section id="s-night" class="pin" style="--h:240">
+        <div class="stage night-stage">
+            <div class="log" id="log">
+                <div>the ride is gone.</div>
+                <div>there is no track.</div>
+                <div>there is no lap bar.</div>
+                <div>it's up to you now.</div>
+            </div>
+            <div class="big" id="nightBig">You can't get off.</div>        </div>
+    </section>
+
+    <!-- 多感官 -->
+    <section id="s-system" class="pin" style="--h:420">
+        <div class="stage sys-stage">
+            <h2 class="sys-title big">You feel it.</h2>
+
+            <div class="sys-grid">
+                <div class="photo" id="photo">
+                    <canvas id="setupCanvas"></canvas>
+
+                    <button class="pt c1" type="button" data-note="2" style="left:64%;top:72%">
+                        <i class="dot"></i>
+                        <span class="lbl">FRONT FAN<small>Full blast on the plunge.</small></span>
+                    </button>
+                    <button class="pt c2" type="button" data-note="0" style="left:34%;top:80%">
+                        <i class="dot"></i>
+                        <span class="lbl">SUBPAC<small>Shakes with every low frequency.</small></span>
+                    </button>
+                    <button class="pt c3" type="button" data-note="3" style="left:28%;top:70%">
+                        <i class="dot"></i>
+                        <span class="lbl">REAR FAN<small>Mid speed while you throttle.</small></span>
+                    </button>
+                </div>
+
+                <div class="notes-col">
+                    <ol class="notes" id="notes">
+                        <li>on the way up, the track hums through your back.</li>
+                        <li>at the top, everything holds still.</li>
+                        <li>on the way down, the wind hits you in the face.</li>
+                        <li>after that, it comes from behind.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="line"><span class="mark" id="sysMark"></span></div>
+                <div class="names" id="sysNames">
+                    <span>CLIMB</span><span>PEAK</span><span>PLUNGE</span><span>MANUAL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 片尾 -->
+    <section id="s-end" class="end">
+        <div class="stills">
+            <figure class="still" style="margin:0">
+                <img src="../images_videos/multimedia_storytelling/a_nightmare/shot_01.jpg" alt="Still from A Nightmare">
+                <canvas data-src="../images_videos/multimedia_storytelling/a_nightmare/shot_01.jpg"></canvas>
+            </figure>
+            <figure class="still" style="margin:0">
+                <img src="../images_videos/multimedia_storytelling/a_nightmare/shot_02.jpg" alt="Still from A Nightmare">
+                <canvas data-src="../images_videos/multimedia_storytelling/a_nightmare/shot_02.jpg"></canvas>
+            </figure>
+        </div>
+
+        <div class="credits">
+            <p class="tag">credits</p>
+            <p class="about">A multisensory VR experience about a nightmare.<br>A spin-off of the game Never Been Easier.</p>
+
+            <div class="roll">
+                <div class="row"><b>Max Liu</b><span>Director, Producer, Designer, 2D Artist, one of the 3D Artists, Motion
+                Capture Actor, Technical Artist, Creative Technologist, Sound Designer</span></div>
+                <div class="row"><b>Tianchen Gong</b><span>One of the Motion Capture Technicians, Motion Capture
+                        Animator</span></div>
+                <div class="row"><b>Noora Zhang</b><span>One of the Motion Capture Technicians</span></div>
+                <div class="row"><b>Claude</b><span>Special Thanks, Programmer</span></div>
+            </div>
+
+            <p class="specs">
+                <span>three to four minutes</span>
+                <span>sight, sound, wind and vibration</span>
+                <span>made in Unreal Engine</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- 片名：像预告片的结尾定版 -->
+    <section id="s-title" class="pin" style="--h:160">
+        <div class="stage title-stage">
+            <h1 class="final-title big" id="finalTitle">A Nightmare</h1>
+        </div>
+    </section>
+
+    <script src="../js_scripts/a_nightmare.js"></script>
+</body>
+
+</html>

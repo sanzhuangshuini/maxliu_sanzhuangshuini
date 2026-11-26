@@ -3,3 +3,9 @@ CLAUDE.md
 DESIGN_PRINCIPLES.md
 .claude/
 AGENTS.md
+
+# A Nightmare：网页用的压缩素材都在 a_nightmare/ 里。
+# 以后如果把原始录像、wav 音频、截图放回这个文件夹，下面这几条会让它们不进仓库
+images_videos/multimedia_storytelling/a_nightmare/Playthrough_*.mp4
+images_videos/multimedia_storytelling/a_nightmare/SW_*.wav
+images_videos/multimedia_storytelling/a_nightmare/Screenshot_*.png
